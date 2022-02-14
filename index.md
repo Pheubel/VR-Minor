@@ -3,7 +3,7 @@ markdown:
   path: ReadMe.md
   
 export_on_save:
-  
+  html: true
   markdown: true
 ---
 
