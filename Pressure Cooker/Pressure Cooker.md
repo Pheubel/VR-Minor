@@ -25,12 +25,23 @@ incrementing goals:
 * steering wheel (novice)
 * boat (advanced)
 #### Research
-I started with researching the basics of how to use Blender 3, for this I watched the first episode of Blender guru's "Blender 3.0 Beginner Donut Tutorial"<sup>[1](#myfootnote1)</sup>. After this i messed around in Blender to get a feel for how to use the tools by adding more objects.
-@import "DocAssets/donut modeling.png"
-<a name="myfootnote1">1</a>: "Blender 3.0 Beginner Tutorial - Part 1" - https://www.youtube.com/watch?v=nIoXOplUvAw
+I started with researching the basics of how to use Blender 3, for this I watched the first episode of Blender guru's "Blender 3.0 Beginner Donut Tutorial"<sup>[1](#myfootnote1)</sup>. 
 
+After this i messed around in Blender to get a feel for how to use the tools by adding more objects.
+@import "DocAssets/donut modeling.png"
+
+I want to use a reference image in Blender, but i have not used them before. 
+
+I used a reference for a plunger with a good side view.
+@import "DocAssets/referenceInBlender.png"
+
+When i was done i noticed that I had issues with the mesh having dark spots, this was because of faulty normals, I had duplicate vertices that i had to delete. Afterwards my model looked fine.
+
+<a name="myfootnote1">1</a>: "Blender 3.0 Beginner Tutorial - Part 1" - https://www.youtube.com/watch?v=nIoXOplUvAw
+<a>2</a>:  - https://www.makeuseof.com/blender-reference-image-guide/ 
 
 #### Creation
+@import "DocAssets/modeledPlunger.png"
 #### Evaluation
 
 ### Development
