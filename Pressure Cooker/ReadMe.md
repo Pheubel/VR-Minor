@@ -61,9 +61,11 @@ I feel that I've made good progress with learning Blender, as i wasn't really sk
 ###  Development
   
 ####  Goal
-  
+* set up VR development enviroment
+* make ship steerable
+* create harpoon system
 ####  Research
-  
+<a>1</a>: How to use VR Sockets (and XR Interaction Tookit) in Unity 2021.2 - https://www.youtube.com/watch?v=rRNvq09Itdw
 ####  Creation
   
 ####  Evaluation
