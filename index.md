@@ -12,3 +12,6 @@ export_on_save:
 [TOC]
 
 @import "Pressure Cooker/Pressure Cooker.md"
+
+@import "XR Assets/XR Assets.md"
+
