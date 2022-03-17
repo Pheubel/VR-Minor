@@ -20,6 +20,9 @@
       - [Evaluation](#evaluation-1 )
 - [XR Assets](#xr-assets )
   - [Sprint 1](#sprint-1 )
+  - [Learning Goals](#learning-goals )
+    - [Overarching goals](#overarching-goals )
+    - [Short term goals](#short-term-goals )
   
 ##  Pressure Cooker
   
@@ -137,5 +140,31 @@ I then wanted to add an armature to the robot, I followed the steps in https://e
 ![](XR%20Assets/DocAssets/Robot%20Bones.PNG?0.7952695767317868 )  
   
   
+  
+  
+##  Learning Goals
+  
+  
+###  Overarching goals
+  
+  
+* Asset creation
+  * By the end of this semester...
+I have built up the knowledge to fully model rig and texture in blender so that I can be part of the asset creation process.
+  
+  * By the end of this semester...
+I have made shaders that can be animated and interactable in Unity so that I can develop good looking environments in the project.
+  
+###  Short term goals
+  
+  
+Sprint 1
+  
+* Asset creation
+  * By the end of this sprint...
+I have created three model using blender get a basis footing in modelling skills.
+  
+  * By the end of this sprint... 
+I have rigged a model using Blender to make it easier to animate.
   
   

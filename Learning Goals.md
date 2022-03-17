@@ -1,0 +1,21 @@
+## Learning Goals
+
+### Overarching goals
+
+* Asset creation
+  * By the end of this semester...
+I have built up the knowledge to fully model rig and texture in blender so that I can be part of the asset creation process.
+
+  * By the end of this semester...
+I have made shaders that can be animated and interactable in Unity so that I can develop good looking environments in the project.
+
+### Short term goals
+
+Sprint 1
+
+* Asset creation
+  * By the end of this sprint...
+I have created three model using blender get a basis footing in modelling skills.
+
+  * By the end of this sprint... 
+I have rigged a model using Blender to make it easier to animate.
