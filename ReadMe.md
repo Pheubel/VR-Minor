@@ -1,6 +1,5 @@
   
   
-  
 #  VR Minor
   
   
