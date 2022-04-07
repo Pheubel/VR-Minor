@@ -35,3 +35,11 @@ I then wanted to add an armature to the robot, I followed the steps in https://e
 
 @import "./DocAssets/Robot Bones.PNG"
 
+### Sprint 2
+
+In this sprint our team ahs finalized the design of the robot assistent, and i have been itterating over how to make it. For the new design we went with a less humanized look.
+
+@import "./DocAssets/Sprint2/RobotAssistentSketch.png" {width=300}
+@import "./DocAssets/Sprint2/RobotAssistentSketchSide.png" {width=300}
+@import "./DocAssets/Sprint2/RobotAssistentSketchFront.jpg" {width=300}
+
