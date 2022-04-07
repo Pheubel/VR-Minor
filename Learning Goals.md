@@ -15,7 +15,7 @@ Sprint 1
 
 * Asset creation
   * By the end of this sprint...
-I have created three model using blender get a basis footing in modelling skills.
+I have created a model using blender get a basis footing in modelling skills.
 
   * By the end of this sprint... 
 I have rigged a model using Blender to make it easier to animate.
