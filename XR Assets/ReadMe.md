@@ -24,7 +24,7 @@ To begin, our team had created a moodboard for the robot. I used that to create 
   
 First off I made some concepts of the robot's head, I modeled  3 different shapes I envisioned as a possible head.
   
-![](../XR%20Assets/DocAssets/robohoofden.png?0.17378042476320132 )  
+![](../XR%20Assets/DocAssets/robohoofden.PNG?0.0810675656290889 )  
   
 After showing it to the rest of my team we settle on going with the head on the right, as it looks like a monitor.
   
