@@ -10,6 +10,15 @@ export_on_save:
 
 ### Sprint 1
 
+#### Learning Goals
+  * By the end of this sprint...
+I have created a model using blender get a basis footing in modelling skills.
+
+  * By the end of this sprint... 
+I have rigged a model using Blender to make it easier to animate.
+
+#### Process
+
 For this sprint I took it upon myself to create the model for the instructor robot, As I want to improve my Blender skills. 
 
 To begin, our team had created a moodboard for the robot. I used that to create a prototype in blender.
@@ -36,6 +45,12 @@ I then wanted to add an armature to the robot, I followed the steps in https://e
 @import "./DocAssets/Robot Bones.PNG"
 
 ### Sprint 2
+
+#### Learning Goals
+* By the end of this sprint...
+  I have UV mapped and textured a model to get a more complete set of basic modelling skills.
+
+#### Process 
 
 In this sprint our team has finalized the design of the robot assistent, and i have been itterating over how to make it. For the new design we went with a less humanized look.
 
