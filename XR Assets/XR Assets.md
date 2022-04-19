@@ -42,7 +42,7 @@ I made the arms by first creating a few basic shapes and then combining them tog
 
 I then wanted to add an armature to the robot, I followed the steps in https://en.wikibooks.org/wiki/Blender_3D:_Noob_to_Pro/Bones, I added bones starting from the main body and alligned them with the joints of the robot.
 
-@import "./DocAssets/Robot Bones.PNG"
+@import "./DocAssets/Robotbones.PNG"
 
 ### Sprint 2
 
