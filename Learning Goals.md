@@ -22,10 +22,15 @@ I have rigged a model using Blender to make it easier to animate.
 
 Sprint 2
 
-* Development
-  * By the end of this sprint...
-  I have created an grabbing interaction with an object in VR to make the VR world more immersive.
-
 * Asset creation
   * By the end of this sprint...
   I have UV mapped and textured a model to get a more complete set of basic modelling skills.
+
+Sprint 3
+
+* Development
+  * By the end of this sprint...
+  I have created an animated shader using shader graph.
+
+  * By the end of this sprint...
+  I have created implemented a system for sound effects.
