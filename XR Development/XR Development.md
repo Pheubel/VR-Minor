@@ -22,12 +22,20 @@ TODO: shader graph tussen stappen + sauce
 
 @import "./DocAssets/ShaderGraphCompleet.png"
 
+@import "./DocASsets/ShaderGraphExtra.png"
+
 TODO: probleem, distortion draait mee met headset
 
 
 TODO: Timeline?
 
 [How to use Unity3D Timeline in 10 minutes](https://www.youtube.com/watch?v=E5EYO3w-Xco)
+
+
+
+[How to make a custom signal receiver with emitter parameter](https://gametorrahod.com/how-to-make-a-custom-signal-receiver-with-emitter-parameter/)
+
+TODO: hoe te gebruiken
 
 TODO: eigen audio implementatie met scripts
 
