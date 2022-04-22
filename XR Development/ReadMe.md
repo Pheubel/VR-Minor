@@ -14,11 +14,26 @@
   
 TODO: shader graph tussen stappen + sauce
   
-TODO: eigen implementatie met scripts
+  
+  
+([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg ))
+  
+![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.45340198402412835 )  
+  
+TODO: probleem, distortion draait mee met headset
+  
+  
+TODO: Timeline?
+  
+[How to use Unity3D Timeline in 10 minutes](https://www.youtube.com/watch?v=E5EYO3w-Xco )
+  
+TODO: eigen audio implementatie met scripts
+  
+[What you NEED to know about game audio as a beginner in 2021! Unity3d](https://www.youtube.com/watch?v=B9yxkJuHLek )
   
 TODO: problemen er mee
   
 TODO: FMOD?
   
-TODO: Timeline?
+TODO: conclusie
   
