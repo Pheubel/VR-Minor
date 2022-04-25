@@ -1,6 +1,6 @@
-## Learning Goals
+### Learning Goals
 
-### Overarching goals
+#### Overarching goals
 
 * Asset creation
   * By the end of this semester...
@@ -9,7 +9,7 @@ I have built up the knowledge to fully model rig and texture in blender so that 
   * By the end of this semester...
 I have made shaders that can be animated and interactable in Unity so that I can develop good looking environments in the project.
 
-### Short term goals
+#### Short term goals
 
 Sprint 1
 
@@ -33,4 +33,4 @@ Sprint 3
   I have created an animated shader using shader graph.
 
   * By the end of this sprint...
-  I have created implemented a system for sound effects.
+  I have created implemented a system for playing random sounds and looping sound effects with an intro and outro.
