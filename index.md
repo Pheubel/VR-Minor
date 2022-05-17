@@ -15,4 +15,6 @@ export_on_save:
 
 @import "XR Assets/XR Assets.md"
 
-@import "Learning Goals.md"
+@import "XR Development/XR Development.md"
+
+@import "Individual Work/Individual Work.md"
