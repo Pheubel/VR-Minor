@@ -12,18 +12,16 @@
 ####  Process
   
   
-TODO: shader graph tussen stappen + sauce
+We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg )).
   
+![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.9161501476377496 )  
+After I had lines and emmission working after the tutorial i decided i wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
   
+![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.6662834264786925 )  
   
-([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg ))
+Inside our enviroment we used it to display the safety measures.
   
-![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.5103373652086771 )  
-  
-![](../XR%20Development/DocASsets/ShaderGraphExtra.png?0.6175126791026153 )  
-  
-TODO: probleem, distortion draait mee met headset
-  
+![](../XR%20Development/DocAssets/hologramPoster.gif?0.25004921204708497 )  
   
 TODO: Timeline?
   
