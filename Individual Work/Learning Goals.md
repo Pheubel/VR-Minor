@@ -34,3 +34,12 @@ Sprint 3
 
   * By the end of this sprint...
   I have created implemented a system for playing random sounds and looping sound effects with an intro and outro.
+
+Sprint 4
+
+* Development
+  * By the end of this sprint...
+  I have created a system that guides a player on how to use each movement mode of the robot arm.
+
+  * By the end of this sprint...
+  I have created and deployed a build to a quest to play it stand alone from a computer.

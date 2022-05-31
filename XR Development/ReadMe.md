@@ -18,14 +18,14 @@
   
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg )).
   
-![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.6390201064131964 )  
+![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.9014066673953578 )  
 After I had lines and emmission working after the tutorial i decided i wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
   
-![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.7665294367509732 )  
+![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.910749103185353 )  
   
 Inside our enviroment we used it to display the safety measures.
   
-![](../XR%20Development/DocAssets/hologramPoster.gif?0.009116712782864411 )  
+![](../XR%20Development/DocAssets/hologramPoster.gif?0.9923592740361336 )  
   
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
   
@@ -92,10 +92,10 @@ public sealed class IntSignalEmitter : ParameterizedSignalEmitter<int>
 ```
   
 I can now add this emitter on my signal track.
-![](../XR%20Development/DocAssets/addSignalEmitter.png?0.8484580662822332 )  
+![](../XR%20Development/DocAssets/addSignalEmitter.png?0.8820584969999301 )  
   
 Once I placed my signal on the track I can now pass a parameter that will be given to the receiver.
-![](../XR%20Development/DocAssets/signalData.png?0.9577843166494155 )  
+![](../XR%20Development/DocAssets/signalData.png?0.8264000175025237 )  
   
 Now to set up my receiver I do the same step as with the emitter, but inherit from `ParameterizedSignalReceiver<T>` instead.
 ```cs
@@ -262,7 +262,7 @@ I looked for a possible alternative and came across FMOD, a tool that can be use
   
 I was able to recreate the effects I made myself in Unity preatty easily, as in FMOD you can use a multi instrument clip to pick a random one each time it plays and have looping parts in a clip with a loop region in a logic track.
   
-![](../XR%20Development/DocAssets/fmodLoop.png?0.570185511348293 )  
+![](../XR%20Development/DocAssets/fmodLoop.png?0.28762560891058486 )  
   
 To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then i have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
   
@@ -273,6 +273,18 @@ Now that I knew the basics of FMOD and how to get it running I wanted to first t
 After having used it for a bit I can say that it is a handy tool and I would want to use it in any further projects and figure out how to use it in a team.
   
 ###  Sprint 4
+  
+  
+####  Learning Goal
+  
+  
+* By the end of this sprint...
+I have created a system that guides a player on how to use each movement mode of the robot arm.
+  
+* By the end of this sprint...
+I have created and deployed a build to a quest to play it stand alone from a computer.
+  
+####  Process
   
   
 To assist in teaching the controls of the robot arm we want to have the user try to move the robot arm part by part so that they can get a feel for how they need to move the stick to move a specific axis of the robot arm.
@@ -460,7 +472,7 @@ public class TutorialGoalRotation : MonoBehaviour
   
 With this I can set what axis of the robot arm I want to track, what it's end rotation should be and how long it has to stay in that position before moving on to the next rotation.
   
-![](../XR%20Development/DocAssets/rotationInspector.png?0.6424619619466456 )  
+![](../XR%20Development/DocAssets/rotationInspector.png?0.3601079909701914 )  
   
 In order to have the hologram be in the right position I set the local rotation to the target rotation
   
@@ -648,17 +660,20 @@ public class TutorialGoalRotation : MonoBehaviour
   
 Now I can showcase the rotation per axis one after each other.
   
-![](../XR%20Development/DocAssets/rotatebase.png?0.8981158242387308 )  
+![](../XR%20Development/DocAssets/rotatebase.png?0.892272465851649 )  
   
-![](../XR%20Development/DocAssets/rotatebasearm.png?0.6360578179209728 )  
+![](../XR%20Development/DocAssets/rotatebasearm.png?0.2944451511055177 )  
   
-![](../XR%20Development/DocAssets/rotateend.png?0.9143483253080591 )  
+![](../XR%20Development/DocAssets/rotateend.png?0.7816485646499085 )  
   
 However if the user manages to put the robot arm in such a position that they are stuck, we want them to be able to reset the position of all axes to the current step so they can try again.
   
 To do this I first had to find out how to do this. My first approach was to make a copy of the current rotation of each rotating part of the robot arm, however when I reapplied the rotations it would work for a few frames before being put back into it's position before being reset. Since the robot arm is driven by physics with an articulation body, I decided to look at the documentation for the [articulation body component](https://docs.unity3d.com/2022.1/Documentation/ScriptReference/ArticulationBody.html ). After looking around I found that in order to set the rotation I have to modify the target property of the `xdrive` [ArticulationDrive](https://docs.unity3d.com/2022.1/Documentation/ScriptReference/ArticulationDrive.html ). After confirming this in Unity by changing the value in the inspector I decided to make a copy of the xdrive at each step so that they can be reapplied if there needs to be a reset.
   
 ```cs
+  
+[SerializeField] ArticulationBody[] _trackPerStep;
+  
 private void RecordRotation()
 {
     var currentStep = _steps[_currentStepIndex];
@@ -684,5 +699,15 @@ public void ResetRotation()
 }
 ```
   
-I would call the `RecordRotation` function every time the current step would be changed.
+I would call the `RecordRotation` function every time the current step would be changed. Now I can reset it to the position at the beginning of the step.
+  
+In order to build to a Quest device I have to take different steps compared to a standard PC build. To find out how I need to do it I watched [How To Build a Unity VR project to the Oculus Quest (and other devices)](https://www.youtube.com/watch?v=pNYY1JsS7tY ). This helped me with understanding what I need to do, I need to:
+1. Set the build target to Android.
+2. Set the minimum API level to Android 6.
+  
+Then I can detect a target device to deploy the build to, after I hit `Build And Run` it will start building the project and automatically put it on the quest.
+  
+A minor problem I've found is that it becomes a bit unmanageable to keep track of where the build is. To help me with this I looked for alternatives for how to deploy to the quest and found SideQuest. This program was pretty easy to use, as when I plugged in a Quest I was able to deploy apk's to the headset and even see the apps I put on it directly. It also gave me extra control options to stop and uninstall the app in case it causes problems.
+  
+After using it I prefer it over the standard way of deploying it to a Quest in Unity.
   

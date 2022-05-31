@@ -103,6 +103,16 @@ After having used it for a bit I can say that it is a handy tool and I would wan
 
 ### Sprint 4
 
+#### Learning Goal
+
+* By the end of this sprint...
+I have created a system that guides a player on how to use each movement mode of the robot arm.
+
+* By the end of this sprint...
+I have created and deployed a build to a quest to play it stand alone from a computer.
+
+#### Process
+
 To assist in teaching the controls of the robot arm we want to have the user try to move the robot arm part by part so that they can get a feel for how they need to move the stick to move a specific axis of the robot arm.
 
 For linear movement we want the position of the end effector to move to a certain spot.
@@ -487,6 +497,9 @@ However if the user manages to put the robot arm in such a position that they ar
 To do this I first had to find out how to do this. My first approach was to make a copy of the current rotation of each rotating part of the robot arm, however when I reapplied the rotations it would work for a few frames before being put back into it's position before being reset. Since the robot arm is driven by physics with an articulation body, I decided to look at the documentation for the [articulation body component](https://docs.unity3d.com/2022.1/Documentation/ScriptReference/ArticulationBody.html). After looking around I found that in order to set the rotation I have to modify the target property of the `xdrive` [ArticulationDrive](https://docs.unity3d.com/2022.1/Documentation/ScriptReference/ArticulationDrive.html). After confirming this in Unity by changing the value in the inspector I decided to make a copy of the xdrive at each step so that they can be reapplied if there needs to be a reset.
 
 ```cs
+
+[SerializeField] ArticulationBody[] _trackPerStep;
+
 private void RecordRotation()
 {
     var currentStep = _steps[_currentStepIndex];
@@ -512,4 +525,14 @@ public void ResetRotation()
 }
 ```
 
-I would call the `RecordRotation` function every time the current step would be changed.
+I would call the `RecordRotation` function every time the current step would be changed. Now I can reset it to the position at the beginning of the step.
+
+In order to build to a Quest device I have to take different steps compared to a standard PC build. To find out how I need to do it I watched [How To Build a Unity VR project to the Oculus Quest (and other devices)](https://www.youtube.com/watch?v=pNYY1JsS7tY). This helped me with understanding what I need to do, I need to:
+1. Set the build target to Android.
+2. Set the minimum API level to Android 6.
+
+Then I can detect a target device to deploy the build to, after I hit `Build And Run` it will start building the project and automatically put it on the quest.
+
+A minor problem I've found is that it becomes a bit unmanageable to keep track of where the build is. To help me with this I looked for alternatives for how to deploy to the quest and found SideQuest. This program was pretty easy to use, as when I plugged in a Quest I was able to deploy apk's to the headset and even see the apps I put on it directly. It also gave me extra control options to stop and uninstall the app in case it causes problems.
+
+After using it I prefer it over the standard way of deploying it to a Quest in Unity.
