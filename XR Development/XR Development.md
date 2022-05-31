@@ -100,3 +100,416 @@ With the workflow of setting it up I decided to check with a copy of our project
 Now that I knew the basics of FMOD and how to get it running I wanted to first talk to the rest of my team about if we should go in that direction, as it would require to restructure our project a bit to make it work with FMOD. In the end we decided against using it as adding it midway through the project would be more overhead of things to learn and things that could go wrong.
 
 After having used it for a bit I can say that it is a handy tool and I would want to use it in any further projects and figure out how to use it in a team.
+
+### Sprint 4
+
+To assist in teaching the controls of the robot arm we want to have the user try to move the robot arm part by part so that they can get a feel for how they need to move the stick to move a specific axis of the robot arm.
+
+For linear movement we want the position of the end effector to move to a certain spot.
+
+To do this I made use of empty game objects with a sphere collider set to triggers to detect that it has entered the collider, however I want to be able to specify which specific collider of the robot arm I want to be detected. To do this I made a small script that acts as a filter for triggers.
+
+```cs
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Events;
+
+[RequireComponent(typeof(Collider))]
+public class OnTriggerColliderFilter : MonoBehaviour
+{
+    [field: SerializeField]
+    public Collider Filter { get; set; }
+    [SerializeField] private UnityEvent _onTriggerEnter;
+    [SerializeField] private UnityEvent _onTriggerExit;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other == Filter)
+            _onTriggerEnter.Invoke();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other == Filter)
+            _onTriggerExit.Invoke();
+    }
+}
+
+```
+
+To have them be activated in sequence I made a script to handle this:
+```cs
+using System.Collections;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Events;
+
+public class TutorialGoalPositions : MonoBehaviour
+{
+    [SerializeField, Min(0)] float timeRequiredInside;
+    [SerializeField] OnTriggerColliderFilter[] _colliders;
+    [SerializeField] UnityEvent _onBeginSequence;
+    [SerializeField] UnityEvent _onAdvancedStep;
+    [SerializeField] UnityEvent _onCompletion;
+
+    int _currentGoal;
+    Coroutine _advanceCoroutine;
+
+    /// <summary>
+    /// Resets the active goal positions and starts with the first one.
+    /// </summary>
+    public void Begin()
+    {
+        Assert.IsTrue(_colliders.Length > 0, $"({this.gameObject.name} {nameof(TutorialGoalPositions)}) Must have at least one collider goal.");
+
+#if UNITY_EDITOR
+        if(_currentGoal < _colliders.Length)
+#else
+        Assert.IsTrue(_currentGoal < _colliders.Length, $"{nameof(_currentGoal)} is in an illegal state");
+#endif
+            _colliders[_currentGoal].gameObject.SetActive(false);
+
+        _currentGoal = 0;
+        _colliders[0].gameObject.SetActive(true);
+
+        _onBeginSequence.Invoke();
+    }
+
+    /// <summary>
+    /// Starts a coroutine to advance to the next goal after a set period of time.
+    /// </summary>
+    public void QueueAdvance() =>
+        _advanceCoroutine = StartCoroutine(Advance());
+
+    /// <summary>
+    /// Cancels the coroutine to advance to the next goal after a set period of time.
+    /// </summary>
+    public void CancelAdvance()
+    {
+        if (_advanceCoroutine != null)
+            StopCoroutine(_advanceCoroutine);
+    }
+
+    /// <summary>
+    /// Set the current goal to the next one in line after a set amount of time.
+    /// </summary>
+    public IEnumerator Advance()
+    {
+        if (timeRequiredInside > 0)
+            yield return new WaitForSeconds(timeRequiredInside);
+
+        _colliders[_currentGoal].gameObject.SetActive(false);
+
+        _currentGoal++;
+
+        // check if this was the last goal
+        if (_currentGoal == _colliders.Length)
+        {
+            _onCompletion.Invoke();
+            _currentGoal = default;
+        }
+        else
+        {
+            _colliders[_currentGoal].gameObject.SetActive(true);
+            _onAdvancedStep.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// Set the current goal to the next one in line.
+    /// </summary>
+    public void AdvanceImmediately()
+    {
+        _colliders[_currentGoal].gameObject.SetActive(false);
+
+        _currentGoal++;
+
+        // check if this was the last goal
+        if (_currentGoal == _colliders.Length)
+        {
+            _onCompletion.Invoke();
+            _currentGoal = default;
+        }
+        else
+        {
+            _colliders[_currentGoal].gameObject.SetActive(true);
+            _onAdvancedStep.Invoke();
+        }
+    }
+}
+```
+
+<figure class="video_container">
+  <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png">
+    <source src="XR Development/DocAssets/Goal Example.mp4" type="video/mp4">
+  </video>
+</figure>
+
+For the manual movent, where the user moves each axis individually, we want to have each axis to one by one show how they have to be rotated. To do this I added a holographic copy of the part.
+
+In order to show the rotation the part has to be in I made a script that sets to rotation to the desired rotation.
+
+```cs
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Events;
+
+public class TutorialGoalRotation : MonoBehaviour
+{
+    [SerializeField] Step[] _steps;
+    [SerializeField, Range(0, 180)] float _tollerance;
+    [SerializeField, Min(0)] float _timeRequired;
+
+    [SerializeField] UnityEvent _onAdvancedStep;
+    [SerializeField] UnityEvent _onCompletion;
+
+    [System.Serializable]
+    public class Step
+    {
+        [field: SerializeField, Tooltip("The object who's rotation will be observed.")]
+        public Transform Observing { get; private set; }
+
+        [field: SerializeField, Tooltip("The object acting as a guide for the end position.")]
+        public Transform Highlight { get; private set; }
+
+        [field: SerializeField, Tooltip("The desired rotation of the axis")]
+        public float TargetRotation { get; private set; }
+
+        [field: SerializeField, Tooltip("The axis to be tested.")]
+        public Axis Axis { get; private set; }
+        public ArticulationDrive[] InitialRotations { get; set; }
+    }
+
+    public enum Axis { X, Y, Z }
+}
+```
+
+With this I can set what axis of the robot arm I want to track, what it's end rotation should be and how long it has to stay in that position before moving on to the next rotation.
+
+@import "./DocAssets/rotationInspector.png"
+
+In order to have the hologram be in the right position I set the local rotation to the target rotation
+
+```cs
+var currentStep = _steps[_currentStepIndex];
+
+Quaternion targetRotation = currentStep.Axis switch
+{
+    Axis.X => Quaternion.Euler(currentStep.TargetRotation, 0, 0),
+    Axis.Y => Quaternion.Euler(0, currentStep.TargetRotation, 0),
+    Axis.Z => Quaternion.Euler(0, 0, currentStep.TargetRotation),
+    _ => throw new System.NotImplementedException()
+};
+
+currentStep.Highlight.localRotation = targetRotation;
+```
+
+However this will cause the highlight to spin alongside the axis I want to rotate, instead of standing still. After looking at the documentation for [Quaternion.Inverse](https://docs.unity3d.com/ScriptReference/Quaternion.Inverse.html) I figured that i could use the parent's rotation to rotate the highlight in such a way that it looks like it is standing still.
+
+```cs
+// counter rotate the highlight to make it appear as if it is not rotating
+currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.localRotation) * targetRotation;
+```
+
+In full the code looks like follows:
+```cs
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Events;
+
+public class TutorialGoalRotation : MonoBehaviour
+{
+    [SerializeField] Step[] _steps;
+    [SerializeField, Range(0, 180)] float _tollerance;
+    [SerializeField, Min(0)] float _timeRequired;
+
+    [SerializeField] UnityEvent _onAdvancedStep;
+    [SerializeField] UnityEvent _onCompletion;
+
+    int _currentStepIndex;
+    Coroutine _currentCoroutine;
+
+    /// <summary>
+    /// Resets the active goal rotation and starts with the first one.
+    /// </summary>
+    public void Begin()
+    {
+        Assert.IsTrue(_steps.Length > 0, $"({this.gameObject.name} {nameof(TutorialGoalPositions)}) Must have at least one rotation goal.");
+
+        this.enabled = true;
+
+        _currentStepIndex = default;
+
+        // set the first highlight to the goal rotation
+        var currentStep = _steps[_currentStepIndex];
+        currentStep.Highlight.gameObject.SetActive(true);
+        currentStep.Highlight.rotation = currentStep.Axis switch
+        {
+            Axis.X => Quaternion.Euler(currentStep.TargetRotation, 0, 0),
+            Axis.Y => Quaternion.Euler(0, currentStep.TargetRotation, 0),
+            Axis.Z => Quaternion.Euler(0, 0, currentStep.TargetRotation),
+            _ => throw new System.NotImplementedException()
+        };
+    }
+
+    private void FixedUpdate()
+    {
+        var currentStep = _steps[_currentStepIndex];
+
+        Quaternion targetRotation = currentStep.Axis switch
+        {
+            Axis.X => Quaternion.Euler(currentStep.TargetRotation, 0, 0),
+            Axis.Y => Quaternion.Euler(0, currentStep.TargetRotation, 0),
+            Axis.Z => Quaternion.Euler(0, 0, currentStep.TargetRotation),
+            _ => throw new System.NotImplementedException()
+        };
+
+        // counter rotate the highlight to make it appear as if it is not rotating
+        currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.localRotation) * targetRotation;
+
+        var angle = Quaternion.Angle(currentStep.Observing.localRotation, targetRotation);
+
+        // if the observed axis rotation is close enough to the step's goal rotation, start advancing to the next step.
+        if (angle <= _tollerance)
+        {
+            if (_currentCoroutine == null)
+            {
+                _currentCoroutine = StartCoroutine(Advance());
+            }
+        }
+        else
+        {
+            if (_currentCoroutine != null)
+            {
+                StopCoroutine(_currentCoroutine);
+                _currentCoroutine = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Set the current goal to the next one in line after a set amount of time.
+    /// </summary>
+    private IEnumerator Advance()
+    {
+        if (_timeRequired > 0)
+            yield return new WaitForSeconds(_timeRequired);
+
+        _currentCoroutine = null;
+
+        // reset the highlight of the completed step
+        var currentStep = _steps[_currentStepIndex];
+        currentStep.Highlight.gameObject.SetActive(false);
+        currentStep.Highlight.rotation = Quaternion.identity;
+
+        _currentStepIndex++;
+
+        // check if this was the last goal
+        if (_currentStepIndex == _steps.Length)
+        {
+            _onCompletion.Invoke();
+            _currentStepIndex = default;
+
+            this.enabled = false;
+        }
+        else
+        {
+            currentStep = _steps[_currentStepIndex];
+            currentStep.Highlight.gameObject.SetActive(true);
+
+            _onAdvancedStep.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// Set the current goal to the next one in line.
+    /// </summary>
+    public void AdvanceImmediately()
+    {
+        // reset the highlight of the completed step
+        var currentStep = _steps[_currentStepIndex];
+        currentStep.Highlight.gameObject.SetActive(false);
+        currentStep.Highlight.rotation = Quaternion.identity;
+
+        _currentStepIndex++;
+
+        // check if this was the last goal
+        if (_currentStepIndex == _steps.Length)
+        {
+            _onCompletion.Invoke();
+            _currentStepIndex = default;
+        }
+        else
+        {
+            currentStep = _steps[_currentStepIndex];
+            currentStep.Highlight.gameObject.SetActive(true);
+
+            _onAdvancedStep.Invoke();
+
+            this.enabled = false;
+        }
+    }
+
+    [System.Serializable]
+    public class Step
+    {
+        [field: SerializeField, Tooltip("The object who's rotation will be observed.")]
+        public Transform Observing { get; private set; }
+
+        [field: SerializeField, Tooltip("The object acting as a guide for the end position.")]
+        public Transform Highlight { get; private set; }
+
+        [field: SerializeField, Tooltip("The desired rotation of the axis")]
+        public float TargetRotation { get; private set; }
+
+        [field: SerializeField, Tooltip("The axis to be tested.")]
+        public Axis Axis { get; private set; }
+        public ArticulationDrive[] InitialRotations { get; set; }
+    }
+    public enum Axis { X, Y, Z }
+}
+```
+
+Now I can showcase the rotation per axis one after each other.
+
+@import "./DocAssets/rotatebase.png"
+
+@import "./DocAssets/rotatebasearm.png"
+
+@import "./DocAssets/rotateend.png"
+
+However if the user manages to put the robot arm in such a position that they are stuck, we want them to be able to reset the position of all axes to the current step so they can try again.
+
+To do this I first had to find out how to do this. My first approach was to make a copy of the current rotation of each rotating part of the robot arm, however when I reapplied the rotations it would work for a few frames before being put back into it's position before being reset. Since the robot arm is driven by physics with an articulation body, I decided to look at the documentation for the [articulation body component](https://docs.unity3d.com/2022.1/Documentation/ScriptReference/ArticulationBody.html). After looking around I found that in order to set the rotation I have to modify the target property of the `xdrive` [ArticulationDrive](https://docs.unity3d.com/2022.1/Documentation/ScriptReference/ArticulationDrive.html). After confirming this in Unity by changing the value in the inspector I decided to make a copy of the xdrive at each step so that they can be reapplied if there needs to be a reset.
+
+```cs
+private void RecordRotation()
+{
+    var currentStep = _steps[_currentStepIndex];
+
+    currentStep.InitialRotations = new ArticulationDrive[_trackPerStep.Length];
+
+    for (int i = 0; i < _trackPerStep.Length; i++)
+    {
+        currentStep.InitialRotations[i] = _trackPerStep[i].xDrive;
+    }
+}
+
+public void ResetRotation()
+{
+    var currentStep = _steps[_currentStepIndex];
+
+    Assert.IsNotNull(currentStep.Highlight, "Cannot call ResetRotation at this point, as no rotations have been recorded.");
+
+    for (int i = 0; i < currentStep.InitialRotations.Length; i++)
+    {
+        _trackPerStep[i].xDrive = currentStep.InitialRotations[i];
+    }
+}
+```
+
+I would call the `RecordRotation` function every time the current step would be changed.
