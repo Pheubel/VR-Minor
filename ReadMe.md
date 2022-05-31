@@ -29,6 +29,7 @@
   - [Sprint 3](#sprint-3 )
     - [Learning Goals](#learning-goals-2 )
     - [Process](#process-2 )
+  - [Sprint 4](#sprint-4 )
 - [Individual Work](#individual-work )
   - [Learning Goals](#learning-goals-3 )
     - [Overarching goals](#overarching-goals )
@@ -45,10 +46,10 @@ The user opperates a time machine boat to save people on the flooding canals of 
 ###  Moodboard
   
 As a theme for the boat i want to have a mix of the past, today and the tomorrow that will never be, steampunk.
-![](Pressure%20Cooker/DocAssets/moodboard.png?0.26130811481915783 )  
+![](Pressure%20Cooker/DocAssets/moodboard.png?0.2209407513492987 )  
 ###  Storyboard
   
-![](Pressure%20Cooker/DocAssets/storyboard.png?0.10644152988954247 )  
+![](Pressure%20Cooker/DocAssets/storyboard.png?0.22394217778016734 )  
 ###  Goal
   
   
@@ -66,29 +67,29 @@ incrementing goals:
 I started with researching the basics of how to use Blender 3, for this I watched the first episode of Blender guru's "Blender 3.0 Beginner Donut Tutorial"<sup>[1](#pc-assets-fn-1 )</sup>. 
   
 After this i messed around in Blender to get a feel for how to use the tools by adding more objects.
-![](Pressure%20Cooker/DocAssets/donut%20modeling.png?0.06212476931536326 )  
+![](Pressure%20Cooker/DocAssets/donut%20modeling.png?0.6628946850117023 )  
   
 I want to use a reference image in Blender, but i have not used them before. After finding an article online<sup>[2](#pc-asset-fn-2 )</sup> i followed the steps shown there to import images for reference use.
   
 I used a reference for a plunger with a good side view.
-![](Pressure%20Cooker/DocAssets/referenceInBlender.png?0.6754288339002785 )  
+![](Pressure%20Cooker/DocAssets/referenceInBlender.png?0.46608399213845453 )  
   
 When i was done i noticed that I had issues with the mesh having dark spots, this was because of faulty normals, I had duplicate vertices that i had to delete. Afterwards my model looked fine.
   
 Later i modeled a steering wheel for my ship. I made use of mirroring to reduce work, but i ran into trouble when dealing with the spokes, as it had overlapping issues. 
-![](Pressure%20Cooker/DocAssets/overlapWheel.png?0.34447920095425033 )  
-![](Pressure%20Cooker/DocAssets/overlapWheelWireframe.png?0.23533651650421472 )  
+![](Pressure%20Cooker/DocAssets/overlapWheel.png?0.8255475823339815 )  
+![](Pressure%20Cooker/DocAssets/overlapWheelWireframe.png?0.991263312181085 )  
   
 After much experimentation i removed the overlaps and was able to export it. By combining the overlaps i was able to make in intermediate shape that i could use to cut out a shape in the spokes and was then able to join them together.
-![](Pressure%20Cooker/DocAssets/overlapIntermediateShape.png?0.029293106605511987 )  
+![](Pressure%20Cooker/DocAssets/overlapIntermediateShape.png?0.7643252523825907 )  
   
 <a name="pc-assets-fn-1">1</a>: "Blender 3.0 Beginner Tutorial - Part 1" - https://www.youtube.com/watch?v=nIoXOplUvAw
 <a name="pc-assets-fn-2">2</a>:  - https://www.makeuseof.com/blender-reference-image-guide/ 
   
 ####  Creation
   
-![](Pressure%20Cooker/DocAssets/modeledPlunger.png?0.4907067152056077 )  
-![](Pressure%20Cooker/DocAssets/texturedWheel.png?0.3701865841385754 )  
+![](Pressure%20Cooker/DocAssets/modeledPlunger.png?0.028525498296986695 )  
+![](Pressure%20Cooker/DocAssets/texturedWheel.png?0.25785380923017565 )  
 ####  Evaluation
   
 I feel that I've made good progress with learning Blender, as i wasn't really skilled with it. I did however spend more time on it than I should have, trying to get things working well, eating away at time that I could've used elsewhere.
@@ -138,27 +139,27 @@ I have rigged a model using Blender to make it easier to animate.
 For this sprint I took it upon myself to create the model for the instructor robot, As I want to improve my Blender skills. 
   
 To begin, our team had created a moodboard for the robot. I used that to create a prototype in blender.
-![](XR%20Assets/DocAssets/RobotMoodboard.jpeg?0.2413907193433804 )  
+![](XR%20Assets/DocAssets/RobotMoodboard.jpeg?0.5466294058715158 )  
   
 First off I made some concepts of the robot's head, I modeled  3 different shapes I envisioned as a possible head.
   
-![](XR%20Assets/DocAssets/robohoofden.PNG?0.7393812976213372 )  
+![](XR%20Assets/DocAssets/robohoofden.PNG?0.23616601958614725 )  
   
 After showing it to the rest of my team we settle on going with the head on the right, as it looks like a monitor.
   
 For the body I tried out a different style of shaping the model. First I made a rough shape by extruding and resizing the edges of a cube.
   
-![](XR%20Assets/DocAssets/robo%20lichaam%20base.PNG?0.4194701816340556 )  
+![](XR%20Assets/DocAssets/robo%20lichaam%20base.PNG?0.5071803318939982 )  
   
 Once I had the shape I applied a Subdivision Surface to the mesh, this helped round it out.
   
-![](XR%20Assets/DocAssets/robo%20lichaam%20vervorming.PNG?0.5892231767016787 )  
+![](XR%20Assets/DocAssets/robo%20lichaam%20vervorming.PNG?0.5363531359141631 )  
   
 I made the arms by first creating a few basic shapes and then combining them together into a single mesh with the Boolean modifier on the union setting. This causes the object it filters for to be added to the mesh it was applied on.
   
 I then wanted to add an armature to the robot, I followed the steps in https://en.wikibooks.org/wiki/Blender_3D:_Noob_to_Pro/Bones, I added bones starting from the main body and alligned them with the joints of the robot.
   
-![](XR%20Assets/DocAssets/Robotbones.PNG?0.6664233613700432 )  
+![](XR%20Assets/DocAssets/Robotbones.PNG?0.7495664020451653 )  
   
 ###  Sprint 2
   
@@ -173,37 +174,37 @@ I then wanted to add an armature to the robot, I followed the steps in https://e
   
 In this sprint our team has finalized the design of the robot assistent, and I have been itterating over how to make it. For the new design we went with a less humanized look.
   
-<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketch.png?0.6602720717390087"  width="300" >
-<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketchSide.png?0.2716344921299829"  width="300" >
-<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketchFront.jpg?0.5862606142674949"  width="300" >
+<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketch.png?0.29681378478928266"  width="300" >
+<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketchSide.png?0.6281583704238693"  width="300" >
+<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketchFront.jpg?0.20206068109708264"  width="300" >
   
 I mocked together the head using basic object shapes and morphing their size a bit, I then combined them with boolean modifiers to get a nice looking shape. However, once I wanted to smooth the model I ran into issues, as it did not want to properly smooth the full head. Things looked worse when I wanted to UV unwrap the head, the vertices were all over the place. I inspected the model closer and found that there were stray vertices inside the head causing bad geometry. The boolean modifiers had left behind artifacts that were annoying to deal with. The best option for me was to start over with a new head and try to create the lense in a different way.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotOops.png?0.4811659644785973 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotOops.png?0.2722208307910208 )  
   
 I started over with a cube once again and beveled it to make the edges smoother. For the lense I tried out a plug-in built into blender: "Edge Loops", it allowed me to transform the edges I selected into a circular shape. Once I changed the edges I could extrude the faces for the lense and went on from there. Once I was done I noticed that when I applied the smooth shading it would cause the lense to be smoothed against the robot head, but I wanted the lense to clearly be a separate part. In order to achieve this I had to mark the edges around the lense as sharp, I  then had to add the edge split modifier in order to make the normals behave like the faces were not connected on the edges.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotSharp.png?0.332701530342137 )  
-![](XR%20Assets/DocAssets/Sprint2/RobotSharpWire.png?0.8019161090707381 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotSharp.png?0.47728431790353243 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotSharpWire.png?0.49156013237723695 )  
   
 Once I was done with making the lense I showed the robot head to the rest of my team for feedback. I continued to make changes based on the feedback until we were satisfied with the profile of the robot assistant.
   
-![](XR%20Assets/DocAssets/Sprint2/Lens1.png?0.8096205401865582 )  
-![](XR%20Assets/DocAssets/Sprint2/Lens2.png?0.01043379336418826 )  
+![](XR%20Assets/DocAssets/Sprint2/Lens1.png?0.5276463632080384 )  
+![](XR%20Assets/DocAssets/Sprint2/Lens2.png?0.2593657638071938 )  
   
-![](XR%20Assets/DocAssets/Sprint2/RobotNewLens.png?0.10148833136877 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotNewLens.png?0.6142926626857019 )  
   
 For the wheel I started with a cylinder and applied loop cuts. I then rotated a loop and selected faces to extrude the profile of wheel. I then applied a subdivion service to the mesh to make it more smooth and round.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel1.png?0.09820711727114428 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel1.png?0.19141089085247853 )  
   
 After the first wheel prototype was made it was clear that it's geometry would be both too heavy and problematic for shading. Instead of starting with a cylinder I tried out a different approach, I started with a cube and made it round. I was able to do this by selecting the edges I want to make round and applying a transform to sphere, this modified the edges to form a circle. I then gave it a curve to make it feel more like a tire. This seemed to work at first but when inspecting the wheel up close I noticed that the face had problems with rendering properly.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel2Oof.png?0.09892178771731563 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel2Oof.png?0.10058399568797083 )  
   
 When I inspected the edges I saw that the problem happened with faces where the vertices are not on the same plane, causing a folding effect.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel2OofWire.png?0.650753098949588 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel2OofWire.png?0.670618714332121 )  
   
 I decided to throw away the wheel again and start fresh by using a sphere, the reasoning behind it was that it was already curved in two axes and thus felt more intuitive for me to deform into a wheel. This had the desired effect of having a nice looking wheel.
   
@@ -211,11 +212,11 @@ UV mapping the robot was quite the time sink, as there is not one solution for l
   
 Once I was finished with UV mapping I had to texture the robot, I had two options, using a 3rd party tool to create a texture or use the 3d texture tool in Blender. I had to use a little trial and error to get it working, but I was able to figure out how to apply color to my model. I first had to create a new image in the UV editor, then I had to apply that material to the objects I wanted to paint. I was then able to paint directly onto the model, which felt quite intuitive to me. After more trial and error I discorvered that I was able to mask off parts of the mesh by pressing the "paint mask" button and then I was able to manipulate the mask in the "Select menu", this gave me a lot of control over which faces I want to paint.
   
-![](XR%20Assets/DocAssets/Sprint2/PaintMask.png?0.06289442622204366 )  
+![](XR%20Assets/DocAssets/Sprint2/PaintMask.png?0.5017763610927031 )  
   
 After everything was done I ended up with a robot that both my team and I were satisfied with.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotDone.png?0.964701682549189 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotDone.png?0.46875909895115364 )  
   
   
   
@@ -239,14 +240,14 @@ After everything was done I ended up with a robot that both my team and I were s
   
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg )).
   
-![](XR%20Development/DocAssets/ShaderGraphCompleet.png?0.08884321913040649 )  
+![](XR%20Development/DocAssets/ShaderGraphCompleet.png?0.46525473121143057 )  
 After I had lines and emmission working after the tutorial i decided i wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
   
-![](XR%20Development/DocAssets/ShaderGraphExtra.png?0.9491180396130692 )  
+![](XR%20Development/DocAssets/ShaderGraphExtra.png?0.1250769119350994 )  
   
 Inside our enviroment we used it to display the safety measures.
   
-![](XR%20Development/DocAssets/hologramPoster.gif?0.21584909891016402 )  
+![](XR%20Development/DocAssets/hologramPoster.gif?0.7142490007805335 )  
   
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
   
@@ -313,10 +314,10 @@ public sealed class IntSignalEmitter : ParameterizedSignalEmitter<int>
 ```
   
 I can now add this emitter on my signal track.
-![](XR%20Development/DocAssets/addSignalEmitter.png?0.34624631568203235 )  
+![](XR%20Development/DocAssets/addSignalEmitter.png?0.8459073669821908 )  
   
 Once I placed my signal on the track I can now pass a parameter that will be given to the receiver.
-![](XR%20Development/DocAssets/signalData.png?0.847298826576429 )  
+![](XR%20Development/DocAssets/signalData.png?0.6313172354317789 )  
   
 Now to set up my receiver I do the same step as with the emitter, but inherit from `ParameterizedSignalReceiver<T>` instead.
 ```cs
@@ -483,7 +484,7 @@ I looked for a possible alternative and came across FMOD, a tool that can be use
   
 I was able to recreate the effects I made myself in Unity preatty easily, as in FMOD you can use a multi instrument clip to pick a random one each time it plays and have looping parts in a clip with a loop region in a logic track.
   
-![](XR%20Development/DocAssets/fmodLoop.png?0.37780247674688994 )  
+![](XR%20Development/DocAssets/fmodLoop.png?0.13024906455279295 )  
   
 To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then i have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
   
@@ -492,6 +493,420 @@ With the workflow of setting it up I decided to check with a copy of our project
 Now that I knew the basics of FMOD and how to get it running I wanted to first talk to the rest of my team about if we should go in that direction, as it would require to restructure our project a bit to make it work with FMOD. In the end we decided against using it as adding it midway through the project would be more overhead of things to learn and things that could go wrong.
   
 After having used it for a bit I can say that it is a handy tool and I would want to use it in any further projects and figure out how to use it in a team.
+  
+###  Sprint 4
+  
+  
+To assist in teaching the controls of the robot arm we want to have the user try to move the robot arm part by part so that they can get a feel for how they need to move the stick to move a specific axis of the robot arm.
+  
+For linear movement we want the position of the end effector to move to a certain spot.
+  
+To do this I made use of empty game objects with a sphere collider set to triggers to detect that it has entered the collider, however I want to be able to specify which specific collider of the robot arm I want to be detected. To do this I made a small script that acts as a filter for triggers.
+  
+```cs
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Events;
+  
+[RequireComponent(typeof(Collider))]
+public class OnTriggerColliderFilter : MonoBehaviour
+{
+    [field: SerializeField]
+    public Collider Filter { get; set; }
+    [SerializeField] private UnityEvent _onTriggerEnter;
+    [SerializeField] private UnityEvent _onTriggerExit;
+  
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other == Filter)
+            _onTriggerEnter.Invoke();
+    }
+  
+    private void OnTriggerExit(Collider other)
+    {
+        if (other == Filter)
+            _onTriggerExit.Invoke();
+    }
+}
+  
+```
+  
+To have them be activated in sequence I made a script to handle this:
+```cs
+using System.Collections;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Events;
+  
+public class TutorialGoalPositions : MonoBehaviour
+{
+    [SerializeField, Min(0)] float timeRequiredInside;
+    [SerializeField] OnTriggerColliderFilter[] _colliders;
+    [SerializeField] UnityEvent _onBeginSequence;
+    [SerializeField] UnityEvent _onAdvancedStep;
+    [SerializeField] UnityEvent _onCompletion;
+  
+    int _currentGoal;
+    Coroutine _advanceCoroutine;
+  
+    /// <summary>
+    /// Resets the active goal positions and starts with the first one.
+    /// </summary>
+    public void Begin()
+    {
+        Assert.IsTrue(_colliders.Length > 0, $"({this.gameObject.name} {nameof(TutorialGoalPositions)}) Must have at least one collider goal.");
+  
+#if UNITY_EDITOR
+        if(_currentGoal < _colliders.Length)
+#else
+        Assert.IsTrue(_currentGoal < _colliders.Length, $"{nameof(_currentGoal)} is in an illegal state");
+#endif
+            _colliders[_currentGoal].gameObject.SetActive(false);
+  
+        _currentGoal = 0;
+        _colliders[0].gameObject.SetActive(true);
+  
+        _onBeginSequence.Invoke();
+    }
+  
+    /// <summary>
+    /// Starts a coroutine to advance to the next goal after a set period of time.
+    /// </summary>
+    public void QueueAdvance() =>
+        _advanceCoroutine = StartCoroutine(Advance());
+  
+    /// <summary>
+    /// Cancels the coroutine to advance to the next goal after a set period of time.
+    /// </summary>
+    public void CancelAdvance()
+    {
+        if (_advanceCoroutine != null)
+            StopCoroutine(_advanceCoroutine);
+    }
+  
+    /// <summary>
+    /// Set the current goal to the next one in line after a set amount of time.
+    /// </summary>
+    public IEnumerator Advance()
+    {
+        if (timeRequiredInside > 0)
+            yield return new WaitForSeconds(timeRequiredInside);
+  
+        _colliders[_currentGoal].gameObject.SetActive(false);
+  
+        _currentGoal++;
+  
+        // check if this was the last goal
+        if (_currentGoal == _colliders.Length)
+        {
+            _onCompletion.Invoke();
+            _currentGoal = default;
+        }
+        else
+        {
+            _colliders[_currentGoal].gameObject.SetActive(true);
+            _onAdvancedStep.Invoke();
+        }
+    }
+  
+    /// <summary>
+    /// Set the current goal to the next one in line.
+    /// </summary>
+    public void AdvanceImmediately()
+    {
+        _colliders[_currentGoal].gameObject.SetActive(false);
+  
+        _currentGoal++;
+  
+        // check if this was the last goal
+        if (_currentGoal == _colliders.Length)
+        {
+            _onCompletion.Invoke();
+            _currentGoal = default;
+        }
+        else
+        {
+            _colliders[_currentGoal].gameObject.SetActive(true);
+            _onAdvancedStep.Invoke();
+        }
+    }
+}
+```
+  
+<figure class="video_container">
+  <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png">
+    <source src="XR Development/DocAssets/Goal Example.mp4" type="video/mp4">
+  </video>
+</figure>
+  
+For the manual movent, where the user moves each axis individually, we want to have each axis to one by one show how they have to be rotated. To do this I added a holographic copy of the part.
+  
+In order to show the rotation the part has to be in I made a script that sets to rotation to the desired rotation.
+  
+```cs
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Events;
+  
+public class TutorialGoalRotation : MonoBehaviour
+{
+    [SerializeField] Step[] _steps;
+    [SerializeField, Range(0, 180)] float _tollerance;
+    [SerializeField, Min(0)] float _timeRequired;
+  
+    [SerializeField] UnityEvent _onAdvancedStep;
+    [SerializeField] UnityEvent _onCompletion;
+  
+    [System.Serializable]
+    public class Step
+    {
+        [field: SerializeField, Tooltip("The object who's rotation will be observed.")]
+        public Transform Observing { get; private set; }
+  
+        [field: SerializeField, Tooltip("The object acting as a guide for the end position.")]
+        public Transform Highlight { get; private set; }
+  
+        [field: SerializeField, Tooltip("The desired rotation of the axis")]
+        public float TargetRotation { get; private set; }
+  
+        [field: SerializeField, Tooltip("The axis to be tested.")]
+        public Axis Axis { get; private set; }
+        public ArticulationDrive[] InitialRotations { get; set; }
+    }
+  
+    public enum Axis { X, Y, Z }
+}
+```
+  
+With this I can set what axis of the robot arm I want to track, what it's end rotation should be and how long it has to stay in that position before moving on to the next rotation.
+  
+![](XR%20Development/DocAssets/rotationInspector.png?0.7502230707484596 )  
+  
+In order to have the hologram be in the right position I set the local rotation to the target rotation
+  
+```cs
+var currentStep = _steps[_currentStepIndex];
+  
+Quaternion targetRotation = currentStep.Axis switch
+{
+    Axis.X => Quaternion.Euler(currentStep.TargetRotation, 0, 0),
+    Axis.Y => Quaternion.Euler(0, currentStep.TargetRotation, 0),
+    Axis.Z => Quaternion.Euler(0, 0, currentStep.TargetRotation),
+    _ => throw new System.NotImplementedException()
+};
+  
+currentStep.Highlight.localRotation = targetRotation;
+```
+  
+However this will cause the highlight to spin alongside the axis I want to rotate, instead of standing still. After looking at the documentation for [Quaternion.Inverse](https://docs.unity3d.com/ScriptReference/Quaternion.Inverse.html ) I figured that i could use the parent's rotation to rotate the highlight in such a way that it looks like it is standing still.
+  
+```cs
+// counter rotate the highlight to make it appear as if it is not rotating
+currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.localRotation) * targetRotation;
+```
+  
+In full the code looks like follows:
+```cs
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Events;
+  
+public class TutorialGoalRotation : MonoBehaviour
+{
+    [SerializeField] Step[] _steps;
+    [SerializeField, Range(0, 180)] float _tollerance;
+    [SerializeField, Min(0)] float _timeRequired;
+  
+    [SerializeField] UnityEvent _onAdvancedStep;
+    [SerializeField] UnityEvent _onCompletion;
+  
+    int _currentStepIndex;
+    Coroutine _currentCoroutine;
+  
+    /// <summary>
+    /// Resets the active goal rotation and starts with the first one.
+    /// </summary>
+    public void Begin()
+    {
+        Assert.IsTrue(_steps.Length > 0, $"({this.gameObject.name} {nameof(TutorialGoalPositions)}) Must have at least one rotation goal.");
+  
+        this.enabled = true;
+  
+        _currentStepIndex = default;
+  
+        // set the first highlight to the goal rotation
+        var currentStep = _steps[_currentStepIndex];
+        currentStep.Highlight.gameObject.SetActive(true);
+        currentStep.Highlight.rotation = currentStep.Axis switch
+        {
+            Axis.X => Quaternion.Euler(currentStep.TargetRotation, 0, 0),
+            Axis.Y => Quaternion.Euler(0, currentStep.TargetRotation, 0),
+            Axis.Z => Quaternion.Euler(0, 0, currentStep.TargetRotation),
+            _ => throw new System.NotImplementedException()
+        };
+    }
+  
+    private void FixedUpdate()
+    {
+        var currentStep = _steps[_currentStepIndex];
+  
+        Quaternion targetRotation = currentStep.Axis switch
+        {
+            Axis.X => Quaternion.Euler(currentStep.TargetRotation, 0, 0),
+            Axis.Y => Quaternion.Euler(0, currentStep.TargetRotation, 0),
+            Axis.Z => Quaternion.Euler(0, 0, currentStep.TargetRotation),
+            _ => throw new System.NotImplementedException()
+        };
+  
+        // counter rotate the highlight to make it appear as if it is not rotating
+        currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.localRotation) * targetRotation;
+  
+        var angle = Quaternion.Angle(currentStep.Observing.localRotation, targetRotation);
+  
+        // if the observed axis rotation is close enough to the step's goal rotation, start advancing to the next step.
+        if (angle <= _tollerance)
+        {
+            if (_currentCoroutine == null)
+            {
+                _currentCoroutine = StartCoroutine(Advance());
+            }
+        }
+        else
+        {
+            if (_currentCoroutine != null)
+            {
+                StopCoroutine(_currentCoroutine);
+                _currentCoroutine = null;
+            }
+        }
+    }
+  
+    /// <summary>
+    /// Set the current goal to the next one in line after a set amount of time.
+    /// </summary>
+    private IEnumerator Advance()
+    {
+        if (_timeRequired > 0)
+            yield return new WaitForSeconds(_timeRequired);
+  
+        _currentCoroutine = null;
+  
+        // reset the highlight of the completed step
+        var currentStep = _steps[_currentStepIndex];
+        currentStep.Highlight.gameObject.SetActive(false);
+        currentStep.Highlight.rotation = Quaternion.identity;
+  
+        _currentStepIndex++;
+  
+        // check if this was the last goal
+        if (_currentStepIndex == _steps.Length)
+        {
+            _onCompletion.Invoke();
+            _currentStepIndex = default;
+  
+            this.enabled = false;
+        }
+        else
+        {
+            currentStep = _steps[_currentStepIndex];
+            currentStep.Highlight.gameObject.SetActive(true);
+  
+            _onAdvancedStep.Invoke();
+        }
+    }
+  
+    /// <summary>
+    /// Set the current goal to the next one in line.
+    /// </summary>
+    public void AdvanceImmediately()
+    {
+        // reset the highlight of the completed step
+        var currentStep = _steps[_currentStepIndex];
+        currentStep.Highlight.gameObject.SetActive(false);
+        currentStep.Highlight.rotation = Quaternion.identity;
+  
+        _currentStepIndex++;
+  
+        // check if this was the last goal
+        if (_currentStepIndex == _steps.Length)
+        {
+            _onCompletion.Invoke();
+            _currentStepIndex = default;
+        }
+        else
+        {
+            currentStep = _steps[_currentStepIndex];
+            currentStep.Highlight.gameObject.SetActive(true);
+  
+            _onAdvancedStep.Invoke();
+  
+            this.enabled = false;
+        }
+    }
+  
+    [System.Serializable]
+    public class Step
+    {
+        [field: SerializeField, Tooltip("The object who's rotation will be observed.")]
+        public Transform Observing { get; private set; }
+  
+        [field: SerializeField, Tooltip("The object acting as a guide for the end position.")]
+        public Transform Highlight { get; private set; }
+  
+        [field: SerializeField, Tooltip("The desired rotation of the axis")]
+        public float TargetRotation { get; private set; }
+  
+        [field: SerializeField, Tooltip("The axis to be tested.")]
+        public Axis Axis { get; private set; }
+        public ArticulationDrive[] InitialRotations { get; set; }
+    }
+    public enum Axis { X, Y, Z }
+}
+```
+  
+Now I can showcase the rotation per axis one after each other.
+  
+![](XR%20Development/DocAssets/rotatebase.png?0.4758123869982682 )  
+  
+![](XR%20Development/DocAssets/rotatebasearm.png?0.6014400870625354 )  
+  
+![](XR%20Development/DocAssets/rotateend.png?0.8539642368636693 )  
+  
+However if the user manages to put the robot arm in such a position that they are stuck, we want them to be able to reset the position of all axes to the current step so they can try again.
+  
+To do this I first had to find out how to do this. My first approach was to make a copy of the current rotation of each rotating part of the robot arm, however when I reapplied the rotations it would work for a few frames before being put back into it's position before being reset. Since the robot arm is driven by physics with an articulation body, I decided to look at the documentation for the [articulation body component](https://docs.unity3d.com/2022.1/Documentation/ScriptReference/ArticulationBody.html ). After looking around I found that in order to set the rotation I have to modify the target property of the `xdrive` [ArticulationDrive](https://docs.unity3d.com/2022.1/Documentation/ScriptReference/ArticulationDrive.html ). After confirming this in Unity by changing the value in the inspector I decided to make a copy of the xdrive at each step so that they can be reapplied if there needs to be a reset.
+  
+```cs
+private void RecordRotation()
+{
+    var currentStep = _steps[_currentStepIndex];
+  
+    currentStep.InitialRotations = new ArticulationDrive[_trackPerStep.Length];
+  
+    for (int i = 0; i < _trackPerStep.Length; i++)
+    {
+        currentStep.InitialRotations[i] = _trackPerStep[i].xDrive;
+    }
+}
+  
+public void ResetRotation()
+{
+    var currentStep = _steps[_currentStepIndex];
+  
+    Assert.IsNotNull(currentStep.Highlight, "Cannot call ResetRotation at this point, as no rotations have been recorded.");
+  
+    for (int i = 0; i < currentStep.InitialRotations.Length; i++)
+    {
+        _trackPerStep[i].xDrive = currentStep.InitialRotations[i];
+    }
+}
+```
+  
+I would call the `RecordRotation` function every time the current step would be changed.
   
   
   
