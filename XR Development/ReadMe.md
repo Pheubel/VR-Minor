@@ -18,14 +18,20 @@
   
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg )).
   
-![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.9014066673953578 )  
+![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.002654977527554614 )  
 After I had lines and emmission working after the tutorial i decided i wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
   
-![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.910749103185353 )  
+![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.8455316308836709 )  
+  
+To better illustrate how the dithering works I will explain how each part works
+  
+![](../XR%20Development/DocAssets/dithering.png?0.37584539918718995 )  
+  
+TODO: uitleg
   
 Inside our enviroment we used it to display the safety measures.
   
-![](../XR%20Development/DocAssets/hologramPoster.gif?0.9923592740361336 )  
+![](../XR%20Development/DocAssets/hologramPoster.gif?0.715896732652223 )  
   
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
   
@@ -92,10 +98,10 @@ public sealed class IntSignalEmitter : ParameterizedSignalEmitter<int>
 ```
   
 I can now add this emitter on my signal track.
-![](../XR%20Development/DocAssets/addSignalEmitter.png?0.8820584969999301 )  
+![](../XR%20Development/DocAssets/addSignalEmitter.png?0.2717722146204824 )  
   
 Once I placed my signal on the track I can now pass a parameter that will be given to the receiver.
-![](../XR%20Development/DocAssets/signalData.png?0.8264000175025237 )  
+![](../XR%20Development/DocAssets/signalData.png?0.04707753604978193 )  
   
 Now to set up my receiver I do the same step as with the emitter, but inherit from `ParameterizedSignalReceiver<T>` instead.
 ```cs
@@ -262,7 +268,7 @@ I looked for a possible alternative and came across FMOD, a tool that can be use
   
 I was able to recreate the effects I made myself in Unity preatty easily, as in FMOD you can use a multi instrument clip to pick a random one each time it plays and have looping parts in a clip with a loop region in a logic track.
   
-![](../XR%20Development/DocAssets/fmodLoop.png?0.28762560891058486 )  
+![](../XR%20Development/DocAssets/fmodLoop.png?0.719530218129179 )  
   
 To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then i have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
   
@@ -472,9 +478,9 @@ public class TutorialGoalRotation : MonoBehaviour
   
 With this I can set what axis of the robot arm I want to track, what it's end rotation should be and how long it has to stay in that position before moving on to the next rotation.
   
-![](../XR%20Development/DocAssets/rotationInspector.png?0.3601079909701914 )  
+![](../XR%20Development/DocAssets/rotationInspector.png?0.40453241192393485 )  
   
-In order to have the hologram be in the right position I set the local rotation to the target rotation
+In order to have the hologram be in the right position I set the local rotation to the target rotation in the `Update` function.
   
 ```cs
 var currentStep = _steps[_currentStepIndex];
@@ -497,174 +503,13 @@ However this will cause the highlight to spin alongside the axis I want to rotat
 currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.localRotation) * targetRotation;
 ```
   
-In full the code looks like follows:
-```cs
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.Events;
-  
-public class TutorialGoalRotation : MonoBehaviour
-{
-    [SerializeField] Step[] _steps;
-    [SerializeField, Range(0, 180)] float _tollerance;
-    [SerializeField, Min(0)] float _timeRequired;
-  
-    [SerializeField] UnityEvent _onAdvancedStep;
-    [SerializeField] UnityEvent _onCompletion;
-  
-    int _currentStepIndex;
-    Coroutine _currentCoroutine;
-  
-    /// <summary>
-    /// Resets the active goal rotation and starts with the first one.
-    /// </summary>
-    public void Begin()
-    {
-        Assert.IsTrue(_steps.Length > 0, $"({this.gameObject.name} {nameof(TutorialGoalPositions)}) Must have at least one rotation goal.");
-  
-        this.enabled = true;
-  
-        _currentStepIndex = default;
-  
-        // set the first highlight to the goal rotation
-        var currentStep = _steps[_currentStepIndex];
-        currentStep.Highlight.gameObject.SetActive(true);
-        currentStep.Highlight.rotation = currentStep.Axis switch
-        {
-            Axis.X => Quaternion.Euler(currentStep.TargetRotation, 0, 0),
-            Axis.Y => Quaternion.Euler(0, currentStep.TargetRotation, 0),
-            Axis.Z => Quaternion.Euler(0, 0, currentStep.TargetRotation),
-            _ => throw new System.NotImplementedException()
-        };
-    }
-  
-    private void FixedUpdate()
-    {
-        var currentStep = _steps[_currentStepIndex];
-  
-        Quaternion targetRotation = currentStep.Axis switch
-        {
-            Axis.X => Quaternion.Euler(currentStep.TargetRotation, 0, 0),
-            Axis.Y => Quaternion.Euler(0, currentStep.TargetRotation, 0),
-            Axis.Z => Quaternion.Euler(0, 0, currentStep.TargetRotation),
-            _ => throw new System.NotImplementedException()
-        };
-  
-        // counter rotate the highlight to make it appear as if it is not rotating
-        currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.localRotation) * targetRotation;
-  
-        var angle = Quaternion.Angle(currentStep.Observing.localRotation, targetRotation);
-  
-        // if the observed axis rotation is close enough to the step's goal rotation, start advancing to the next step.
-        if (angle <= _tollerance)
-        {
-            if (_currentCoroutine == null)
-            {
-                _currentCoroutine = StartCoroutine(Advance());
-            }
-        }
-        else
-        {
-            if (_currentCoroutine != null)
-            {
-                StopCoroutine(_currentCoroutine);
-                _currentCoroutine = null;
-            }
-        }
-    }
-  
-    /// <summary>
-    /// Set the current goal to the next one in line after a set amount of time.
-    /// </summary>
-    private IEnumerator Advance()
-    {
-        if (_timeRequired > 0)
-            yield return new WaitForSeconds(_timeRequired);
-  
-        _currentCoroutine = null;
-  
-        // reset the highlight of the completed step
-        var currentStep = _steps[_currentStepIndex];
-        currentStep.Highlight.gameObject.SetActive(false);
-        currentStep.Highlight.rotation = Quaternion.identity;
-  
-        _currentStepIndex++;
-  
-        // check if this was the last goal
-        if (_currentStepIndex == _steps.Length)
-        {
-            _onCompletion.Invoke();
-            _currentStepIndex = default;
-  
-            this.enabled = false;
-        }
-        else
-        {
-            currentStep = _steps[_currentStepIndex];
-            currentStep.Highlight.gameObject.SetActive(true);
-  
-            _onAdvancedStep.Invoke();
-        }
-    }
-  
-    /// <summary>
-    /// Set the current goal to the next one in line.
-    /// </summary>
-    public void AdvanceImmediately()
-    {
-        // reset the highlight of the completed step
-        var currentStep = _steps[_currentStepIndex];
-        currentStep.Highlight.gameObject.SetActive(false);
-        currentStep.Highlight.rotation = Quaternion.identity;
-  
-        _currentStepIndex++;
-  
-        // check if this was the last goal
-        if (_currentStepIndex == _steps.Length)
-        {
-            _onCompletion.Invoke();
-            _currentStepIndex = default;
-        }
-        else
-        {
-            currentStep = _steps[_currentStepIndex];
-            currentStep.Highlight.gameObject.SetActive(true);
-  
-            _onAdvancedStep.Invoke();
-  
-            this.enabled = false;
-        }
-    }
-  
-    [System.Serializable]
-    public class Step
-    {
-        [field: SerializeField, Tooltip("The object who's rotation will be observed.")]
-        public Transform Observing { get; private set; }
-  
-        [field: SerializeField, Tooltip("The object acting as a guide for the end position.")]
-        public Transform Highlight { get; private set; }
-  
-        [field: SerializeField, Tooltip("The desired rotation of the axis")]
-        public float TargetRotation { get; private set; }
-  
-        [field: SerializeField, Tooltip("The axis to be tested.")]
-        public Axis Axis { get; private set; }
-        public ArticulationDrive[] InitialRotations { get; set; }
-    }
-    public enum Axis { X, Y, Z }
-}
-```
-  
 Now I can showcase the rotation per axis one after each other.
   
-![](../XR%20Development/DocAssets/rotatebase.png?0.892272465851649 )  
+![](../XR%20Development/DocAssets/rotatebase.png?0.6349011050565527 )  
   
-![](../XR%20Development/DocAssets/rotatebasearm.png?0.2944451511055177 )  
+![](../XR%20Development/DocAssets/rotatebasearm.png?0.5114229060335551 )  
   
-![](../XR%20Development/DocAssets/rotateend.png?0.7816485646499085 )  
+![](../XR%20Development/DocAssets/rotateend.png?0.23966349533107478 )  
   
 However if the user manages to put the robot arm in such a position that they are stuck, we want them to be able to reset the position of all axes to the current step so they can try again.
   

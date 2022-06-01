@@ -48,10 +48,10 @@ The user opperates a time machine boat to save people on the flooding canals of 
 ###  Moodboard
   
 As a theme for the boat i want to have a mix of the past, today and the tomorrow that will never be, steampunk.
-![](Pressure%20Cooker/DocAssets/moodboard.png?0.9080706367054123 )  
+![](Pressure%20Cooker/DocAssets/moodboard.png?0.4826974100288026 )  
 ###  Storyboard
   
-![](Pressure%20Cooker/DocAssets/storyboard.png?0.21842411967961106 )  
+![](Pressure%20Cooker/DocAssets/storyboard.png?0.09052192699143813 )  
 ###  Goal
   
   
@@ -69,29 +69,29 @@ incrementing goals:
 I started with researching the basics of how to use Blender 3, for this I watched the first episode of Blender guru's "Blender 3.0 Beginner Donut Tutorial"<sup>[1](#pc-assets-fn-1 )</sup>. 
   
 After this i messed around in Blender to get a feel for how to use the tools by adding more objects.
-![](Pressure%20Cooker/DocAssets/donut%20modeling.png?0.7865505324570738 )  
+![](Pressure%20Cooker/DocAssets/donut%20modeling.png?0.07071536716136939 )  
   
 I want to use a reference image in Blender, but i have not used them before. After finding an article online<sup>[2](#pc-asset-fn-2 )</sup> i followed the steps shown there to import images for reference use.
   
 I used a reference for a plunger with a good side view.
-![](Pressure%20Cooker/DocAssets/referenceInBlender.png?0.5050721764524944 )  
+![](Pressure%20Cooker/DocAssets/referenceInBlender.png?0.7709307374564249 )  
   
 When i was done i noticed that I had issues with the mesh having dark spots, this was because of faulty normals, I had duplicate vertices that i had to delete. Afterwards my model looked fine.
   
 Later i modeled a steering wheel for my ship. I made use of mirroring to reduce work, but i ran into trouble when dealing with the spokes, as it had overlapping issues. 
-![](Pressure%20Cooker/DocAssets/overlapWheel.png?0.24209540613601677 )  
-![](Pressure%20Cooker/DocAssets/overlapWheelWireframe.png?0.25688409687228186 )  
+![](Pressure%20Cooker/DocAssets/overlapWheel.png?0.6345860311803335 )  
+![](Pressure%20Cooker/DocAssets/overlapWheelWireframe.png?0.1054334034307669 )  
   
 After much experimentation i removed the overlaps and was able to export it. By combining the overlaps i was able to make in intermediate shape that i could use to cut out a shape in the spokes and was then able to join them together.
-![](Pressure%20Cooker/DocAssets/overlapIntermediateShape.png?0.874842720017784 )  
+![](Pressure%20Cooker/DocAssets/overlapIntermediateShape.png?0.09532506807398322 )  
   
 <a name="pc-assets-fn-1">1</a>: "Blender 3.0 Beginner Tutorial - Part 1" - https://www.youtube.com/watch?v=nIoXOplUvAw
 <a name="pc-assets-fn-2">2</a>:  - https://www.makeuseof.com/blender-reference-image-guide/ 
   
 ####  Creation
   
-![](Pressure%20Cooker/DocAssets/modeledPlunger.png?0.557047970906607 )  
-![](Pressure%20Cooker/DocAssets/texturedWheel.png?0.12961130601092252 )  
+![](Pressure%20Cooker/DocAssets/modeledPlunger.png?0.33379630367785995 )  
+![](Pressure%20Cooker/DocAssets/texturedWheel.png?0.7203990171995158 )  
 ####  Evaluation
   
 I feel that I've made good progress with learning Blender, as i wasn't really skilled with it. I did however spend more time on it than I should have, trying to get things working well, eating away at time that I could've used elsewhere.
@@ -141,27 +141,27 @@ I have rigged a model using Blender to make it easier to animate.
 For this sprint I took it upon myself to create the model for the instructor robot, As I want to improve my Blender skills. 
   
 To begin, our team had created a moodboard for the robot. I used that to create a prototype in blender.
-![](XR%20Assets/DocAssets/RobotMoodboard.jpeg?0.2738518611003453 )  
+![](XR%20Assets/DocAssets/RobotMoodboard.jpeg?0.9722848040844652 )  
   
 First off I made some concepts of the robot's head, I modeled  3 different shapes I envisioned as a possible head.
   
-![](XR%20Assets/DocAssets/robohoofden.PNG?0.7124788543735796 )  
+![](XR%20Assets/DocAssets/robohoofden.PNG?0.9207002721825213 )  
   
 After showing it to the rest of my team we settle on going with the head on the right, as it looks like a monitor.
   
 For the body I tried out a different style of shaping the model. First I made a rough shape by extruding and resizing the edges of a cube.
   
-![](XR%20Assets/DocAssets/robo%20lichaam%20base.PNG?0.4982596114053697 )  
+![](XR%20Assets/DocAssets/robo%20lichaam%20base.PNG?0.4021187376454378 )  
   
 Once I had the shape I applied a Subdivision Surface to the mesh, this helped round it out.
   
-![](XR%20Assets/DocAssets/robo%20lichaam%20vervorming.PNG?0.11685870029559431 )  
+![](XR%20Assets/DocAssets/robo%20lichaam%20vervorming.PNG?0.7687046870338574 )  
   
 I made the arms by first creating a few basic shapes and then combining them together into a single mesh with the Boolean modifier on the union setting. This causes the object it filters for to be added to the mesh it was applied on.
   
 I then wanted to add an armature to the robot, I followed the steps in https://en.wikibooks.org/wiki/Blender_3D:_Noob_to_Pro/Bones, I added bones starting from the main body and alligned them with the joints of the robot.
   
-![](XR%20Assets/DocAssets/Robotbones.PNG?0.6889050985840166 )  
+![](XR%20Assets/DocAssets/Robotbones.PNG?0.157880370654512 )  
   
 ###  Sprint 2
   
@@ -176,37 +176,37 @@ I then wanted to add an armature to the robot, I followed the steps in https://e
   
 In this sprint our team has finalized the design of the robot assistent, and I have been itterating over how to make it. For the new design we went with a less humanized look.
   
-<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketch.png?0.03561873950911609"  width="300" >
-<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketchSide.png?0.4220508138123753"  width="300" >
-<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketchFront.jpg?0.41566324955249745"  width="300" >
+<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketch.png?0.9800812109713344"  width="300" >
+<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketchSide.png?0.5974324096414336"  width="300" >
+<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketchFront.jpg?0.7720708435837256"  width="300" >
   
 I mocked together the head using basic object shapes and morphing their size a bit, I then combined them with boolean modifiers to get a nice looking shape. However, once I wanted to smooth the model I ran into issues, as it did not want to properly smooth the full head. Things looked worse when I wanted to UV unwrap the head, the vertices were all over the place. I inspected the model closer and found that there were stray vertices inside the head causing bad geometry. The boolean modifiers had left behind artifacts that were annoying to deal with. The best option for me was to start over with a new head and try to create the lense in a different way.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotOops.png?0.8935398919791833 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotOops.png?0.1292213780174316 )  
   
 I started over with a cube once again and beveled it to make the edges smoother. For the lense I tried out a plug-in built into blender: "Edge Loops", it allowed me to transform the edges I selected into a circular shape. Once I changed the edges I could extrude the faces for the lense and went on from there. Once I was done I noticed that when I applied the smooth shading it would cause the lense to be smoothed against the robot head, but I wanted the lense to clearly be a separate part. In order to achieve this I had to mark the edges around the lense as sharp, I  then had to add the edge split modifier in order to make the normals behave like the faces were not connected on the edges.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotSharp.png?0.10308189164103698 )  
-![](XR%20Assets/DocAssets/Sprint2/RobotSharpWire.png?0.9568201350898673 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotSharp.png?0.08693253386364574 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotSharpWire.png?0.6716193690567105 )  
   
 Once I was done with making the lense I showed the robot head to the rest of my team for feedback. I continued to make changes based on the feedback until we were satisfied with the profile of the robot assistant.
   
-![](XR%20Assets/DocAssets/Sprint2/Lens1.png?0.43043345242254305 )  
-![](XR%20Assets/DocAssets/Sprint2/Lens2.png?0.04642767511571777 )  
+![](XR%20Assets/DocAssets/Sprint2/Lens1.png?0.6982423138949103 )  
+![](XR%20Assets/DocAssets/Sprint2/Lens2.png?0.7375025329598004 )  
   
-![](XR%20Assets/DocAssets/Sprint2/RobotNewLens.png?0.9109210431931971 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotNewLens.png?0.729746068297239 )  
   
 For the wheel I started with a cylinder and applied loop cuts. I then rotated a loop and selected faces to extrude the profile of wheel. I then applied a subdivion service to the mesh to make it more smooth and round.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel1.png?0.8604136996815659 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel1.png?0.04957318803010269 )  
   
 After the first wheel prototype was made it was clear that it's geometry would be both too heavy and problematic for shading. Instead of starting with a cylinder I tried out a different approach, I started with a cube and made it round. I was able to do this by selecting the edges I want to make round and applying a transform to sphere, this modified the edges to form a circle. I then gave it a curve to make it feel more like a tire. This seemed to work at first but when inspecting the wheel up close I noticed that the face had problems with rendering properly.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel2Oof.png?0.6032694201454283 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel2Oof.png?0.16611809884235695 )  
   
 When I inspected the edges I saw that the problem happened with faces where the vertices are not on the same plane, causing a folding effect.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel2OofWire.png?0.266235948547362 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel2OofWire.png?0.8527175171725627 )  
   
 I decided to throw away the wheel again and start fresh by using a sphere, the reasoning behind it was that it was already curved in two axes and thus felt more intuitive for me to deform into a wheel. This had the desired effect of having a nice looking wheel.
   
@@ -214,11 +214,11 @@ UV mapping the robot was quite the time sink, as there is not one solution for l
   
 Once I was finished with UV mapping I had to texture the robot, I had two options, using a 3rd party tool to create a texture or use the 3d texture tool in Blender. I had to use a little trial and error to get it working, but I was able to figure out how to apply color to my model. I first had to create a new image in the UV editor, then I had to apply that material to the objects I wanted to paint. I was then able to paint directly onto the model, which felt quite intuitive to me. After more trial and error I discorvered that I was able to mask off parts of the mesh by pressing the "paint mask" button and then I was able to manipulate the mask in the "Select menu", this gave me a lot of control over which faces I want to paint.
   
-![](XR%20Assets/DocAssets/Sprint2/PaintMask.png?0.028855305697503608 )  
+![](XR%20Assets/DocAssets/Sprint2/PaintMask.png?0.8647035572508399 )  
   
 After everything was done I ended up with a robot that both my team and I were satisfied with.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotDone.png?0.08808998287387282 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotDone.png?0.0759189224225465 )  
   
   
   
@@ -242,14 +242,20 @@ After everything was done I ended up with a robot that both my team and I were s
   
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg )).
   
-![](XR%20Development/DocAssets/ShaderGraphCompleet.png?0.1983535453498153 )  
+![](XR%20Development/DocAssets/ShaderGraphCompleet.png?0.031016086116487207 )  
 After I had lines and emmission working after the tutorial i decided i wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
   
-![](XR%20Development/DocAssets/ShaderGraphExtra.png?0.5053287321197184 )  
+![](XR%20Development/DocAssets/ShaderGraphExtra.png?0.6240746431805553 )  
+  
+To better illustrate how the dithering works I will explain how each part works
+  
+![](XR%20Development/DocAssets/dithering.png?0.10014683081048559 )  
+  
+TODO: uitleg
   
 Inside our enviroment we used it to display the safety measures.
   
-![](XR%20Development/DocAssets/hologramPoster.gif?0.3814449097198125 )  
+![](XR%20Development/DocAssets/hologramPoster.gif?0.33737740677040406 )  
   
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
   
@@ -316,10 +322,10 @@ public sealed class IntSignalEmitter : ParameterizedSignalEmitter<int>
 ```
   
 I can now add this emitter on my signal track.
-![](XR%20Development/DocAssets/addSignalEmitter.png?0.2985264866568813 )  
+![](XR%20Development/DocAssets/addSignalEmitter.png?0.6303846755138278 )  
   
 Once I placed my signal on the track I can now pass a parameter that will be given to the receiver.
-![](XR%20Development/DocAssets/signalData.png?0.7211251954174367 )  
+![](XR%20Development/DocAssets/signalData.png?0.41835732579001883 )  
   
 Now to set up my receiver I do the same step as with the emitter, but inherit from `ParameterizedSignalReceiver<T>` instead.
 ```cs
@@ -486,7 +492,7 @@ I looked for a possible alternative and came across FMOD, a tool that can be use
   
 I was able to recreate the effects I made myself in Unity preatty easily, as in FMOD you can use a multi instrument clip to pick a random one each time it plays and have looping parts in a clip with a loop region in a logic track.
   
-![](XR%20Development/DocAssets/fmodLoop.png?0.778169775268525 )  
+![](XR%20Development/DocAssets/fmodLoop.png?0.010654304532723646 )  
   
 To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then i have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
   
@@ -696,9 +702,9 @@ public class TutorialGoalRotation : MonoBehaviour
   
 With this I can set what axis of the robot arm I want to track, what it's end rotation should be and how long it has to stay in that position before moving on to the next rotation.
   
-![](XR%20Development/DocAssets/rotationInspector.png?0.9773604299880363 )  
+![](XR%20Development/DocAssets/rotationInspector.png?0.7793250894804311 )  
   
-In order to have the hologram be in the right position I set the local rotation to the target rotation
+In order to have the hologram be in the right position I set the local rotation to the target rotation in the `Update` function.
   
 ```cs
 var currentStep = _steps[_currentStepIndex];
@@ -721,174 +727,13 @@ However this will cause the highlight to spin alongside the axis I want to rotat
 currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.localRotation) * targetRotation;
 ```
   
-In full the code looks like follows:
-```cs
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.Events;
-  
-public class TutorialGoalRotation : MonoBehaviour
-{
-    [SerializeField] Step[] _steps;
-    [SerializeField, Range(0, 180)] float _tollerance;
-    [SerializeField, Min(0)] float _timeRequired;
-  
-    [SerializeField] UnityEvent _onAdvancedStep;
-    [SerializeField] UnityEvent _onCompletion;
-  
-    int _currentStepIndex;
-    Coroutine _currentCoroutine;
-  
-    /// <summary>
-    /// Resets the active goal rotation and starts with the first one.
-    /// </summary>
-    public void Begin()
-    {
-        Assert.IsTrue(_steps.Length > 0, $"({this.gameObject.name} {nameof(TutorialGoalPositions)}) Must have at least one rotation goal.");
-  
-        this.enabled = true;
-  
-        _currentStepIndex = default;
-  
-        // set the first highlight to the goal rotation
-        var currentStep = _steps[_currentStepIndex];
-        currentStep.Highlight.gameObject.SetActive(true);
-        currentStep.Highlight.rotation = currentStep.Axis switch
-        {
-            Axis.X => Quaternion.Euler(currentStep.TargetRotation, 0, 0),
-            Axis.Y => Quaternion.Euler(0, currentStep.TargetRotation, 0),
-            Axis.Z => Quaternion.Euler(0, 0, currentStep.TargetRotation),
-            _ => throw new System.NotImplementedException()
-        };
-    }
-  
-    private void FixedUpdate()
-    {
-        var currentStep = _steps[_currentStepIndex];
-  
-        Quaternion targetRotation = currentStep.Axis switch
-        {
-            Axis.X => Quaternion.Euler(currentStep.TargetRotation, 0, 0),
-            Axis.Y => Quaternion.Euler(0, currentStep.TargetRotation, 0),
-            Axis.Z => Quaternion.Euler(0, 0, currentStep.TargetRotation),
-            _ => throw new System.NotImplementedException()
-        };
-  
-        // counter rotate the highlight to make it appear as if it is not rotating
-        currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.localRotation) * targetRotation;
-  
-        var angle = Quaternion.Angle(currentStep.Observing.localRotation, targetRotation);
-  
-        // if the observed axis rotation is close enough to the step's goal rotation, start advancing to the next step.
-        if (angle <= _tollerance)
-        {
-            if (_currentCoroutine == null)
-            {
-                _currentCoroutine = StartCoroutine(Advance());
-            }
-        }
-        else
-        {
-            if (_currentCoroutine != null)
-            {
-                StopCoroutine(_currentCoroutine);
-                _currentCoroutine = null;
-            }
-        }
-    }
-  
-    /// <summary>
-    /// Set the current goal to the next one in line after a set amount of time.
-    /// </summary>
-    private IEnumerator Advance()
-    {
-        if (_timeRequired > 0)
-            yield return new WaitForSeconds(_timeRequired);
-  
-        _currentCoroutine = null;
-  
-        // reset the highlight of the completed step
-        var currentStep = _steps[_currentStepIndex];
-        currentStep.Highlight.gameObject.SetActive(false);
-        currentStep.Highlight.rotation = Quaternion.identity;
-  
-        _currentStepIndex++;
-  
-        // check if this was the last goal
-        if (_currentStepIndex == _steps.Length)
-        {
-            _onCompletion.Invoke();
-            _currentStepIndex = default;
-  
-            this.enabled = false;
-        }
-        else
-        {
-            currentStep = _steps[_currentStepIndex];
-            currentStep.Highlight.gameObject.SetActive(true);
-  
-            _onAdvancedStep.Invoke();
-        }
-    }
-  
-    /// <summary>
-    /// Set the current goal to the next one in line.
-    /// </summary>
-    public void AdvanceImmediately()
-    {
-        // reset the highlight of the completed step
-        var currentStep = _steps[_currentStepIndex];
-        currentStep.Highlight.gameObject.SetActive(false);
-        currentStep.Highlight.rotation = Quaternion.identity;
-  
-        _currentStepIndex++;
-  
-        // check if this was the last goal
-        if (_currentStepIndex == _steps.Length)
-        {
-            _onCompletion.Invoke();
-            _currentStepIndex = default;
-        }
-        else
-        {
-            currentStep = _steps[_currentStepIndex];
-            currentStep.Highlight.gameObject.SetActive(true);
-  
-            _onAdvancedStep.Invoke();
-  
-            this.enabled = false;
-        }
-    }
-  
-    [System.Serializable]
-    public class Step
-    {
-        [field: SerializeField, Tooltip("The object who's rotation will be observed.")]
-        public Transform Observing { get; private set; }
-  
-        [field: SerializeField, Tooltip("The object acting as a guide for the end position.")]
-        public Transform Highlight { get; private set; }
-  
-        [field: SerializeField, Tooltip("The desired rotation of the axis")]
-        public float TargetRotation { get; private set; }
-  
-        [field: SerializeField, Tooltip("The axis to be tested.")]
-        public Axis Axis { get; private set; }
-        public ArticulationDrive[] InitialRotations { get; set; }
-    }
-    public enum Axis { X, Y, Z }
-}
-```
-  
 Now I can showcase the rotation per axis one after each other.
   
-![](XR%20Development/DocAssets/rotatebase.png?0.9552688345102656 )  
+![](XR%20Development/DocAssets/rotatebase.png?0.9026726643460856 )  
   
-![](XR%20Development/DocAssets/rotatebasearm.png?0.8483537247330326 )  
+![](XR%20Development/DocAssets/rotatebasearm.png?0.555900774364575 )  
   
-![](XR%20Development/DocAssets/rotateend.png?0.26287191310676405 )  
+![](XR%20Development/DocAssets/rotateend.png?0.44677163428714284 )  
   
 However if the user manages to put the robot arm in such a position that they are stuck, we want them to be able to reset the position of all axes to the current step so they can try again.
   
