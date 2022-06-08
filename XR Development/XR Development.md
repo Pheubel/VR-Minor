@@ -29,7 +29,10 @@ To better illustrate how the dithering works I will explain how each part works
 
 @import "./DocAssets/dithering.png"
 
-TODO: uitleg
+It can be broken up into three main parts:
+1. The nodes in the purple part represent the offset input, it uses the play time to to create an offset to be passed noise pattern.
+2. The nodes in the red part represent the scale input to be passed to the noise node. It uses a sawtooth wave to generate a rising number between 0 and 1. I then amplify it and then offset it to get a changing scale within a certain range.
+3. The nodes in the yellow part generate the noise based on the offset and scale input. It generates a gradient noise picture and by changing the offset it will focus on a different part of the noise map, by scaling the noise map it changes the zoom on the noise map, making the noise image look very animated at higher scale levels. After a noise image has been generated it then clamps the noise map so that it can be used as a scalar for the alpha's final input.
 
 Inside our enviroment we used it to display the safety measures.
 
@@ -381,3 +384,4 @@ Then I can detect a target device to deploy the build to, after I hit `Build And
 A minor problem I've found is that it becomes a bit unmanageable to keep track of where the build is. To help me with this I looked for alternatives for how to deploy to the quest and found SideQuest. This program was pretty easy to use, as when I plugged in a Quest I was able to deploy apk's to the headset and even see the apps I put on it directly. It also gave me extra control options to stop and uninstall the app in case it causes problems.
 
 After using it I prefer it over the standard way of deploying it to a Quest in Unity.
+

@@ -18,20 +18,23 @@
   
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg )).
   
-![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.002654977527554614 )  
+![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.33407617616664154 )  
 After I had lines and emmission working after the tutorial i decided i wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
   
-![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.8455316308836709 )  
+![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.7684335206306379 )  
   
 To better illustrate how the dithering works I will explain how each part works
   
-![](../XR%20Development/DocAssets/dithering.png?0.37584539918718995 )  
+![](../XR%20Development/DocAssets/dithering.png?0.5497456926430115 )  
   
-TODO: uitleg
+It can be broken up into three main parts:
+1. The nodes in the purple part represent the offset input, it uses the play time to to create an offset to be passed noise pattern.
+2. The nodes in the red part represent the scale input to be passed to the noise node. It uses a sawtooth wave to generate a rising number between 0 and 1. I then amplify it and then offset it to get a changing scale within a certain range.
+3. The nodes in the yellow part generate the noise based on the offset and scale input. It generates a gradient noise picture and by changing the offset it will focus on a different part of the noise map, by scaling the noise map it changes the zoom on the noise map, making the noise image look very animated at higher scale levels. After a noise image has been generated it then clamps the noise map so that it can be used as a scalar for the alpha's final input.
   
 Inside our enviroment we used it to display the safety measures.
   
-![](../XR%20Development/DocAssets/hologramPoster.gif?0.715896732652223 )  
+![](../XR%20Development/DocAssets/hologramPoster.gif?0.4802359579857076 )  
   
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
   
@@ -98,10 +101,10 @@ public sealed class IntSignalEmitter : ParameterizedSignalEmitter<int>
 ```
   
 I can now add this emitter on my signal track.
-![](../XR%20Development/DocAssets/addSignalEmitter.png?0.2717722146204824 )  
+![](../XR%20Development/DocAssets/addSignalEmitter.png?0.02983092606536175 )  
   
 Once I placed my signal on the track I can now pass a parameter that will be given to the receiver.
-![](../XR%20Development/DocAssets/signalData.png?0.04707753604978193 )  
+![](../XR%20Development/DocAssets/signalData.png?0.1305735540795152 )  
   
 Now to set up my receiver I do the same step as with the emitter, but inherit from `ParameterizedSignalReceiver<T>` instead.
 ```cs
@@ -268,7 +271,7 @@ I looked for a possible alternative and came across FMOD, a tool that can be use
   
 I was able to recreate the effects I made myself in Unity preatty easily, as in FMOD you can use a multi instrument clip to pick a random one each time it plays and have looping parts in a clip with a loop region in a logic track.
   
-![](../XR%20Development/DocAssets/fmodLoop.png?0.719530218129179 )  
+![](../XR%20Development/DocAssets/fmodLoop.png?0.4816655356003603 )  
   
 To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then i have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
   
@@ -478,7 +481,7 @@ public class TutorialGoalRotation : MonoBehaviour
   
 With this I can set what axis of the robot arm I want to track, what it's end rotation should be and how long it has to stay in that position before moving on to the next rotation.
   
-![](../XR%20Development/DocAssets/rotationInspector.png?0.40453241192393485 )  
+![](../XR%20Development/DocAssets/rotationInspector.png?0.24561242981044806 )  
   
 In order to have the hologram be in the right position I set the local rotation to the target rotation in the `Update` function.
   
@@ -505,11 +508,11 @@ currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.l
   
 Now I can showcase the rotation per axis one after each other.
   
-![](../XR%20Development/DocAssets/rotatebase.png?0.6349011050565527 )  
+![](../XR%20Development/DocAssets/rotatebase.png?0.7392641273005534 )  
   
-![](../XR%20Development/DocAssets/rotatebasearm.png?0.5114229060335551 )  
+![](../XR%20Development/DocAssets/rotatebasearm.png?0.8301278758501554 )  
   
-![](../XR%20Development/DocAssets/rotateend.png?0.23966349533107478 )  
+![](../XR%20Development/DocAssets/rotateend.png?0.4736801462714031 )  
   
 However if the user manages to put the robot arm in such a position that they are stuck, we want them to be able to reset the position of all axes to the current step so they can try again.
   
@@ -555,4 +558,5 @@ Then I can detect a target device to deploy the build to, after I hit `Build And
 A minor problem I've found is that it becomes a bit unmanageable to keep track of where the build is. To help me with this I looked for alternatives for how to deploy to the quest and found SideQuest. This program was pretty easy to use, as when I plugged in a Quest I was able to deploy apk's to the headset and even see the apps I put on it directly. It also gave me extra control options to stop and uninstall the app in case it causes problems.
   
 After using it I prefer it over the standard way of deploying it to a Quest in Unity.
+  
   
