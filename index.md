@@ -17,4 +17,6 @@ export_on_save:
 
 @import "XR Development/XR Development.md"
 
+@import "Group Work/Group Work.md"
+
 @import "Individual Work/Individual Work.md"
