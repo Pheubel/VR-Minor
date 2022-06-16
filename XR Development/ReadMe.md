@@ -13,19 +13,20 @@
   
 * By the end of this sprint...
   I have created implemented a system for playing random sounds and looping sound effects with an intro and outro.
+  
 ####  Process
   
   
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg )).
   
-![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.9571663144256368 )  
+![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.7546107564801874 )  
 After I had lines and emmission working after the tutorial i decided i wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
   
-![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.6311338007926217 )  
+![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.06497922780985066 )  
   
 To better illustrate how the dithering works I will explain how each part works
   
-![](../XR%20Development/DocAssets/dithering.png?0.7636630050372397 )  
+![](../XR%20Development/DocAssets/dithering.png?0.8380395206731628 )  
   
 It can be broken up into three main parts:
 1. The nodes in the purple part represent the offset input, it uses the play time to to create an offset to be passed noise pattern.
@@ -34,7 +35,7 @@ It can be broken up into three main parts:
   
 Inside our enviroment we used it to display the safety measures.
   
-![](../XR%20Development/DocAssets/hologramPoster.gif?0.6881834057902538 )  
+![](../XR%20Development/DocAssets/hologramPoster.gif?0.7889763190496646 )  
   
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
   
@@ -101,10 +102,10 @@ public sealed class IntSignalEmitter : ParameterizedSignalEmitter<int>
 ```
   
 I can now add this emitter on my signal track.
-![](../XR%20Development/DocAssets/addSignalEmitter.png?0.8624273164233665 )  
+![](../XR%20Development/DocAssets/addSignalEmitter.png?0.10540008802507517 )  
   
 Once I placed my signal on the track I can now pass a parameter that will be given to the receiver.
-![](../XR%20Development/DocAssets/signalData.png?0.6089843469718752 )  
+![](../XR%20Development/DocAssets/signalData.png?0.33204943221155214 )  
   
 Now to set up my receiver I do the same step as with the emitter, but inherit from `ParameterizedSignalReceiver<T>` instead.
 ```cs
@@ -271,7 +272,7 @@ I looked for a possible alternative and came across FMOD, a tool that can be use
   
 I was able to recreate the effects I made myself in Unity preatty easily, as in FMOD you can use a multi instrument clip to pick a random one each time it plays and have looping parts in a clip with a loop region in a logic track.
   
-![](../XR%20Development/DocAssets/fmodLoop.png?0.01794830137451342 )  
+![](../XR%20Development/DocAssets/fmodLoop.png?0.2972697037681151 )  
   
 To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then i have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
   
@@ -481,7 +482,7 @@ public class TutorialGoalRotation : MonoBehaviour
   
 With this I can set what axis of the robot arm I want to track, what it's end rotation should be and how long it has to stay in that position before moving on to the next rotation.
   
-![](../XR%20Development/DocAssets/rotationInspector.png?0.34719917532563715 )  
+![](../XR%20Development/DocAssets/rotationInspector.png?0.6181253824135282 )  
   
 In order to have the hologram be in the right position I set the local rotation to the target rotation in the `Update` function.
   
@@ -508,11 +509,11 @@ currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.l
   
 Now I can showcase the rotation per axis one after each other.
   
-![](../XR%20Development/DocAssets/rotatebase.png?0.4423523160010594 )  
+![](../XR%20Development/DocAssets/rotatebase.png?0.038051469065049526 )  
   
-![](../XR%20Development/DocAssets/rotatebasearm.png?0.3174678648821172 )  
+![](../XR%20Development/DocAssets/rotatebasearm.png?0.07539373859890786 )  
   
-![](../XR%20Development/DocAssets/rotateend.png?0.36147278405218564 )  
+![](../XR%20Development/DocAssets/rotateend.png?0.32809237067236063 )  
   
 However if the user manages to put the robot arm in such a position that they are stuck, we want them to be able to reset the position of all axes to the current step so they can try again.
   
@@ -566,154 +567,70 @@ After using it I prefer it over the standard way of deploying it to a Quest in U
   
   
 * By the end of this sprint...
-  I have created a god ray effect in our scene.
+  I have created a god ray effect in our scene to have more appealing visuals.
   
 ####  Process
   
   
-TODO: reasoning
+For our experience we wanted to see if we can add "god rays" to get a more spacious feeling as part of the extra touch ups we wanted to do with our left over time in the final sprint.
   
-[Raymarched Volumetric Lighting in Unity URP](https://valeriomarty.medium.com/raymarched-volumetric-lighting-in-unity-urp-e7bc84d31604 )
+![](../XR%20Development/DocAssets/god%20rays.png?0.07573501198865129 )  
+(example of god rays)
   
-[URP Renderer Feature](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/manual/urp-renderer-feature.html )
+In order to get this effect I tried two approaches:
+1. Use a particle system to simulate the effect.
+2. Set up a system for volumetric lighting.
   
-[ScriptableRendererFeature API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRendererFeature.html )
+For the particle system route I watched ["Simple GODRAY PARTICLE Tutorial (Unity URP)"](https://www.youtube.com/watch?v=kbsd6askiCY&ab_channel=SpeedTutor ). It showed me how to set up the particle system to simulate god rays by stretching the particle's sprite, lowering it's opacity, adding a fade in and out and a bit of randomization to give the effect that it is not a static piece.
   
-[ScriptableRenderPass API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRenderPass.html )
+From a distance the effect is looks nice, it looks good and has the god rays we would like to see.
   
-Start with creating a barebones inheriting class.
+![](../XR%20Development/DocAssets/particleGodRays.png?0.26268911530719996 )  
   
-```cs
-using UnityEngine.Rendering.Universal;
+The effect does fall apart when the player comes close to the particle system and looks staight into the beams, it makes them feel out of place and removes a lot of the effect.
   
-public class VolumetricLightFeature : ScriptableRendererFeature
-{
-    /// <summary>
-    /// Injects one or multiple <see cref="ScriptableRenderPass"/> in the renderer.
-    /// </summary>
-    /// <param name="renderer"> Renderer used for adding render passes.</param>
-    /// <param name="renderingData"> Rendering state. Use this to setup render passes.</param>
-    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
-    {
+![](../XR%20Development/DocAssets/particleGodFails.png?0.8139325976390921 )  
   
-    }
+In the end we decided to not make use of this approach due to the player being able to break the illusion of god rays too easily.
   
-    /// <summary> 
-    /// Initializes this feature's resources. This is called every time serialization happens.
-    /// </summary>
-    public override void Create()
-    {
+A different option is to make use of volumetric lighting, a post processing effect that smears the light to create the effect shown in the example for god rays.
   
-    }
-}
-```
+In order to to introduce volumetric lighting I read through "[Raymarched Volumetric Lighting in Unity URP](https://valeriomarty.medium.com/raymarched-volumetric-lighting-in-unity-urp-e7bc84d31604 )" and followed the steps described in it. It made use of concepts I was not familiar with. I decided to have the documentation for the classes used on the side so that I can figure out what role they play in the code.
   
-Then create skeleton of pass as nested class.
+I referenced :
+* [ScriptableRendererFeature API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRendererFeature.html ) - The base class of a render feature, it tells the renderer which passes it should make and can be made to contain settings that are passed to the render passes
   
-```cs
-public class VolumetricLightFeature : ScriptableRendererFeature
-{
-    // ...
+* [ScriptableRenderPass API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRenderPass.html ) - The base class for a render pass, it tells the renderer what steps to take in order to render the final picture
   
-    Pass pass;
+Inside of the render pass there was a lot of usage of the `CommandBuffer.Blit` function and I was unsure what it does. After looking at the "[CommandBuffer.Blit API](CommandBuffer.Blit )" it became clear that it does more than one thing: it copies the textures from one handle to another, it applies a shader pass and it also sets the active render target. By giving it a different set of arguments the behavior changes as well. 
   
-    class Pass : ScriptableRenderPass
-    {
-        /// <summary>
-        /// Execute the pass. This is where custom rendering occurs.
-        /// </summary>
-        /// <param name="context"> Use this render context to issue any draw commands during execution. </param>
-        /// <param name="renderingData"> Current rendering state information.</param>
-        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
-        {
+In the process of getting the effect to work I did encounter some trouble.
   
-        }
-    }
-}
-```
+![](../XR%20Development/DocAssets/volumetricFailOne.png?0.34416351256580713 )  
   
-settings shared.
+![](../XR%20Development/DocAssets/volumetricFailTwo.png?0.44030499129699274 )  
   
-```cs
-public class VolumetricLightFeature : ScriptableRendererFeature
-{
-    // ...
+(some failed attempts at getting the shader to work properly)
   
-    public Settings settings = new Settings();
+After getting help from Chris Lokhorst, who has made a volumetric lighting effect in his project using the same blog, I was able to get the effect working. There are beams that are being cast when looking at objects that stand between you and the directional light's beam.
   
-    [System.Serializable]
-    public class Settings
-    {
-        public Material material;
-        public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingPostProcessing;
-    }
-}
-```
+![](../XR%20Development/DocAssets/succes.png?0.5319467338294388 )  
   
-Now I can see the forward renderer and change settings from the inspector.
+The effect looked great on the computer, however when I decided to try it out in VR I was surprised to see that the left eye was black and the other eye was gray.
   
-![](../XR%20Development/DocAssets/ForwardRenderer.png?0.0550420782287675 )  
+![](../XR%20Development/DocAssets/whut.png?0.8807047726292645 )  
+(a visual representation of what I saw in the quest)
   
-Now it is time to do basic setup for the pass so that it can be queued.
+After looking through the Unity forums the reason I get this behavior is because the `CommandBuffer.Blit()` function messes up preprocessors in the shader when rendering with single pass instanced. To get rid of this issue I needed to make sure that I was rendering with `multi pass`. After trying it out in VR it seemed to work like it did on PC.
   
-```cs
-public class VolumetricLightFeature : ScriptableRendererFeature
-{
-    // ...
+When I tried it out in our main scene I encountered another issue: There was only the volumetric lighting, but with no god rays to be seen.
   
-    /// <summary>
-    /// Injects one or multiple <see cref="ScriptableRenderPass"/> in the renderer.
-    /// </summary>
-    /// <param name="renderer"> Renderer used for adding render passes.</param>
-    /// <param name="renderingData"> Rendering state. Use this to setup render passes.</param>
-    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
-    {
-        var cameraColorTargetIdent = renderer.cameraColorTarget;
-        pass.Setup(cameraColorTargetIdent);
-        renderer.EnqueuePass(pass);
-    }
+![](../XR%20Development/DocAssets/howDidThisHappen.png?0.4054293537083269 )  
   
-    /// <summary> 
-    /// Initializes this feature's resources. This is called every time serialization happens.
-    /// </summary>
-    public override void Create()
-    {
-        pass = new Pass("Volumetric Light");
-        name = "Volumetric Light";
-        pass.settings = settings;
-        pass.renderPassEvent = settings.renderPassEvent;
-    }
+I tried to see what could have caused this difference to happen between my test scene and our main scene. However due to the large difference I could not come up with a solution and after talking to my team we decided that this task would be left undone for now so that I can focus on the other tasks left to be done.
   
-    class Pass : ScriptableRenderPass
-    {
-        public Settings settings;
-        private RenderTargetIdentifier source;
-        private string profilerTag;
+####  Miscelanious
   
-        public Pass(string profilerTag)
-        {
-            this.profilerTag = profilerTag;
-        }
   
-        public void Setup(RenderTargetIdentifier source)
-        {
-            this.source = source;
-        }
-  
-        public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
-        {
-            //R8 has noticeable banding
-            cameraTextureDescriptor.colorFormat = RenderTextureFormat.R16;
-            //we dont need to resolve AA in every single Blit
-            cameraTextureDescriptor.msaaSamples = 1;
-  
-            cmd.GetTemporaryRT(tempTexture.id, cameraTextureDescriptor);
-            ConfigureTarget(tempTexture.Identifier());
-            ConfigureClear(ClearFlag.All, Color.black);
-        }
-  
-        // ...
-    }
-}
-```
+During this sprint I want to improve on the quality of code delivered, this can be through proper documentation, performant code and easy to addapt systems. In order to ensure the quality I've let the other developers peer review my code alongside my comments to make sure that they were easy to understand and gave the information needed.
   

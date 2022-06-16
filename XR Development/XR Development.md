@@ -16,6 +16,7 @@ export_on_save:
 
 * By the end of this sprint...
   I have created implemented a system for playing random sounds and looping sound effects with an intro and outro.
+
 #### Process
 
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg)).
@@ -390,152 +391,67 @@ After using it I prefer it over the standard way of deploying it to a Quest in U
 #### Learning Goals
 
 * By the end of this sprint...
-  I have created a god ray effect in our scene.
+  I have created a god ray effect in our scene to have more appealing visuals.
 
 #### Process
 
-TODO: reasoning
+For our experience we wanted to see if we can add "god rays" to get a more spacious feeling as part of the extra touch ups we wanted to do with our left over time in the final sprint.
 
-[Raymarched Volumetric Lighting in Unity URP](https://valeriomarty.medium.com/raymarched-volumetric-lighting-in-unity-urp-e7bc84d31604)
+@import "./DocAssets/god rays.png"
+(example of god rays)
 
-[URP Renderer Feature](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/manual/urp-renderer-feature.html)
+In order to get this effect I tried two approaches:
+1. Use a particle system to simulate the effect.
+2. Set up a system for volumetric lighting.
 
-[ScriptableRendererFeature API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRendererFeature.html)
+For the particle system route I watched ["Simple GODRAY PARTICLE Tutorial (Unity URP)"](https://www.youtube.com/watch?v=kbsd6askiCY&ab_channel=SpeedTutor). It showed me how to set up the particle system to simulate god rays by stretching the particle's sprite, lowering it's opacity, adding a fade in and out and a bit of randomization to give the effect that it is not a static piece.
 
-[ScriptableRenderPass API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRenderPass.html)
+From a distance the effect is looks nice, it looks good and has the god rays we would like to see.
 
-Start with creating a barebones inheriting class.
+@import "./DocAssets/particleGodRays.png"
 
-```cs
-using UnityEngine.Rendering.Universal;
+The effect does fall apart when the player comes close to the particle system and looks staight into the beams, it makes them feel out of place and removes a lot of the effect.
 
-public class VolumetricLightFeature : ScriptableRendererFeature
-{
-    /// <summary>
-    /// Injects one or multiple <see cref="ScriptableRenderPass"/> in the renderer.
-    /// </summary>
-    /// <param name="renderer"> Renderer used for adding render passes.</param>
-    /// <param name="renderingData"> Rendering state. Use this to setup render passes.</param>
-    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
-    {
-        
-    }
+@import "./DocAssets/particleGodFails.png"
 
-    /// <summary> 
-    /// Initializes this feature's resources. This is called every time serialization happens.
-    /// </summary>
-    public override void Create()
-    {
-        
-    }
-}
-```
+In the end we decided to not make use of this approach due to the player being able to break the illusion of god rays too easily.
 
-Then create skeleton of pass as nested class.
+A different option is to make use of volumetric lighting, a post processing effect that smears the light to create the effect shown in the example for god rays.
 
-```cs
-public class VolumetricLightFeature : ScriptableRendererFeature
-{
-    // ...
+In order to to introduce volumetric lighting I read through "[Raymarched Volumetric Lighting in Unity URP](https://valeriomarty.medium.com/raymarched-volumetric-lighting-in-unity-urp-e7bc84d31604)" and followed the steps described in it. It made use of concepts I was not familiar with. I decided to have the documentation for the classes used on the side so that I can figure out what role they play in the code.
 
-    Pass pass;
+I referenced :
+* [ScriptableRendererFeature API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRendererFeature.html) - The base class of a render feature, it tells the renderer which passes it should make and can be made to contain settings that are passed to the render passes
 
-    class Pass : ScriptableRenderPass
-    {
-        /// <summary>
-        /// Execute the pass. This is where custom rendering occurs.
-        /// </summary>
-        /// <param name="context"> Use this render context to issue any draw commands during execution. </param>
-        /// <param name="renderingData"> Current rendering state information.</param>
-        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
-        {
-            
-        }
-    }
-}
-```
+* [ScriptableRenderPass API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRenderPass.html) - The base class for a render pass, it tells the renderer what steps to take in order to render the final picture
 
-settings shared.
+Inside of the render pass there was a lot of usage of the `CommandBuffer.Blit` function and I was unsure what it does. After looking at the "[CommandBuffer.Blit API](CommandBuffer.Blit)" it became clear that it does more than one thing: it copies the textures from one handle to another, it applies a shader pass and it also sets the active render target. By giving it a different set of arguments the behavior changes as well. 
 
-```cs
-public class VolumetricLightFeature : ScriptableRendererFeature
-{
-    // ...
+In the process of getting the effect to work I did encounter some trouble.
 
-    public Settings settings = new Settings();
+@import "./DocAssets/volumetricFailOne.png"
 
-    [System.Serializable]
-    public class Settings
-    {
-        public Material material;
-        public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingPostProcessing;
-    }
-}
-```
+@import "./DocAssets/volumetricFailTwo.png"
 
-Now I can see the forward renderer and change settings from the inspector.
+(some failed attempts at getting the shader to work properly)
 
-@import "./DocAssets/ForwardRenderer.png"
+After getting help from Chris Lokhorst, who has made a volumetric lighting effect in his project using the same blog, I was able to get the effect working. There are beams that are being cast when looking at objects that stand between you and the directional light's beam.
 
-Now it is time to do basic setup for the pass so that it can be queued.
+@import "./DocAssets/succes.png"
 
-```cs
-public class VolumetricLightFeature : ScriptableRendererFeature
-{
-    // ...
+The effect looked great on the computer, however when I decided to try it out in VR I was surprised to see that the left eye was black and the other eye was gray.
 
-    /// <summary>
-    /// Injects one or multiple <see cref="ScriptableRenderPass"/> in the renderer.
-    /// </summary>
-    /// <param name="renderer"> Renderer used for adding render passes.</param>
-    /// <param name="renderingData"> Rendering state. Use this to setup render passes.</param>
-    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
-    {
-        var cameraColorTargetIdent = renderer.cameraColorTarget;
-        pass.Setup(cameraColorTargetIdent);
-        renderer.EnqueuePass(pass);
-    }
+@import "./DocAssets/whut.png"
+(a visual representation of what I saw in the quest)
 
-    /// <summary> 
-    /// Initializes this feature's resources. This is called every time serialization happens.
-    /// </summary>
-    public override void Create()
-    {
-        pass = new Pass("Volumetric Light");
-        name = "Volumetric Light";
-        pass.settings = settings;
-        pass.renderPassEvent = settings.renderPassEvent;
-    }
+After looking through the Unity forums the reason I get this behavior is because the `CommandBuffer.Blit()` function messes up preprocessors in the shader when rendering with single pass instanced. To get rid of this issue I needed to make sure that I was rendering with `multi pass`. After trying it out in VR it seemed to work like it did on PC.
 
-    class Pass : ScriptableRenderPass
-    {
-        public Settings settings;
-        private RenderTargetIdentifier source;
-        private string profilerTag;
+When I tried it out in our main scene I encountered another issue: There was only the volumetric lighting, but with no god rays to be seen.
 
-        public Pass(string profilerTag)
-        {
-            this.profilerTag = profilerTag;
-        }
+@import "./DocAssets/howDidThisHappen.png"
 
-        public void Setup(RenderTargetIdentifier source)
-        {
-            this.source = source;
-        }
+I tried to see what could have caused this difference to happen between my test scene and our main scene. However due to the large difference I could not come up with a solution and after talking to my team we decided that this task would be left undone for now so that I can focus on the other tasks left to be done.
 
-        public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
-        {
-            //R8 has noticeable banding
-            cameraTextureDescriptor.colorFormat = RenderTextureFormat.R16;
-            //we dont need to resolve AA in every single Blit
-            cameraTextureDescriptor.msaaSamples = 1;
+#### Miscelanious
 
-            cmd.GetTemporaryRT(tempTexture.id, cameraTextureDescriptor);
-            ConfigureTarget(tempTexture.Identifier());
-            ConfigureClear(ClearFlag.All, Color.black);
-        }
-
-        // ...
-    }
-}
-```
+During this sprint I want to improve on the quality of code delivered, this can be through proper documentation, performant code and easy to addapt systems. In order to ensure the quality I've let the other developers peer review my code alongside my comments to make sure that they were easy to understand and gave the information needed.

@@ -97,3 +97,97 @@ Once I was finished with UV mapping I had to texture the robot, I had two option
 After everything was done I ended up with a robot that both my team and I were satisfied with.
 
 @import "./DocAssets/Sprint2/RobotDone.png"
+
+### Sprint 3
+
+#### Learning Goals
+* By the end of this sprint...
+  I have created an animated shader using shader graph.
+
+#### Process
+
+We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg)).
+
+@import "./DocAssets/ShaderGraphCompleet.png"
+After I had lines and emmission working after the tutorial i decided i wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
+
+@import "../XR Development/DocAssets/ShaderGraphExtra.png"
+
+To better illustrate how the dithering works I will explain how each part works
+
+@import "../XR Development/DocAssets/dithering.png"
+
+It can be broken up into three main parts:
+1. The nodes in the purple part represent the offset input, it uses the play time to to create an offset to be passed noise pattern.
+2. The nodes in the red part represent the scale input to be passed to the noise node. It uses a sawtooth wave to generate a rising number between 0 and 1. I then amplify it and then offset it to get a changing scale within a certain range.
+3. The nodes in the yellow part generate the noise based on the offset and scale input. It generates a gradient noise picture and by changing the offset it will focus on a different part of the noise map, by scaling the noise map it changes the zoom on the noise map, making the noise image look very animated at higher scale levels. After a noise image has been generated it then clamps the noise map so that it can be used as a scalar for the alpha's final input.
+
+Inside our enviroment we used it to display the safety measures.
+
+@import "../XR Development/DocAssets/hologramPoster.gif"
+
+### Sprint 5
+
+#### Learning Goals
+
+* By the end of this sprint...
+  I have created a god ray effect in our scene to have more appealing visuals.
+
+#### Process
+
+For our experience we wanted to see if we can add "god rays" to get a more spacious feeling as part of the extra touch ups we wanted to do with our left over time in the final sprint.
+
+@import "../XR Development/DocAssets/god rays.png"
+(example of god rays)
+
+In order to get this effect I tried two approaches:
+1. Use a particle system to simulate the effect.
+2. Set up a system for volumetric lighting.
+
+For the particle system route I watched ["Simple GODRAY PARTICLE Tutorial (Unity URP)"](https://www.youtube.com/watch?v=kbsd6askiCY&ab_channel=SpeedTutor). It showed me how to set up the particle system to simulate god rays by stretching the particle's sprite, lowering it's opacity, adding a fade in and out and a bit of randomization to give the effect that it is not a static piece.
+
+From a distance the effect is looks nice, it looks good and has the god rays we would like to see.
+
+@import "../XR Development/DocAssets/particleGodRays.png"
+
+The effect does fall apart when the player comes close to the particle system and looks staight into the beams, it makes them feel out of place and removes a lot of the effect.
+
+@import "../XR Development/DocAssets/particleGodFails.png"
+
+In the end we decided to not make use of this approach due to the player being able to break the illusion of god rays too easily.
+
+A different option is to make use of volumetric lighting, a post processing effect that smears the light to create the effect shown in the example for god rays.
+
+In order to to introduce volumetric lighting I read through "[Raymarched Volumetric Lighting in Unity URP](https://valeriomarty.medium.com/raymarched-volumetric-lighting-in-unity-urp-e7bc84d31604)" and followed the steps described in it. It made use of concepts I was not familiar with. I decided to have the documentation for the classes used on the side so that I can figure out what role they play in the code.
+
+I referenced :
+* [ScriptableRendererFeature API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRendererFeature.html) - The base class of a render feature, it tells the renderer which passes it should make and can be made to contain settings that are passed to the render passes
+
+* [ScriptableRenderPass API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRenderPass.html) - The base class for a render pass, it tells the renderer what steps to take in order to render the final picture
+
+Inside of the render pass there was a lot of usage of the `CommandBuffer.Blit` function and I was unsure what it does. After looking at the "[CommandBuffer.Blit API](CommandBuffer.Blit)" it became clear that it does more than one thing: it copies the textures from one handle to another, it applies a shader pass and it also sets the active render target. By giving it a different set of arguments the behavior changes as well. 
+
+In the process of getting the effect to work I did encounter some trouble.
+
+@import "../XR Development/DocAssets/volumetricFailOne.png"
+
+@import "../XR Development/DocAssets/volumetricFailTwo.png"
+
+(some failed attempts at getting the shader to work properly)
+
+After getting help from Chris Lokhorst, who has made a volumetric lighting effect in his project using the same blog, I was able to get the effect working. There are beams that are being cast when looking at objects that stand between you and the directional light's beam.
+
+@import "../XR Development/DocAssets/succes.png"
+
+The effect looked great on the computer, however when I decided to try it out in VR I was surprised to see that the left eye was black and the other eye was gray.
+
+@import "../XR Development/DocAssets/whut.png"
+(a visual representation of what I saw in the quest)
+
+After looking through the Unity forums the reason I get this behavior is because the `CommandBuffer.Blit()` function messes up preprocessors in the shader when rendering with single pass instanced. To get rid of this issue I needed to make sure that I was rendering with `multi pass`. After trying it out in VR it seemed to work like it did on PC.
+
+When I tried it out in our main scene I encountered another issue: There was only the volumetric lighting, but with no god rays to be seen.
+
+@import "../XR Development/DocAssets/howDidThisHappen.png"
+
+I tried to see what could have caused this difference to happen between my test scene and our main scene. However due to the large difference I could not come up with a solution and after talking to my team we decided that this task would be left undone for now so that I can focus on the other tasks left to be done.
