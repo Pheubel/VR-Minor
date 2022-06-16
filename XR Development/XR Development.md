@@ -385,3 +385,157 @@ A minor problem I've found is that it becomes a bit unmanageable to keep track o
 
 After using it I prefer it over the standard way of deploying it to a Quest in Unity.
 
+### Sprint 5
+
+#### Learning Goals
+
+* By the end of this sprint...
+  I have created a god ray effect in our scene.
+
+#### Process
+
+TODO: reasoning
+
+[Raymarched Volumetric Lighting in Unity URP](https://valeriomarty.medium.com/raymarched-volumetric-lighting-in-unity-urp-e7bc84d31604)
+
+[URP Renderer Feature](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/manual/urp-renderer-feature.html)
+
+[ScriptableRendererFeature API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRendererFeature.html)
+
+[ScriptableRenderPass API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRenderPass.html)
+
+Start with creating a barebones inheriting class.
+
+```cs
+using UnityEngine.Rendering.Universal;
+
+public class VolumetricLightFeature : ScriptableRendererFeature
+{
+    /// <summary>
+    /// Injects one or multiple <see cref="ScriptableRenderPass"/> in the renderer.
+    /// </summary>
+    /// <param name="renderer"> Renderer used for adding render passes.</param>
+    /// <param name="renderingData"> Rendering state. Use this to setup render passes.</param>
+    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
+    {
+        
+    }
+
+    /// <summary> 
+    /// Initializes this feature's resources. This is called every time serialization happens.
+    /// </summary>
+    public override void Create()
+    {
+        
+    }
+}
+```
+
+Then create skeleton of pass as nested class.
+
+```cs
+public class VolumetricLightFeature : ScriptableRendererFeature
+{
+    // ...
+
+    Pass pass;
+
+    class Pass : ScriptableRenderPass
+    {
+        /// <summary>
+        /// Execute the pass. This is where custom rendering occurs.
+        /// </summary>
+        /// <param name="context"> Use this render context to issue any draw commands during execution. </param>
+        /// <param name="renderingData"> Current rendering state information.</param>
+        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+        {
+            
+        }
+    }
+}
+```
+
+settings shared.
+
+```cs
+public class VolumetricLightFeature : ScriptableRendererFeature
+{
+    // ...
+
+    public Settings settings = new Settings();
+
+    [System.Serializable]
+    public class Settings
+    {
+        public Material material;
+        public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingPostProcessing;
+    }
+}
+```
+
+Now I can see the forward renderer and change settings from the inspector.
+
+@import "./DocAssets/ForwardRenderer.png"
+
+Now it is time to do basic setup for the pass so that it can be queued.
+
+```cs
+public class VolumetricLightFeature : ScriptableRendererFeature
+{
+    // ...
+
+    /// <summary>
+    /// Injects one or multiple <see cref="ScriptableRenderPass"/> in the renderer.
+    /// </summary>
+    /// <param name="renderer"> Renderer used for adding render passes.</param>
+    /// <param name="renderingData"> Rendering state. Use this to setup render passes.</param>
+    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
+    {
+        var cameraColorTargetIdent = renderer.cameraColorTarget;
+        pass.Setup(cameraColorTargetIdent);
+        renderer.EnqueuePass(pass);
+    }
+
+    /// <summary> 
+    /// Initializes this feature's resources. This is called every time serialization happens.
+    /// </summary>
+    public override void Create()
+    {
+        pass = new Pass("Volumetric Light");
+        name = "Volumetric Light";
+        pass.settings = settings;
+        pass.renderPassEvent = settings.renderPassEvent;
+    }
+
+    class Pass : ScriptableRenderPass
+    {
+        public Settings settings;
+        private RenderTargetIdentifier source;
+        private string profilerTag;
+
+        public Pass(string profilerTag)
+        {
+            this.profilerTag = profilerTag;
+        }
+
+        public void Setup(RenderTargetIdentifier source)
+        {
+            this.source = source;
+        }
+
+        public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
+        {
+            //R8 has noticeable banding
+            cameraTextureDescriptor.colorFormat = RenderTextureFormat.R16;
+            //we dont need to resolve AA in every single Blit
+            cameraTextureDescriptor.msaaSamples = 1;
+
+            cmd.GetTemporaryRT(tempTexture.id, cameraTextureDescriptor);
+            ConfigureTarget(tempTexture.Identifier());
+            ConfigureClear(ClearFlag.All, Color.black);
+        }
+
+        // ...
+    }
+}
+```

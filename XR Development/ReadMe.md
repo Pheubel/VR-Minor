@@ -18,14 +18,14 @@
   
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg )).
   
-![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.33407617616664154 )  
+![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.9571663144256368 )  
 After I had lines and emmission working after the tutorial i decided i wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
   
-![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.7684335206306379 )  
+![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.6311338007926217 )  
   
 To better illustrate how the dithering works I will explain how each part works
   
-![](../XR%20Development/DocAssets/dithering.png?0.5497456926430115 )  
+![](../XR%20Development/DocAssets/dithering.png?0.7636630050372397 )  
   
 It can be broken up into three main parts:
 1. The nodes in the purple part represent the offset input, it uses the play time to to create an offset to be passed noise pattern.
@@ -34,7 +34,7 @@ It can be broken up into three main parts:
   
 Inside our enviroment we used it to display the safety measures.
   
-![](../XR%20Development/DocAssets/hologramPoster.gif?0.4802359579857076 )  
+![](../XR%20Development/DocAssets/hologramPoster.gif?0.6881834057902538 )  
   
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
   
@@ -101,10 +101,10 @@ public sealed class IntSignalEmitter : ParameterizedSignalEmitter<int>
 ```
   
 I can now add this emitter on my signal track.
-![](../XR%20Development/DocAssets/addSignalEmitter.png?0.02983092606536175 )  
+![](../XR%20Development/DocAssets/addSignalEmitter.png?0.8624273164233665 )  
   
 Once I placed my signal on the track I can now pass a parameter that will be given to the receiver.
-![](../XR%20Development/DocAssets/signalData.png?0.1305735540795152 )  
+![](../XR%20Development/DocAssets/signalData.png?0.6089843469718752 )  
   
 Now to set up my receiver I do the same step as with the emitter, but inherit from `ParameterizedSignalReceiver<T>` instead.
 ```cs
@@ -271,7 +271,7 @@ I looked for a possible alternative and came across FMOD, a tool that can be use
   
 I was able to recreate the effects I made myself in Unity preatty easily, as in FMOD you can use a multi instrument clip to pick a random one each time it plays and have looping parts in a clip with a loop region in a logic track.
   
-![](../XR%20Development/DocAssets/fmodLoop.png?0.4816655356003603 )  
+![](../XR%20Development/DocAssets/fmodLoop.png?0.01794830137451342 )  
   
 To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then i have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
   
@@ -481,7 +481,7 @@ public class TutorialGoalRotation : MonoBehaviour
   
 With this I can set what axis of the robot arm I want to track, what it's end rotation should be and how long it has to stay in that position before moving on to the next rotation.
   
-![](../XR%20Development/DocAssets/rotationInspector.png?0.24561242981044806 )  
+![](../XR%20Development/DocAssets/rotationInspector.png?0.34719917532563715 )  
   
 In order to have the hologram be in the right position I set the local rotation to the target rotation in the `Update` function.
   
@@ -508,11 +508,11 @@ currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.l
   
 Now I can showcase the rotation per axis one after each other.
   
-![](../XR%20Development/DocAssets/rotatebase.png?0.7392641273005534 )  
+![](../XR%20Development/DocAssets/rotatebase.png?0.4423523160010594 )  
   
-![](../XR%20Development/DocAssets/rotatebasearm.png?0.8301278758501554 )  
+![](../XR%20Development/DocAssets/rotatebasearm.png?0.3174678648821172 )  
   
-![](../XR%20Development/DocAssets/rotateend.png?0.4736801462714031 )  
+![](../XR%20Development/DocAssets/rotateend.png?0.36147278405218564 )  
   
 However if the user manages to put the robot arm in such a position that they are stuck, we want them to be able to reset the position of all axes to the current step so they can try again.
   
@@ -559,4 +559,161 @@ A minor problem I've found is that it becomes a bit unmanageable to keep track o
   
 After using it I prefer it over the standard way of deploying it to a Quest in Unity.
   
+###  Sprint 5
+  
+  
+####  Learning Goals
+  
+  
+* By the end of this sprint...
+  I have created a god ray effect in our scene.
+  
+####  Process
+  
+  
+TODO: reasoning
+  
+[Raymarched Volumetric Lighting in Unity URP](https://valeriomarty.medium.com/raymarched-volumetric-lighting-in-unity-urp-e7bc84d31604 )
+  
+[URP Renderer Feature](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/manual/urp-renderer-feature.html )
+  
+[ScriptableRendererFeature API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRendererFeature.html )
+  
+[ScriptableRenderPass API](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@13.1/api/UnityEngine.Rendering.Universal.ScriptableRenderPass.html )
+  
+Start with creating a barebones inheriting class.
+  
+```cs
+using UnityEngine.Rendering.Universal;
+  
+public class VolumetricLightFeature : ScriptableRendererFeature
+{
+    /// <summary>
+    /// Injects one or multiple <see cref="ScriptableRenderPass"/> in the renderer.
+    /// </summary>
+    /// <param name="renderer"> Renderer used for adding render passes.</param>
+    /// <param name="renderingData"> Rendering state. Use this to setup render passes.</param>
+    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
+    {
+  
+    }
+  
+    /// <summary> 
+    /// Initializes this feature's resources. This is called every time serialization happens.
+    /// </summary>
+    public override void Create()
+    {
+  
+    }
+}
+```
+  
+Then create skeleton of pass as nested class.
+  
+```cs
+public class VolumetricLightFeature : ScriptableRendererFeature
+{
+    // ...
+  
+    Pass pass;
+  
+    class Pass : ScriptableRenderPass
+    {
+        /// <summary>
+        /// Execute the pass. This is where custom rendering occurs.
+        /// </summary>
+        /// <param name="context"> Use this render context to issue any draw commands during execution. </param>
+        /// <param name="renderingData"> Current rendering state information.</param>
+        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+        {
+  
+        }
+    }
+}
+```
+  
+settings shared.
+  
+```cs
+public class VolumetricLightFeature : ScriptableRendererFeature
+{
+    // ...
+  
+    public Settings settings = new Settings();
+  
+    [System.Serializable]
+    public class Settings
+    {
+        public Material material;
+        public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingPostProcessing;
+    }
+}
+```
+  
+Now I can see the forward renderer and change settings from the inspector.
+  
+![](../XR%20Development/DocAssets/ForwardRenderer.png?0.0550420782287675 )  
+  
+Now it is time to do basic setup for the pass so that it can be queued.
+  
+```cs
+public class VolumetricLightFeature : ScriptableRendererFeature
+{
+    // ...
+  
+    /// <summary>
+    /// Injects one or multiple <see cref="ScriptableRenderPass"/> in the renderer.
+    /// </summary>
+    /// <param name="renderer"> Renderer used for adding render passes.</param>
+    /// <param name="renderingData"> Rendering state. Use this to setup render passes.</param>
+    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
+    {
+        var cameraColorTargetIdent = renderer.cameraColorTarget;
+        pass.Setup(cameraColorTargetIdent);
+        renderer.EnqueuePass(pass);
+    }
+  
+    /// <summary> 
+    /// Initializes this feature's resources. This is called every time serialization happens.
+    /// </summary>
+    public override void Create()
+    {
+        pass = new Pass("Volumetric Light");
+        name = "Volumetric Light";
+        pass.settings = settings;
+        pass.renderPassEvent = settings.renderPassEvent;
+    }
+  
+    class Pass : ScriptableRenderPass
+    {
+        public Settings settings;
+        private RenderTargetIdentifier source;
+        private string profilerTag;
+  
+        public Pass(string profilerTag)
+        {
+            this.profilerTag = profilerTag;
+        }
+  
+        public void Setup(RenderTargetIdentifier source)
+        {
+            this.source = source;
+        }
+  
+        public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
+        {
+            //R8 has noticeable banding
+            cameraTextureDescriptor.colorFormat = RenderTextureFormat.R16;
+            //we dont need to resolve AA in every single Blit
+            cameraTextureDescriptor.msaaSamples = 1;
+  
+            cmd.GetTemporaryRT(tempTexture.id, cameraTextureDescriptor);
+            ConfigureTarget(tempTexture.Identifier());
+            ConfigureClear(ClearFlag.All, Color.black);
+        }
+  
+        // ...
+    }
+}
+```
   
