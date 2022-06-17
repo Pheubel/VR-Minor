@@ -106,6 +106,8 @@ After everything was done I ended up with a robot that both my team and I were s
 
 #### Process
 
+##### Shader Graph
+
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg)).
 
 @import "./DocAssets/ShaderGraphCompleet.png"
@@ -125,6 +127,8 @@ It can be broken up into three main parts:
 Inside our enviroment we used it to display the safety measures.
 
 @import "../XR Development/DocAssets/hologramPoster.gif"
+
+##### Timeline
 
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
 
@@ -158,6 +162,8 @@ In order to get this effect I tried two approaches:
 1. Use a particle system to simulate the effect.
 2. Set up a system for volumetric lighting.
 
+##### Particle System
+
 For the particle system route I watched ["Simple GODRAY PARTICLE Tutorial (Unity URP)"](https://www.youtube.com/watch?v=kbsd6askiCY&ab_channel=SpeedTutor). It showed me how to set up the particle system to simulate god rays by stretching the particle's sprite, lowering it's opacity, adding a fade in and out and a bit of randomization to give the effect that it is not a static piece.
 
 From a distance the effect is looks nice, it looks good and has the god rays we would like to see.
@@ -169,6 +175,8 @@ The effect does fall apart when the player comes close to the particle system an
 @import "../XR Development/DocAssets/particleGodFails.png"
 
 In the end we decided to not make use of this approach due to the player being able to break the illusion of god rays too easily.
+
+##### Volumetric Lighting
 
 A different option is to make use of volumetric lighting, a post processing effect that smears the light to create the effect shown in the example for god rays.
 

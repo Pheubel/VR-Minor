@@ -28,20 +28,31 @@
   - [Sprint 3](#sprint-3 )
     - [Learning Goals](#learning-goals-2 )
     - [Process](#process-2 )
+      - [Shader Graph](#shader-graph )
+      - [Timeline](#timeline )
   - [Sprint 5](#sprint-5 )
     - [Learning Goals](#learning-goals-3 )
     - [Process](#process-3 )
+      - [Particle System](#particle-system )
+      - [Volumetric Lighting](#volumetric-lighting )
   - [Summary](#summary )
 - [XR Development](#xr-development )
   - [Sprint 3](#sprint-3-1 )
     - [Learning Goals](#learning-goals-4 )
     - [Process](#process-4 )
+      - [Shader Graph](#shader-graph-1 )
+      - [Timeline](#timeline-1 )
+      - [Audio](#audio )
   - [Sprint 4](#sprint-4 )
     - [Learning Goal](#learning-goal )
     - [Process](#process-5 )
+      - [Linear Movement](#linear-movement )
+      - [Manual movement](#manual-movement )
   - [Sprint 5](#sprint-5-1 )
     - [Learning Goals](#learning-goals-5 )
     - [Process](#process-6 )
+      - [Particle System](#particle-system-1 )
+      - [Volumetric Lighting](#volumetric-lighting-1 )
     - [Miscelanious](#miscelanious )
   - [Summary](#summary-1 )
 - [Group Work](#group-work )
@@ -53,6 +64,7 @@
     - [Retrospective](#retrospective-2 )
   - [Sprint 4](#sprint-4-1 )
     - [Retrospective](#retrospective-3 )
+  - [Sprint 5](#sprint-5-2 )
 - [Individual Work](#individual-work )
     - [Individual showcase 1](#individual-showcase-1 )
     - [Individual showcase 2](#individual-showcase-2 )
@@ -71,10 +83,10 @@ The user opperates a time machine boat to save people on the flooding canals of 
 ###  Moodboard
   
 As a theme for the boat i want to have a mix of the past, today and the tomorrow that will never be, steampunk.
-![](Pressure%20Cooker/DocAssets/moodboard.png?0.5398878446103148 )  
+![](Pressure%20Cooker/DocAssets/moodboard.png?0.2946409274544699 )  
 ###  Storyboard
   
-![](Pressure%20Cooker/DocAssets/storyboard.png?0.8368322735174805 )  
+![](Pressure%20Cooker/DocAssets/storyboard.png?0.1707215684946457 )  
 ###  Goal
   
   
@@ -92,29 +104,29 @@ incrementing goals:
 I started with researching the basics of how to use Blender 3, for this I watched the first episode of Blender guru's "Blender 3.0 Beginner Donut Tutorial"<sup>[1](#pc-assets-fn-1 )</sup>. 
   
 After this i messed around in Blender to get a feel for how to use the tools by adding more objects.
-![](Pressure%20Cooker/DocAssets/donut%20modeling.png?0.8912723921948102 )  
+![](Pressure%20Cooker/DocAssets/donut%20modeling.png?0.18803957895319523 )  
   
 I want to use a reference image in Blender, but i have not used them before. After finding an article online<sup>[2](#pc-asset-fn-2 )</sup> i followed the steps shown there to import images for reference use.
   
 I used a reference for a plunger with a good side view.
-![](Pressure%20Cooker/DocAssets/referenceInBlender.png?0.4170011695537228 )  
+![](Pressure%20Cooker/DocAssets/referenceInBlender.png?0.6023208506640767 )  
   
 When i was done i noticed that I had issues with the mesh having dark spots, this was because of faulty normals, I had duplicate vertices that i had to delete. Afterwards my model looked fine.
   
 Later i modeled a steering wheel for my ship. I made use of mirroring to reduce work, but i ran into trouble when dealing with the spokes, as it had overlapping issues. 
-![](Pressure%20Cooker/DocAssets/overlapWheel.png?0.832492036724134 )  
-![](Pressure%20Cooker/DocAssets/overlapWheelWireframe.png?0.4029887732844941 )  
+![](Pressure%20Cooker/DocAssets/overlapWheel.png?0.11482950647733414 )  
+![](Pressure%20Cooker/DocAssets/overlapWheelWireframe.png?0.5820521201637368 )  
   
 After much experimentation i removed the overlaps and was able to export it. By combining the overlaps i was able to make in intermediate shape that i could use to cut out a shape in the spokes and was then able to join them together.
-![](Pressure%20Cooker/DocAssets/overlapIntermediateShape.png?0.41507480687591913 )  
+![](Pressure%20Cooker/DocAssets/overlapIntermediateShape.png?0.3795016898137116 )  
   
 <a name="pc-assets-fn-1">1</a>: "Blender 3.0 Beginner Tutorial - Part 1" - https://www.youtube.com/watch?v=nIoXOplUvAw
 <a name="pc-assets-fn-2">2</a>:  - https://www.makeuseof.com/blender-reference-image-guide/ 
   
 ####  Creation
   
-![](Pressure%20Cooker/DocAssets/modeledPlunger.png?0.24251093877892616 )  
-![](Pressure%20Cooker/DocAssets/texturedWheel.png?0.45131744810855223 )  
+![](Pressure%20Cooker/DocAssets/modeledPlunger.png?0.3004769947332202 )  
+![](Pressure%20Cooker/DocAssets/texturedWheel.png?0.7262179233766315 )  
 ####  Evaluation
   
 I feel that I've made good progress with learning Blender, as i wasn't really skilled with it. I did however spend more time on it than I should have, trying to get things working well, eating away at time that I could've used elsewhere.
@@ -164,27 +176,27 @@ I have rigged a model using Blender to make it easier to animate.
 For this sprint I took it upon myself to create the model for the instructor robot, As I want to improve my Blender skills. 
   
 To begin, our team had created a moodboard for the robot. I used that to create a prototype in blender.
-![](XR%20Assets/DocAssets/RobotMoodboard.jpeg?0.32713998767562735 )  
+![](XR%20Assets/DocAssets/RobotMoodboard.jpeg?0.7097382476339595 )  
   
 First off I made some concepts of the robot's head, I modeled  3 different shapes I envisioned as a possible head.
   
-![](XR%20Assets/DocAssets/robohoofden.PNG?0.05038740337630632 )  
+![](XR%20Assets/DocAssets/robohoofden.PNG?0.476378018814813 )  
   
 After showing it to the rest of my team we settle on going with the head on the right, as it looks like a monitor.
   
 For the body I tried out a different style of shaping the model. First I made a rough shape by extruding and resizing the edges of a cube.
   
-![](XR%20Assets/DocAssets/robo%20lichaam%20base.PNG?0.5151585176208786 )  
+![](XR%20Assets/DocAssets/robo%20lichaam%20base.PNG?0.2561040585039802 )  
   
 Once I had the shape I applied a Subdivision Surface to the mesh, this helped round it out.
   
-![](XR%20Assets/DocAssets/robo%20lichaam%20vervorming.PNG?0.16686626043637198 )  
+![](XR%20Assets/DocAssets/robo%20lichaam%20vervorming.PNG?0.5225760627735572 )  
   
 I made the arms by first creating a few basic shapes and then combining them together into a single mesh with the Boolean modifier on the union setting. This causes the object it filters for to be added to the mesh it was applied on.
   
 I then wanted to add an armature to the robot, I followed the steps in https://en.wikibooks.org/wiki/Blender_3D:_Noob_to_Pro/Bones, I added bones starting from the main body and alligned them with the joints of the robot.
   
-![](XR%20Assets/DocAssets/Robotbones.PNG?0.7109451439865098 )  
+![](XR%20Assets/DocAssets/Robotbones.PNG?0.28320485951551744 )  
   
 ###  Sprint 2
   
@@ -199,37 +211,37 @@ I then wanted to add an armature to the robot, I followed the steps in https://e
   
 In this sprint our team has finalized the design of the robot assistent, and I have been itterating over how to make it. For the new design we went with a less humanized look.
   
-<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketch.png?0.823494113239488"  width="300" >
-<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketchSide.png?0.07314174920857441"  width="300" >
-<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketchFront.jpg?0.5270021290054159"  width="300" >
+<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketch.png?0.9935920476491211"  width="300" >
+<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketchSide.png?0.25605785442402684"  width="300" >
+<img src="XR%20Assets/DocAssets/Sprint2/RobotAssistentSketchFront.jpg?0.1570754758564259"  width="300" >
   
 I mocked together the head using basic object shapes and morphing their size a bit, I then combined them with boolean modifiers to get a nice looking shape. However, once I wanted to smooth the model I ran into issues, as it did not want to properly smooth the full head. Things looked worse when I wanted to UV unwrap the head, the vertices were all over the place. I inspected the model closer and found that there were stray vertices inside the head causing bad geometry. The boolean modifiers had left behind artifacts that were annoying to deal with. The best option for me was to start over with a new head and try to create the lense in a different way.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotOops.png?0.007676790307693082 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotOops.png?0.37990057886422335 )  
   
 I started over with a cube once again and beveled it to make the edges smoother. For the lense I tried out a plug-in built into blender: "Edge Loops", it allowed me to transform the edges I selected into a circular shape. Once I changed the edges I could extrude the faces for the lense and went on from there. Once I was done I noticed that when I applied the smooth shading it would cause the lense to be smoothed against the robot head, but I wanted the lense to clearly be a separate part. In order to achieve this I had to mark the edges around the lense as sharp, I  then had to add the edge split modifier in order to make the normals behave like the faces were not connected on the edges.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotSharp.png?0.79717436947495 )  
-![](XR%20Assets/DocAssets/Sprint2/RobotSharpWire.png?0.8773299667451591 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotSharp.png?0.21463161684561793 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotSharpWire.png?0.6799601286816481 )  
   
 Once I was done with making the lense I showed the robot head to the rest of my team for feedback. I continued to make changes based on the feedback until we were satisfied with the profile of the robot assistant.
   
-![](XR%20Assets/DocAssets/Sprint2/Lens1.png?0.7126051908825382 )  
-![](XR%20Assets/DocAssets/Sprint2/Lens2.png?0.6266645149312908 )  
+![](XR%20Assets/DocAssets/Sprint2/Lens1.png?0.9708469363011258 )  
+![](XR%20Assets/DocAssets/Sprint2/Lens2.png?0.16463893500142546 )  
   
-![](XR%20Assets/DocAssets/Sprint2/RobotNewLens.png?0.5072973481699765 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotNewLens.png?0.1884934766819173 )  
   
 For the wheel I started with a cylinder and applied loop cuts. I then rotated a loop and selected faces to extrude the profile of wheel. I then applied a subdivion service to the mesh to make it more smooth and round.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel1.png?0.027860540232541364 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel1.png?0.9392237561190186 )  
   
 After the first wheel prototype was made it was clear that it's geometry would be both too heavy and problematic for shading. Instead of starting with a cylinder I tried out a different approach, I started with a cube and made it round. I was able to do this by selecting the edges I want to make round and applying a transform to sphere, this modified the edges to form a circle. I then gave it a curve to make it feel more like a tire. This seemed to work at first but when inspecting the wheel up close I noticed that the face had problems with rendering properly.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel2Oof.png?0.6595508075114527 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel2Oof.png?0.7262325854315801 )  
   
 When I inspected the edges I saw that the problem happened with faces where the vertices are not on the same plane, causing a folding effect.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel2OofWire.png?0.5179588996710405 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotAssistentWheel2OofWire.png?0.7317737279503698 )  
   
 I decided to throw away the wheel again and start fresh by using a sphere, the reasoning behind it was that it was already curved in two axes and thus felt more intuitive for me to deform into a wheel. This had the desired effect of having a nice looking wheel.
   
@@ -237,11 +249,11 @@ UV mapping the robot was quite the time sink, as there is not one solution for l
   
 Once I was finished with UV mapping I had to texture the robot, I had two options, using a 3rd party tool to create a texture or use the 3d texture tool in Blender. I had to use a little trial and error to get it working, but I was able to figure out how to apply color to my model. I first had to create a new image in the UV editor, then I had to apply that material to the objects I wanted to paint. I was then able to paint directly onto the model, which felt quite intuitive to me. After more trial and error I discorvered that I was able to mask off parts of the mesh by pressing the "paint mask" button and then I was able to manipulate the mask in the "Select menu", this gave me a lot of control over which faces I want to paint.
   
-![](XR%20Assets/DocAssets/Sprint2/PaintMask.png?0.9784499212310154 )  
+![](XR%20Assets/DocAssets/Sprint2/PaintMask.png?0.989804744655342 )  
   
 After everything was done I ended up with a robot that both my team and I were satisfied with.
   
-![](XR%20Assets/DocAssets/Sprint2/RobotDone.png?0.5914544954629646 )  
+![](XR%20Assets/DocAssets/Sprint2/RobotDone.png?0.698864097180723 )  
   
 ###  Sprint 3
   
@@ -254,16 +266,19 @@ After everything was done I ended up with a robot that both my team and I were s
 ####  Process
   
   
+#####  Shader Graph
+  
+  
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg )).
   
-![](XR%20Assets/DocAssets/ShaderGraphCompleet.png?0.9326511043185648 )  
+![](XR%20Assets/DocAssets/ShaderGraphCompleet.png?0.9291508953754481 )  
 After I had lines and emmission working after the tutorial I decided I wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
   
-![](XR%20Development/DocAssets/ShaderGraphExtra.png?0.9608921466106972 )  
+![](XR%20Development/DocAssets/ShaderGraphExtra.png?0.20495932330241717 )  
   
 To better illustrate how the dithering works I will explain how each part works
   
-![](XR%20Development/DocAssets/dithering.png?0.44538121355381155 )  
+![](XR%20Development/DocAssets/dithering.png?0.05861208897429204 )  
   
 It can be broken up into three main parts:
 1. The nodes in the purple part represent the offset input, it uses the play time to to create an offset to be passed noise pattern.
@@ -272,7 +287,10 @@ It can be broken up into three main parts:
   
 Inside our enviroment we used it to display the safety measures.
   
-![](XR%20Development/DocAssets/hologramPoster.gif?0.5343228356117824 )  
+![](XR%20Development/DocAssets/hologramPoster.gif?0.427387158415786 )  
+  
+#####  Timeline
+  
   
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
   
@@ -302,24 +320,30 @@ With this we are able to create long running cutscenes that serve as guide for o
   
 For our experience we wanted to see if we can add "god rays" to get a more spacious feeling as part of the extra touch ups we wanted to do with our left over time in the final sprint.
   
-![](XR%20Development/DocAssets/god%20rays.png?0.6087177667237456 )  
+![](XR%20Development/DocAssets/god%20rays.png?0.1176306588844711 )  
 (example of god rays)
   
 In order to get this effect I tried two approaches:
 1. Use a particle system to simulate the effect.
 2. Set up a system for volumetric lighting.
   
+#####  Particle System
+  
+  
 For the particle system route I watched ["Simple GODRAY PARTICLE Tutorial (Unity URP)"](https://www.youtube.com/watch?v=kbsd6askiCY&ab_channel=SpeedTutor ). It showed me how to set up the particle system to simulate god rays by stretching the particle's sprite, lowering it's opacity, adding a fade in and out and a bit of randomization to give the effect that it is not a static piece.
   
 From a distance the effect is looks nice, it looks good and has the god rays we would like to see.
   
-![](XR%20Development/DocAssets/particleGodRays.png?0.3649592764859184 )  
+![](XR%20Development/DocAssets/particleGodRays.png?0.3674396487850493 )  
   
 The effect does fall apart when the player comes close to the particle system and looks staight into the beams, it makes them feel out of place and removes a lot of the effect.
   
-![](XR%20Development/DocAssets/particleGodFails.png?0.6696100746392408 )  
+![](XR%20Development/DocAssets/particleGodFails.png?0.6273525807037106 )  
   
 In the end we decided to not make use of this approach due to the player being able to break the illusion of god rays too easily.
+  
+#####  Volumetric Lighting
+  
   
 A different option is to make use of volumetric lighting, a post processing effect that smears the light to create the effect shown in the example for god rays.
   
@@ -334,26 +358,26 @@ Inside of the render pass there was a lot of usage of the `CommandBuffer.Blit` f
   
 In the process of getting the effect to work I did encounter some trouble.
   
-![](XR%20Development/DocAssets/volumetricFailOne.png?0.3211727907154378 )  
+![](XR%20Development/DocAssets/volumetricFailOne.png?0.9238227694103416 )  
   
-![](XR%20Development/DocAssets/volumetricFailTwo.png?0.5303782814104623 )  
+![](XR%20Development/DocAssets/volumetricFailTwo.png?0.5357857671568533 )  
   
 (some failed attempts at getting the shader to work properly)
   
 After getting help from Chris Lokhorst, who has made a volumetric lighting effect in his project using the same blog, I was able to get the effect working. There are beams that are being cast when looking at objects that stand between you and the directional light's beam.
   
-![](XR%20Development/DocAssets/succes.png?0.049960475976837726 )  
+![](XR%20Development/DocAssets/succes.png?0.4954210647942934 )  
   
 The effect looked great on the computer, however when I decided to try it out in VR I was surprised to see that the left eye was black and the other eye was gray.
   
-![](XR%20Development/DocAssets/whut.png?0.4566560983290002 )  
+![](XR%20Development/DocAssets/whut.png?0.16073475725575204 )  
 (a visual representation of what I saw in the quest)
   
 After looking through the Unity forums the reason I get this behavior is because the `CommandBuffer.Blit()` function messes up preprocessors in the shader when rendering with single pass instanced. To get rid of this issue I needed to make sure that I was rendering with `multi pass`. After trying it out in VR it seemed to work like it did on PC.
   
 When I tried it out in our main scene I encountered another issue: There was only the volumetric lighting, but with no god rays to be seen.
   
-![](XR%20Development/DocAssets/howDidThisHappen.png?0.9534909186088167 )  
+![](XR%20Development/DocAssets/howDidThisHappen.png?0.9575851721790885 )  
   
 I tried to see what could have caused this difference to happen between my test scene and our main scene. However due to the large difference I could not come up with a solution and after talking to my team we decided that this task would be left undone for now so that I can focus on the other tasks left to be done.
   
@@ -395,16 +419,19 @@ Having learnt about  volumetric lighting I've gotten a better insight about how 
 ####  Process
   
   
+#####  Shader Graph
+  
+  
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg )).
   
-![](XR%20Assets/DocAssets/ShaderGraphCompleet.png?0.9326511043185648 )  
+![](XR%20Assets/DocAssets/ShaderGraphCompleet.png?0.9291508953754481 )  
 After I had lines and emmission working after the tutorial I decided I wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
   
-![](XR%20Development/DocAssets/ShaderGraphExtra.png?0.04705197223537794 )  
+![](XR%20Development/DocAssets/ShaderGraphExtra.png?0.6973828591988258 )  
   
 To better illustrate how the dithering works I will explain how each part works
   
-![](XR%20Development/DocAssets/dithering.png?0.549583370181387 )  
+![](XR%20Development/DocAssets/dithering.png?0.7139805487325752 )  
   
 It can be broken up into three main parts:
 1. The nodes in the purple part represent the offset input, it uses the play time to to create an offset to be passed noise pattern.
@@ -413,7 +440,10 @@ It can be broken up into three main parts:
   
 Inside our enviroment we used it to display the safety measures.
   
-![](XR%20Development/DocAssets/hologramPoster.gif?0.8604889348856033 )  
+![](XR%20Development/DocAssets/hologramPoster.gif?0.8054414738174431 )  
+  
+#####  Timeline
+  
   
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
   
@@ -480,10 +510,10 @@ public sealed class IntSignalEmitter : ParameterizedSignalEmitter<int>
 ```
   
 I can now add this emitter on my signal track.
-![](XR%20Development/DocAssets/addSignalEmitter.png?0.8097567109878208 )  
+![](XR%20Development/DocAssets/addSignalEmitter.png?0.7237453170553729 )  
   
 Once I placed my signal on the track I can now pass a parameter that will be given to the receiver.
-![](XR%20Development/DocAssets/signalData.png?0.5412208556814235 )  
+![](XR%20Development/DocAssets/signalData.png?0.5993314898146618 )  
   
 Now to set up my receiver I do the same step as with the emitter, but inherit from `ParameterizedSignalReceiver<T>` instead.
 ```cs
@@ -495,6 +525,9 @@ public sealed class IntSignalReceiver : ParameterizedSignalReceiver<int>
 I can now add it to an object and set a filter for a specific signal and select which fuction should be called. In order for the parameter to be passed to the function it needs to be a dynamically bound function, for statically bound functions you would add the function argument in the inspector itself on the event. 
   
 This gave us the flexibility we needed, but I do feel like there is more to be learned about the timeline asset. It is possible to create your own tracks, but I have not looked at it enough to be able to use it. One possible use for this could be to separate the different signal types, as now it can become cluttered with two or more signals overlap, making it less clear what is going on.
+  
+#####  Audio
+  
   
 I don't have too much experience with audio in Unity and wanted to know more about how to have finer control over the sounds being played. To begin I watched "[What you NEED to know about game audio as a beginner in 2021! Unity3d](https://www.youtube.com/watch?v=B9yxkJuHLek )" and found out about mixers in Unity. They allow for the sounds to be played in a specific channel which can then be adjusted individually, for example the volume for sound effects could be changed while leaving the sounds for character voices as is.
   
@@ -510,7 +543,7 @@ I looked for a possible alternative and came across FMOD, a tool that can be use
   
 I was able to recreate the effects I made myself in Unity preatty easily, as in FMOD you can use a multi instrument clip to pick a random one each time it plays and have looping parts in a clip with a loop region in a logic track.
   
-![](XR%20Development/DocAssets/fmodLoop.png?0.8001646441824863 )  
+![](XR%20Development/DocAssets/fmodLoop.png?0.9529385361115728 )  
   
 To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then I have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
   
@@ -536,6 +569,9 @@ I have created and deployed a build to a quest to play it stand alone from a com
   
   
 To assist in teaching the controls of the robot arm we want to have the user try to move the robot arm part by part so that they can get a feel for how they need to move the stick to move a specific axis of the robot arm.
+  
+#####  Linear Movement
+  
   
 For linear movement we want the position of the end effector to move to a certain spot.
   
@@ -574,6 +610,9 @@ public class OnTriggerColliderFilter : MonoBehaviour
     <source src="XR Development/DocAssets/Goal Example.mp4" type="video/mp4">
   </video>
 </figure>
+  
+#####  Manual movement
+  
   
 For the manual movent, where the user moves each axis individually, we want to have each axis to one by one show how they have to be rotated. To do this I added a holographic copy of the part.
   
@@ -618,7 +657,7 @@ public class TutorialGoalRotation : MonoBehaviour
   
 With this I can set what axis of the robot arm I want to track, what it's end rotation should be and how long it has to stay in that position before moving on to the next rotation.
   
-![](XR%20Development/DocAssets/rotationInspector.png?0.16367381053761587 )  
+![](XR%20Development/DocAssets/rotationInspector.png?0.32360103367272663 )  
   
 In order to have the hologram be in the right position I set the local rotation to the target rotation in the `Update` function.
   
@@ -645,11 +684,11 @@ currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.l
   
 Now I can showcase the rotation per axis one after each other.
   
-![](XR%20Development/DocAssets/rotatebase.png?0.7912380917695643 )  
+![](XR%20Development/DocAssets/rotatebase.png?0.1438146261300115 )  
   
-![](XR%20Development/DocAssets/rotatebasearm.png?0.5274166336396731 )  
+![](XR%20Development/DocAssets/rotatebasearm.png?0.4285496602312282 )  
   
-![](XR%20Development/DocAssets/rotateend.png?0.0792829216253974 )  
+![](XR%20Development/DocAssets/rotateend.png?0.8391576557028959 )  
   
 However if the user manages to put the robot arm in such a position that they are stuck, we want them to be able to reset the position of all axes to the current step so they can try again.
   
@@ -710,24 +749,30 @@ After using it I prefer it over the standard way of deploying it to a Quest in U
   
 For our experience we wanted to see if we can add "god rays" to get a more spacious feeling as part of the extra touch ups we wanted to do with our left over time in the final sprint.
   
-![](XR%20Development/DocAssets/god%20rays.png?0.9221089478819033 )  
+![](XR%20Development/DocAssets/god%20rays.png?0.8036448316953537 )  
 (example of god rays)
   
 In order to get this effect I tried two approaches:
 1. Use a particle system to simulate the effect.
 2. Set up a system for volumetric lighting.
   
+#####  Particle System
+  
+  
 For the particle system route I watched ["Simple GODRAY PARTICLE Tutorial (Unity URP)"](https://www.youtube.com/watch?v=kbsd6askiCY&ab_channel=SpeedTutor ). It showed me how to set up the particle system to simulate god rays by stretching the particle's sprite, lowering it's opacity, adding a fade in and out and a bit of randomization to give the effect that it is not a static piece.
   
 From a distance the effect is looks nice, it looks good and has the god rays we would like to see.
   
-![](XR%20Development/DocAssets/particleGodRays.png?0.8866325741374821 )  
+![](XR%20Development/DocAssets/particleGodRays.png?0.27370576442850525 )  
   
 The effect does fall apart when the player comes close to the particle system and looks staight into the beams, it makes them feel out of place and removes a lot of the effect.
   
-![](XR%20Development/DocAssets/particleGodFails.png?0.9475408775742866 )  
+![](XR%20Development/DocAssets/particleGodFails.png?0.19483610721861222 )  
   
 In the end we decided to not make use of this approach due to the player being able to break the illusion of god rays too easily.
+  
+#####  Volumetric Lighting
+  
   
 A different option is to make use of volumetric lighting, a post processing effect that smears the light to create the effect shown in the example for god rays.
   
@@ -742,26 +787,26 @@ Inside of the render pass there was a lot of usage of the `CommandBuffer.Blit` f
   
 In the process of getting the effect to work I did encounter some trouble.
   
-![](XR%20Development/DocAssets/volumetricFailOne.png?0.7586896206796636 )  
+![](XR%20Development/DocAssets/volumetricFailOne.png?0.29962876218826495 )  
   
-![](XR%20Development/DocAssets/volumetricFailTwo.png?0.7065760513237449 )  
+![](XR%20Development/DocAssets/volumetricFailTwo.png?0.1111495947130654 )  
   
 (some failed attempts at getting the shader to work properly)
   
 After getting help from Chris Lokhorst, who has made a volumetric lighting effect in his project using the same blog, I was able to get the effect working. There are beams that are being cast when looking at objects that stand between you and the directional light's beam.
   
-![](XR%20Development/DocAssets/succes.png?0.060878094894854184 )  
+![](XR%20Development/DocAssets/succes.png?0.0804670175300568 )  
   
 The effect looked great on the computer, however when I decided to try it out in VR I was surprised to see that the left eye was black and the other eye was gray.
   
-![](XR%20Development/DocAssets/whut.png?0.514762547188583 )  
+![](XR%20Development/DocAssets/whut.png?0.39084201161140353 )  
 (a visual representation of what I saw in the quest)
   
 After looking through the Unity forums the reason I get this behavior is because the `CommandBuffer.Blit()` function messes up preprocessors in the shader when rendering with single pass instanced. To get rid of this issue I needed to make sure that I was rendering with `multi pass`. After trying it out in VR it seemed to work like it did on PC.
   
 When I tried it out in our main scene I encountered another issue: There was only the volumetric lighting, but with no god rays to be seen.
   
-![](XR%20Development/DocAssets/howDidThisHappen.png?0.6950627852878237 )  
+![](XR%20Development/DocAssets/howDidThisHappen.png?0.8445562909540407 )  
   
 I tried to see what could have caused this difference to happen between my test scene and our main scene. However due to the large difference I could not come up with a solution and after talking to my team we decided that this task would be left undone for now so that I can focus on the other tasks left to be done.
   
@@ -772,7 +817,7 @@ During this sprint I want to improve on the quality of code delivered, this can 
   
 With the time we had left for the experience we wanted tosee if we could add more content for when the training is complete. 
   
-![](XR%20Development/DocAssets/offboarding.png?0.678610518374015 )  
+![](XR%20Development/DocAssets/offboarding.png?0.7317259346179246 )  
   
 I decided to make the minigame and was able to finish it within the deadline we set for ourself.
   
@@ -803,45 +848,58 @@ Having learnt about  volumetric lighting I've gotten a better insight about how 
 ###  Sprint 1
   
   
+In this sprint I got introduced to the team, I focused mostly on asset creation and asked for feedback on my design.
+  
 ####  Retrospective
   
-![](Group%20Work/DocAssets/sprint1like.png?0.9730489129715105 )  
-![](Group%20Work/DocAssets/sprint1learnt.png?0.581775516416706 )  
-![](Group%20Work/DocAssets/sprint1lacked.png?0.7245145833866873 )  
-![](Group%20Work/DocAssets/sprint1actions.png?0.34252303569783904 )  
+![](Group%20Work/DocAssets/sprint1like.png?0.48899842718949293 )  
+![](Group%20Work/DocAssets/sprint1learnt.png?0.581652918179683 )  
+![](Group%20Work/DocAssets/sprint1lacked.png?0.23442469061957594 )  
+![](Group%20Work/DocAssets/sprint1actions.png?0.3713211975605659 )  
   
 ###  Sprint 2
   
   
+In this sprint I've become more at ease with the rest of the team, we've worked together more and I've asked for more feedback in between working on the robot assistant for it's current look and feel.
+  
 ####  Retrospective
   
-![](Group%20Work/DocAssets/sprint2continue.png?0.3787440723453359 )  
-![](Group%20Work/DocAssets/sprint2stop.png?0.7798718144176726 )  
-![](Group%20Work/DocAssets/sprint2invent.png?0.042286238407344134 )  
-![](Group%20Work/DocAssets/sprint2act.png?0.2258795446936397 )  
-![](Group%20Work/DocAssets/sprint2actions.png?0.09443082435791017 )  
+![](Group%20Work/DocAssets/sprint2continue.png?0.9122501064642758 )  
+![](Group%20Work/DocAssets/sprint2stop.png?0.6560121856017505 )  
+![](Group%20Work/DocAssets/sprint2invent.png?0.1015386989002176 )  
+![](Group%20Work/DocAssets/sprint2act.png?0.44994757190856705 )  
+![](Group%20Work/DocAssets/sprint2actions.png?0.08894997652699543 )  
   
 ###  Sprint 3
   
   
+At the end of the sprint we decided to split the team in two, I assisted Esther and Carmen with setting up the onboarding with the knowledge I got from researching the timeline asset.
+  
 ####  Retrospective
   
-![](Group%20Work/DocAssets/sprint3continue.png?0.9997862419373786 )  
-![](Group%20Work/DocAssets/sprint3stop.png?0.5620508679412588 )  
-![](Group%20Work/DocAssets/sprint3invent.png?0.06625895243824331 )  
-![](Group%20Work/DocAssets/sprint3act.png?0.5776237308957768 )  
-![](Group%20Work/DocAssets/sprint3actions.png?0.31588254308112185 )  
+![](Group%20Work/DocAssets/sprint3continue.png?0.3994479196419829 )  
+![](Group%20Work/DocAssets/sprint3stop.png?0.6240395229658693 )  
+![](Group%20Work/DocAssets/sprint3invent.png?0.24046155999106622 )  
+![](Group%20Work/DocAssets/sprint3act.png?0.025538878875580817 )  
+![](Group%20Work/DocAssets/sprint3actions.png?0.7433327346332377 )  
   
 ###  Sprint 4
   
   
+In this sprint I sat with Chris to implement the behavior for the robot arm training while I helped out keafer with the timeline when he asked for my help.
+  
 ####  Retrospective
   
-![](Group%20Work/DocAssets/sprint4continue.png?0.8110565005982564 )  
-![](Group%20Work/DocAssets/sprint4stop.png?0.9734951734035275 )  
-![](Group%20Work/DocAssets/sprint4invent.png?0.15314496384784704 )  
-![](Group%20Work/DocAssets/sprint4act.png?0.3261302176384999 )  
-![](Group%20Work/DocAssets/sprint4actions.png?0.17769245486986818 )  
+![](Group%20Work/DocAssets/sprint4continue.png?0.3964032310597416 )  
+![](Group%20Work/DocAssets/sprint4stop.png?0.6775638415803944 )  
+![](Group%20Work/DocAssets/sprint4invent.png?0.5537654486498333 )  
+![](Group%20Work/DocAssets/sprint4act.png?0.5051109352964669 )  
+![](Group%20Work/DocAssets/sprint4actions.png?0.8983647718384622 )  
+  
+###  Sprint 5
+  
+  
+After hard work together our project is nearly done, we've sat together with everything we still want to get made. In order to get volumetric lighting to work I got assistance from Chris Lokhorst from Astra. I continued to work with keafer to assist with the timeline and sat with Chris Mallet to make sure my code's quality was in order.
   
   
   

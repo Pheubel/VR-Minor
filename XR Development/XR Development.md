@@ -19,6 +19,8 @@ export_on_save:
 
 #### Process
 
+##### Shader Graph
+
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg)).
 
 @import "./DocAssets/ShaderGraphCompleet.png"
@@ -38,6 +40,8 @@ It can be broken up into three main parts:
 Inside our enviroment we used it to display the safety measures.
 
 @import "./DocAssets/hologramPoster.gif"
+
+##### Timeline
 
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
 
@@ -85,6 +89,8 @@ I can now add it to an object and set a filter for a specific signal and select 
 
 This gave us the flexibility we needed, but I do feel like there is more to be learned about the timeline asset. It is possible to create your own tracks, but I have not looked at it enough to be able to use it. One possible use for this could be to separate the different signal types, as now it can become cluttered with two or more signals overlap, making it less clear what is going on.
 
+##### Audio
+
 I don't have too much experience with audio in Unity and wanted to know more about how to have finer control over the sounds being played. To begin I watched "[What you NEED to know about game audio as a beginner in 2021! Unity3d](https://www.youtube.com/watch?v=B9yxkJuHLek)" and found out about mixers in Unity. They allow for the sounds to be played in a specific channel which can then be adjusted individually, for example the volume for sound effects could be changed while leaving the sounds for character voices as is.
 
 Now I wanted to add some simple systems to get more out of my sounds by either playing a random one from a select list or by looping a specific part of the clip.
@@ -123,6 +129,8 @@ I have created and deployed a build to a quest to play it stand alone from a com
 
 To assist in teaching the controls of the robot arm we want to have the user try to move the robot arm part by part so that they can get a feel for how they need to move the stick to move a specific axis of the robot arm.
 
+##### Linear Movement
+
 For linear movement we want the position of the end effector to move to a certain spot.
 
 To do this I made use of empty game objects with a sphere collider set to triggers to detect that it has entered the collider, however I want to be able to specify which specific collider of the robot arm I want to be detected. To do this I made a small script that acts as a filter for triggers.
@@ -160,6 +168,8 @@ public class OnTriggerColliderFilter : MonoBehaviour
     <source src="XR Development/DocAssets/Goal Example.mp4" type="video/mp4">
   </video>
 </figure>
+
+##### Manual movement
 
 For the manual movent, where the user moves each axis individually, we want to have each axis to one by one show how they have to be rotated. To do this I added a holographic copy of the part.
 
@@ -300,6 +310,8 @@ In order to get this effect I tried two approaches:
 1. Use a particle system to simulate the effect.
 2. Set up a system for volumetric lighting.
 
+##### Particle System
+
 For the particle system route I watched ["Simple GODRAY PARTICLE Tutorial (Unity URP)"](https://www.youtube.com/watch?v=kbsd6askiCY&ab_channel=SpeedTutor). It showed me how to set up the particle system to simulate god rays by stretching the particle's sprite, lowering it's opacity, adding a fade in and out and a bit of randomization to give the effect that it is not a static piece.
 
 From a distance the effect is looks nice, it looks good and has the god rays we would like to see.
@@ -311,6 +323,8 @@ The effect does fall apart when the player comes close to the particle system an
 @import "./DocAssets/particleGodFails.png"
 
 In the end we decided to not make use of this approach due to the player being able to break the illusion of god rays too easily.
+
+##### Volumetric Lighting
 
 A different option is to make use of volumetric lighting, a post processing effect that smears the light to create the effect shown in the example for god rays.
 
