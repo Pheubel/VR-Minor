@@ -164,7 +164,7 @@ public class OnTriggerColliderFilter : MonoBehaviour
 ```
 
 <figure class="video_container">
-  <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png" width="100%">
+  <video controls="true" allowfullscreen="true" poster="assets/poster.png" width="100%">
     <source src="XR Development/DocAssets/Goal Example.mp4" type="video/mp4">
   </video>
 </figure>

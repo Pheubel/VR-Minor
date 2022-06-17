@@ -17,16 +17,19 @@
 ####  Process
   
   
+#####  Shader Graph
+  
+  
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg )).
   
-![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.3948367883546333 )  
+![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.8177450250169103 )  
 After I had lines and emmission working after the tutorial I decided I wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
   
-![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.9654283165530622 )  
+![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.968154101724015 )  
   
 To better illustrate how the dithering works I will explain how each part works
   
-![](../XR%20Development/DocAssets/dithering.png?0.37116870899428833 )  
+![](../XR%20Development/DocAssets/dithering.png?0.29188506874134523 )  
   
 It can be broken up into three main parts:
 1. The nodes in the purple part represent the offset input, it uses the play time to to create an offset to be passed noise pattern.
@@ -35,7 +38,10 @@ It can be broken up into three main parts:
   
 Inside our enviroment we used it to display the safety measures.
   
-![](../XR%20Development/DocAssets/hologramPoster.gif?0.7156466390414149 )  
+![](../XR%20Development/DocAssets/hologramPoster.gif?0.09131844807589085 )  
+  
+#####  Timeline
+  
   
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
   
@@ -102,10 +108,10 @@ public sealed class IntSignalEmitter : ParameterizedSignalEmitter<int>
 ```
   
 I can now add this emitter on my signal track.
-![](../XR%20Development/DocAssets/addSignalEmitter.png?0.46131808970121324 )  
+![](../XR%20Development/DocAssets/addSignalEmitter.png?0.22073607396005213 )  
   
 Once I placed my signal on the track I can now pass a parameter that will be given to the receiver.
-![](../XR%20Development/DocAssets/signalData.png?0.11328778982785215 )  
+![](../XR%20Development/DocAssets/signalData.png?0.8374432295099123 )  
   
 Now to set up my receiver I do the same step as with the emitter, but inherit from `ParameterizedSignalReceiver<T>` instead.
 ```cs
@@ -117,6 +123,9 @@ public sealed class IntSignalReceiver : ParameterizedSignalReceiver<int>
 I can now add it to an object and set a filter for a specific signal and select which fuction should be called. In order for the parameter to be passed to the function it needs to be a dynamically bound function, for statically bound functions you would add the function argument in the inspector itself on the event. 
   
 This gave us the flexibility we needed, but I do feel like there is more to be learned about the timeline asset. It is possible to create your own tracks, but I have not looked at it enough to be able to use it. One possible use for this could be to separate the different signal types, as now it can become cluttered with two or more signals overlap, making it less clear what is going on.
+  
+#####  Audio
+  
   
 I don't have too much experience with audio in Unity and wanted to know more about how to have finer control over the sounds being played. To begin I watched "[What you NEED to know about game audio as a beginner in 2021! Unity3d](https://www.youtube.com/watch?v=B9yxkJuHLek )" and found out about mixers in Unity. They allow for the sounds to be played in a specific channel which can then be adjusted individually, for example the volume for sound effects could be changed while leaving the sounds for character voices as is.
   
@@ -132,7 +141,7 @@ I looked for a possible alternative and came across FMOD, a tool that can be use
   
 I was able to recreate the effects I made myself in Unity preatty easily, as in FMOD you can use a multi instrument clip to pick a random one each time it plays and have looping parts in a clip with a loop region in a logic track.
   
-![](../XR%20Development/DocAssets/fmodLoop.png?0.6038889817443682 )  
+![](../XR%20Development/DocAssets/fmodLoop.png?0.6079458544311689 )  
   
 To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then I have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
   
@@ -158,6 +167,9 @@ I have created and deployed a build to a quest to play it stand alone from a com
   
   
 To assist in teaching the controls of the robot arm we want to have the user try to move the robot arm part by part so that they can get a feel for how they need to move the stick to move a specific axis of the robot arm.
+  
+#####  Linear Movement
+  
   
 For linear movement we want the position of the end effector to move to a certain spot.
   
@@ -192,10 +204,13 @@ public class OnTriggerColliderFilter : MonoBehaviour
 ```
   
 <figure class="video_container">
-  <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png" width="100%">
+  <video controls="true" allowfullscreen="true" poster="assets/poster.png" width="100%">
     <source src="XR Development/DocAssets/Goal Example.mp4" type="video/mp4">
   </video>
 </figure>
+  
+#####  Manual movement
+  
   
 For the manual movent, where the user moves each axis individually, we want to have each axis to one by one show how they have to be rotated. To do this I added a holographic copy of the part.
   
@@ -240,7 +255,7 @@ public class TutorialGoalRotation : MonoBehaviour
   
 With this I can set what axis of the robot arm I want to track, what it's end rotation should be and how long it has to stay in that position before moving on to the next rotation.
   
-![](../XR%20Development/DocAssets/rotationInspector.png?0.4606022771665601 )  
+![](../XR%20Development/DocAssets/rotationInspector.png?0.6817467078911796 )  
   
 In order to have the hologram be in the right position I set the local rotation to the target rotation in the `Update` function.
   
@@ -267,11 +282,11 @@ currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.l
   
 Now I can showcase the rotation per axis one after each other.
   
-![](../XR%20Development/DocAssets/rotatebase.png?0.43722432880878603 )  
+![](../XR%20Development/DocAssets/rotatebase.png?0.2302864863608074 )  
   
-![](../XR%20Development/DocAssets/rotatebasearm.png?0.8336497319068341 )  
+![](../XR%20Development/DocAssets/rotatebasearm.png?0.5721522597780639 )  
   
-![](../XR%20Development/DocAssets/rotateend.png?0.10500760395078612 )  
+![](../XR%20Development/DocAssets/rotateend.png?0.6768847730792975 )  
   
 However if the user manages to put the robot arm in such a position that they are stuck, we want them to be able to reset the position of all axes to the current step so they can try again.
   
@@ -332,24 +347,30 @@ After using it I prefer it over the standard way of deploying it to a Quest in U
   
 For our experience we wanted to see if we can add "god rays" to get a more spacious feeling as part of the extra touch ups we wanted to do with our left over time in the final sprint.
   
-![](../XR%20Development/DocAssets/god%20rays.png?0.9944170942065929 )  
+![](../XR%20Development/DocAssets/god%20rays.png?0.6162533326752917 )  
 (example of god rays)
   
 In order to get this effect I tried two approaches:
 1. Use a particle system to simulate the effect.
 2. Set up a system for volumetric lighting.
   
+#####  Particle System
+  
+  
 For the particle system route I watched ["Simple GODRAY PARTICLE Tutorial (Unity URP)"](https://www.youtube.com/watch?v=kbsd6askiCY&ab_channel=SpeedTutor ). It showed me how to set up the particle system to simulate god rays by stretching the particle's sprite, lowering it's opacity, adding a fade in and out and a bit of randomization to give the effect that it is not a static piece.
   
 From a distance the effect is looks nice, it looks good and has the god rays we would like to see.
   
-![](../XR%20Development/DocAssets/particleGodRays.png?0.9168115923084856 )  
+![](../XR%20Development/DocAssets/particleGodRays.png?0.11078431310091785 )  
   
 The effect does fall apart when the player comes close to the particle system and looks staight into the beams, it makes them feel out of place and removes a lot of the effect.
   
-![](../XR%20Development/DocAssets/particleGodFails.png?0.48469166839457856 )  
+![](../XR%20Development/DocAssets/particleGodFails.png?0.9146945978131313 )  
   
 In the end we decided to not make use of this approach due to the player being able to break the illusion of god rays too easily.
+  
+#####  Volumetric Lighting
+  
   
 A different option is to make use of volumetric lighting, a post processing effect that smears the light to create the effect shown in the example for god rays.
   
@@ -364,26 +385,26 @@ Inside of the render pass there was a lot of usage of the `CommandBuffer.Blit` f
   
 In the process of getting the effect to work I did encounter some trouble.
   
-![](../XR%20Development/DocAssets/volumetricFailOne.png?0.8229621965675096 )  
+![](../XR%20Development/DocAssets/volumetricFailOne.png?0.10367416450600553 )  
   
-![](../XR%20Development/DocAssets/volumetricFailTwo.png?0.570216208348038 )  
+![](../XR%20Development/DocAssets/volumetricFailTwo.png?0.9799567509854035 )  
   
 (some failed attempts at getting the shader to work properly)
   
 After getting help from Chris Lokhorst, who has made a volumetric lighting effect in his project using the same blog, I was able to get the effect working. There are beams that are being cast when looking at objects that stand between you and the directional light's beam.
   
-![](../XR%20Development/DocAssets/succes.png?0.7702155739406069 )  
+![](../XR%20Development/DocAssets/succes.png?0.5646927882259349 )  
   
 The effect looked great on the computer, however when I decided to try it out in VR I was surprised to see that the left eye was black and the other eye was gray.
   
-![](../XR%20Development/DocAssets/whut.png?0.9960020380908536 )  
+![](../XR%20Development/DocAssets/whut.png?0.8157374535327941 )  
 (a visual representation of what I saw in the quest)
   
 After looking through the Unity forums the reason I get this behavior is because the `CommandBuffer.Blit()` function messes up preprocessors in the shader when rendering with single pass instanced. To get rid of this issue I needed to make sure that I was rendering with `multi pass`. After trying it out in VR it seemed to work like it did on PC.
   
 When I tried it out in our main scene I encountered another issue: There was only the volumetric lighting, but with no god rays to be seen.
   
-![](../XR%20Development/DocAssets/howDidThisHappen.png?0.616954165579136 )  
+![](../XR%20Development/DocAssets/howDidThisHappen.png?0.2546207911608145 )  
   
 I tried to see what could have caused this difference to happen between my test scene and our main scene. However due to the large difference I could not come up with a solution and after talking to my team we decided that this task would be left undone for now so that I can focus on the other tasks left to be done.
   
@@ -394,7 +415,7 @@ During this sprint I want to improve on the quality of code delivered, this can 
   
 With the time we had left for the experience we wanted tosee if we could add more content for when the training is complete. 
   
-![](../XR%20Development/DocAssets/offboarding.png?0.0175462078225761 )  
+![](../XR%20Development/DocAssets/offboarding.png?0.7621989636205571 )  
   
 I decided to make the minigame and was able to finish it within the deadline we set for ourself.
   
