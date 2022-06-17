@@ -22,7 +22,7 @@ export_on_save:
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg)).
 
 @import "./DocAssets/ShaderGraphCompleet.png"
-After I had lines and emmission working after the tutorial i decided i wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
+After I had lines and emmission working after the tutorial I decided I wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
 
 @import "./DocAssets/ShaderGraphExtra.png"
 
@@ -89,11 +89,9 @@ I don't have too much experience with audio in Unity and wanted to know more abo
 
 Now I wanted to add some simple systems to get more out of my sounds by either playing a random one from a select list or by looping a specific part of the clip.
 
-For looping audio i wanted to have a bit more control on how the clip was looped, as some mid sections of a clip could be repeated indefinitely if wanted. This behavior would be well suited for moving the arms of the robot, as in real life you can hear the motor spin up, a whizzing noise when it moves and the brakes engaging when it stops moving.
-@import "./DocAssets/LoopingSoundPlayer.cs"
+For looping audio I wanted to have a bit more control on how the clip was looped, as some mid sections of a clip could be repeated indefinitely if wanted. This behavior would be well suited for moving the arms of the robot, as in real life you can hear the motor spin up, a whizzing noise when it moves and the brakes engaging when it stops moving.
 
-In order to prevent things from sounding the same sometimes different clips should be played when doing the same action. 
-@import "./DocAssets/RandomSoundPlayer.cs"
+In order to prevent things from sounding the same sometimes different clips should be played when doing the same action. To do this I randomly pick a sound from a list of sounds that are applied to the object. 
 
 Something that I noticed pretty quickly is that my systems are quie limited in what they can do and user friendliness. The looping audio for example is clunky to use as it relies on setting the boundaries with the sample number.
 
@@ -103,7 +101,7 @@ I was able to recreate the effects I made myself in Unity preatty easily, as in 
 
 @import "./DocAssets/fmodLoop.png"
 
-To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then i have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
+To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then I have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
 
 With the workflow of setting it up I decided to check with a copy of our project if it can be used. A simple test sounded prommising as I was able to hear the song that is plying in our enviroment, but when I was testing it on the Quest there was a lack of audio. I remembered that the Quest runs on Android and might be seen as a mobile device, I added it as a target platform in the FMOD project settings and after building the banks again I was able to hear the song.
 
@@ -155,108 +153,6 @@ public class OnTriggerColliderFilter : MonoBehaviour
     }
 }
 
-```
-
-To have them be activated in sequence I made a script to handle this:
-```cs
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.Events;
-
-public class TutorialGoalPositions : MonoBehaviour
-{
-    [SerializeField, Min(0)] float timeRequiredInside;
-    [SerializeField] OnTriggerColliderFilter[] _colliders;
-    [SerializeField] UnityEvent _onBeginSequence;
-    [SerializeField] UnityEvent _onAdvancedStep;
-    [SerializeField] UnityEvent _onCompletion;
-
-    int _currentGoal;
-    Coroutine _advanceCoroutine;
-
-    /// <summary>
-    /// Resets the active goal positions and starts with the first one.
-    /// </summary>
-    public void Begin()
-    {
-        Assert.IsTrue(_colliders.Length > 0, $"({this.gameObject.name} {nameof(TutorialGoalPositions)}) Must have at least one collider goal.");
-
-#if UNITY_EDITOR
-        if(_currentGoal < _colliders.Length)
-#else
-        Assert.IsTrue(_currentGoal < _colliders.Length, $"{nameof(_currentGoal)} is in an illegal state");
-#endif
-            _colliders[_currentGoal].gameObject.SetActive(false);
-
-        _currentGoal = 0;
-        _colliders[0].gameObject.SetActive(true);
-
-        _onBeginSequence.Invoke();
-    }
-
-    /// <summary>
-    /// Starts a coroutine to advance to the next goal after a set period of time.
-    /// </summary>
-    public void QueueAdvance() =>
-        _advanceCoroutine = StartCoroutine(Advance());
-
-    /// <summary>
-    /// Cancels the coroutine to advance to the next goal after a set period of time.
-    /// </summary>
-    public void CancelAdvance()
-    {
-        if (_advanceCoroutine != null)
-            StopCoroutine(_advanceCoroutine);
-    }
-
-    /// <summary>
-    /// Set the current goal to the next one in line after a set amount of time.
-    /// </summary>
-    public IEnumerator Advance()
-    {
-        if (timeRequiredInside > 0)
-            yield return new WaitForSeconds(timeRequiredInside);
-
-        _colliders[_currentGoal].gameObject.SetActive(false);
-
-        _currentGoal++;
-
-        // check if this was the last goal
-        if (_currentGoal == _colliders.Length)
-        {
-            _onCompletion.Invoke();
-            _currentGoal = default;
-        }
-        else
-        {
-            _colliders[_currentGoal].gameObject.SetActive(true);
-            _onAdvancedStep.Invoke();
-        }
-    }
-
-    /// <summary>
-    /// Set the current goal to the next one in line.
-    /// </summary>
-    public void AdvanceImmediately()
-    {
-        _colliders[_currentGoal].gameObject.SetActive(false);
-
-        _currentGoal++;
-
-        // check if this was the last goal
-        if (_currentGoal == _colliders.Length)
-        {
-            _onCompletion.Invoke();
-            _currentGoal = default;
-        }
-        else
-        {
-            _colliders[_currentGoal].gameObject.SetActive(true);
-            _onAdvancedStep.Invoke();
-        }
-    }
-}
 ```
 
 <figure class="video_container">
@@ -326,7 +222,7 @@ Quaternion targetRotation = currentStep.Axis switch
 currentStep.Highlight.localRotation = targetRotation;
 ```
 
-However this will cause the highlight to spin alongside the axis I want to rotate, instead of standing still. After looking at the documentation for [Quaternion.Inverse](https://docs.unity3d.com/ScriptReference/Quaternion.Inverse.html) I figured that i could use the parent's rotation to rotate the highlight in such a way that it looks like it is standing still.
+However this will cause the highlight to spin alongside the axis I want to rotate, instead of standing still. After looking at the documentation for [Quaternion.Inverse](https://docs.unity3d.com/ScriptReference/Quaternion.Inverse.html) I figured that I could use the parent's rotation to rotate the highlight in such a way that it looks like it is standing still.
 
 ```cs
 // counter rotate the highlight to make it appear as if it is not rotating
@@ -455,3 +351,27 @@ I tried to see what could have caused this difference to happen between my test 
 #### Miscelanious
 
 During this sprint I want to improve on the quality of code delivered, this can be through proper documentation, performant code and easy to addapt systems. In order to ensure the quality I've let the other developers peer review my code alongside my comments to make sure that they were easy to understand and gave the information needed.
+
+With the time we had left for the experience we wanted tosee if we could add more content for when the training is complete. 
+
+@import "./DocAssets/offboarding.png"
+
+I decided to make the minigame and was able to finish it within the deadline we set for ourself.
+
+### Summary
+
+During this semester I've learned:
+* How to make a shader using shader graph in Unity.
+* How to use the timeline asset in Unity to create complex cutscenes.
+* How to use FMOD to get more control over audio in my projects.
+* How to make god rays in Unity with particle systems and volumetric lighting.
+
+I am happy with how the modeling in Blender went, I've managed to create a robot model that I am satisfied with and have gotten compliments about it's design. I plan on using Blender in the future for my own projects.
+
+After having used shader graphs I do enjoy using them. They allow me to see what is happening at each step and makes for a great prototyping tool. In the future I might look into writing shader scripts so that I can get a better understanding as to how they work on the inside.
+
+The timeline asset was a good find, we've used it pleant. But there is more to learns, as it's possible to make your own kind of tracks, something that I can use to reduce clutter. I plan on using it in my future projects as well due to it's versitality and the simple learning curve for those that are not as experienced with Unity. 
+
+Fmod was an interesting tool to learn about, it provided me with a toolset that I've found to be useful in quite some scenarios and will be using it in my own games so that I can get more complex and complete  feel for my games.
+
+Having learnt about  volumetric lighting I've gotten a better insight about how post processing works, I might encorperate this in future games, as I like the effect.

@@ -109,7 +109,7 @@ After everything was done I ended up with a robot that both my team and I were s
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg)).
 
 @import "./DocAssets/ShaderGraphCompleet.png"
-After I had lines and emmission working after the tutorial i decided i wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
+After I had lines and emmission working after the tutorial I decided I wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
 
 @import "../XR Development/DocAssets/ShaderGraphExtra.png"
 
@@ -125,6 +125,20 @@ It can be broken up into three main parts:
 Inside our enviroment we used it to display the safety measures.
 
 @import "../XR Development/DocAssets/hologramPoster.gif"
+
+In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
+
+I watched [How to use Unity3D Timeline in 10 minutes](https://www.youtube.com/watch?v=E5EYO3w-Xco) to get a basic idea of how to use it.
+
+After a bit of experimenting more with different tracks on the timeline it was clear what each track did. Out of the box there are six different tracks:
+* Activation track - With this track you can control the active state of a game object.
+* Animation track - In this track you can add animation clips for a game object with an animator component, you can also blend animations by having them overlap. Additionally you can override the transform of an object and have sub tracks for finer control.
+* Audio track - By dragging a game object with an audio source into this track's control you're able to play audio clips at a specified time, useful for when playing voice lines.
+* Signal track - In this track you can add signals, these signals act as events and can be used to trigger other objects in the scene by hooking into the signal receiver.
+* Control track - This track allows for other objects with a director and timeline to be nested inside of the current timeline. This works for both scene objects as well as prefabs, allowing for separation of timelines and making it easier to copy paste specific timeline set ups.
+* Playable track - This track is a catch-all track that handles any playable clip.
+
+With this we are able to create long running cutscenes that serve as guide for our training that the user can follow to learn how to control the robot arm.
 
 ### Sprint 5
 
@@ -191,3 +205,19 @@ When I tried it out in our main scene I encountered another issue: There was onl
 @import "../XR Development/DocAssets/howDidThisHappen.png"
 
 I tried to see what could have caused this difference to happen between my test scene and our main scene. However due to the large difference I could not come up with a solution and after talking to my team we decided that this task would be left undone for now so that I can focus on the other tasks left to be done.
+
+### Summary
+
+During this semester I've learned:
+* How to use Blender to model with different tools, rig a model with bones, UV map to apply textures and 3d paint to give a better idea how the finished model will look.
+* How to make a shader using shader graph in Unity.
+* How to use the timeline asset in Unity to create complex cutscenes.
+* How to make god rays in Unity with particle systems and volumetric lighting.
+
+I am happy with how the modeling in Blender went, I've managed to create a robot model that I am satisfied with and have gotten compliments about it's design. I plan on using Blender in the future for my own projects.
+
+After having used shader graphs I do enjoy using them. They allow me to see what is happening at each step and makes for a great prototyping tool. In the future I might look into writing shader scripts so that I can get a better understanding as to how they work on the inside.
+
+The timeline asset was a good find, we've made good use of it in our project and I plan on using it in my future projects as well due to it's versitality.
+
+Having learnt about  volumetric lighting I've gotten a better insight about how post processing works, I might encorperate this in future games, as I like the effect.

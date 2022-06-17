@@ -19,14 +19,14 @@
   
 We wanted to expand the decor of the training area, one of which ways was to add posters to the area. To stay within the futuristic theme, I decided to make a hologram shader. To start I watched Brackey's tutorial on how to create a holographic in Unity using shader graphs ([HOLOGRAM using Unity Shader Graph](https://www.youtube.com/watch?v=KGGB5LFEejg )).
   
-![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.7546107564801874 )  
-After I had lines and emmission working after the tutorial i decided i wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
+![](../XR%20Development/DocAssets/ShaderGraphCompleet.png?0.3948367883546333 )  
+After I had lines and emmission working after the tutorial I decided I wanted to add some grain to add to the holographic look. For this I experimented around with noise generation nodes and settled on using gradient noise as it's pattern works well for simulating the dithering pattern. I made the noise pattern change by changing the UV offset with the time passed.
   
-![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.06497922780985066 )  
+![](../XR%20Development/DocAssets/ShaderGraphExtra.png?0.9654283165530622 )  
   
 To better illustrate how the dithering works I will explain how each part works
   
-![](../XR%20Development/DocAssets/dithering.png?0.8380395206731628 )  
+![](../XR%20Development/DocAssets/dithering.png?0.37116870899428833 )  
   
 It can be broken up into three main parts:
 1. The nodes in the purple part represent the offset input, it uses the play time to to create an offset to be passed noise pattern.
@@ -35,7 +35,7 @@ It can be broken up into three main parts:
   
 Inside our enviroment we used it to display the safety measures.
   
-![](../XR%20Development/DocAssets/hologramPoster.gif?0.7889763190496646 )  
+![](../XR%20Development/DocAssets/hologramPoster.gif?0.7156466390414149 )  
   
 In our training we have a lot of controls and interactions going on, to assist in making the instructions clear we want to have a interactable onboarding. I reacently learned about the timelines asset in Unity and after doing some surface level research on how to use it I felt like it could be used for our onboarding.
   
@@ -102,10 +102,10 @@ public sealed class IntSignalEmitter : ParameterizedSignalEmitter<int>
 ```
   
 I can now add this emitter on my signal track.
-![](../XR%20Development/DocAssets/addSignalEmitter.png?0.10540008802507517 )  
+![](../XR%20Development/DocAssets/addSignalEmitter.png?0.46131808970121324 )  
   
 Once I placed my signal on the track I can now pass a parameter that will be given to the receiver.
-![](../XR%20Development/DocAssets/signalData.png?0.33204943221155214 )  
+![](../XR%20Development/DocAssets/signalData.png?0.11328778982785215 )  
   
 Now to set up my receiver I do the same step as with the emitter, but inherit from `ParameterizedSignalReceiver<T>` instead.
 ```cs
@@ -122,149 +122,9 @@ I don't have too much experience with audio in Unity and wanted to know more abo
   
 Now I wanted to add some simple systems to get more out of my sounds by either playing a random one from a select list or by looping a specific part of the clip.
   
-For looping audio i wanted to have a bit more control on how the clip was looped, as some mid sections of a clip could be repeated indefinitely if wanted. This behavior would be well suited for moving the arms of the robot, as in real life you can hear the motor spin up, a whizzing noise when it moves and the brakes engaging when it stops moving.
-```cs
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Assertions;
+For looping audio I wanted to have a bit more control on how the clip was looped, as some mid sections of a clip could be repeated indefinitely if wanted. This behavior would be well suited for moving the arms of the robot, as in real life you can hear the motor spin up, a whizzing noise when it moves and the brakes engaging when it stops moving.
   
-[RequireComponent(typeof(AudioSource))]
-public class LoopingSoundPlayer : MonoBehaviour, ISoundPlayer
-{
-    private AudioSource _audioSource;
-  
-    [field: SerializeField] public int IntroEndTime { get; set; }
-    [field: SerializeField] public int OutroStartTime { get; set; }
-  
-    private LoopState _loopState;
-  
-    private void Awake()
-    {
-        _audioSource = GetComponent<AudioSource>();
-  
-        if (_audioSource.playOnAwake)
-            _loopState = LoopState.Intro;
-    }
-  
-    /// <inheritdoc/>
-    public void PlayClip()
-    {
-        Assert.IsNotNull(_audioSource.outputAudioMixerGroup, $"No mixer group in {this.gameObject.name}. Audio source should have a mixer group assigned in order to get the most control out of it.");
-        Assert.IsNotNull(_audioSource.clip, $"No audio clip in {this.gameObject.name}.");
-  
-        // reset the clip to the start
-        _audioSource.timeSamples = 0;
-  
-        _loopState = LoopState.Intro;
-        _audioSource.Play();
-    }
-  
-    /// <summary>
-    /// Begins the outro of the audio clip.
-    /// </summary>
-    public void StopClip()
-    {
-        if (_loopState == LoopState.NotPlaying)
-            return;
-  
-        _loopState = LoopState.Outro;
-  
-        _audioSource.timeSamples = OutroStartTime;
-    }
-  
-    private void Update()
-    {
-        if (_audioSource.isPlaying)
-        {
-            switch (_loopState)
-            {
-                case LoopState.Intro:
-                    if (_audioSource.timeSamples > IntroEndTime)
-                        _loopState = LoopState.Main;
-                    break;
-                case LoopState.Main:
-                    if (_audioSource.timeSamples >= OutroStartTime)
-                        _audioSource.timeSamples = IntroEndTime;
-                    break;
-                case LoopState.Outro:
-                    if (_audioSource.timeSamples == _audioSource.clip.samples)
-                        _loopState = LoopState.NotPlaying;
-                    break;
-                case LoopState.NotPlaying:
-                    // doe niets
-                    break;
-                default:
-                    throw new System.NotImplementedException();
-            }
-        }
-    }
-  
-    private enum LoopState
-    {
-        NotPlaying,
-        Intro,
-        Main,
-        Outro
-    }
-}
-  
-```  
-  
-In order to prevent things from sounding the same sometimes different clips should be played when doing the same action. 
-```cs
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Assertions;
-  
-// Alias om verwarring tussen System.Random en UnityEngine te voorkomen
-using UnityRandom = UnityEngine.Random;
-  
-[RequireComponent(typeof(AudioSource))]
-public class RandomSoundPlayer : MonoBehaviour, ISoundPlayer
-{
-    [SerializeField] private AudioClip[] _clips;
-  
-    private AudioSource _audioSource;
-  
-    private void Awake()
-    {
-        _audioSource = GetComponent<AudioSource>();
-  
-        Assert.IsNotNull(_audioSource);
-    }
-  
-    /// <summary>
-    /// Plays a random clip on the audio source.
-    /// </summary>
-    public void PlayClip()
-    {
-        Assert.IsNotNull(_audioSource.outputAudioMixerGroup, $"No mixer group in {this.gameObject.name}. Audio source should have a mixer group assigned in order to get the most control out of it.");
-        Assert.IsTrue(_clips.Length > 0, $"No audio clips in {this.name}. ");
-  
-        _audioSource.clip = _clips[UnityRandom.Range(0, _clips.Length)];
-  
-        _audioSource.Play();
-    }
-  
-    /// <summary>
-    /// Plays a random clip on the audio source and forget about it.
-    /// </summary>
-    public void PlayClipAndForget()
-    {
-        Assert.IsNotNull(_audioSource.outputAudioMixerGroup, $"No mixer group in {this.gameObject.name}. Audio source should have a mixer group assigned in order to get the most control out of it.");
-        Assert.IsTrue(_clips.Length > 0, $"No audio clips in {this.name}. ");
-  
-        _audioSource.PlayOneShot(_clips[UnityRandom.Range(0, _clips.Length)]);
-    }
-  
-    public void StopClip()
-    {
-        _audioSource.Stop();
-    }
-}
-  
-```  
+In order to prevent things from sounding the same sometimes different clips should be played when doing the same action. To do this I randomly pick a sound from a list of sounds that are applied to the object. 
   
 Something that I noticed pretty quickly is that my systems are quie limited in what they can do and user friendliness. The looping audio for example is clunky to use as it relies on setting the boundaries with the sample number.
   
@@ -272,9 +132,9 @@ I looked for a possible alternative and came across FMOD, a tool that can be use
   
 I was able to recreate the effects I made myself in Unity preatty easily, as in FMOD you can use a multi instrument clip to pick a random one each time it plays and have looping parts in a clip with a loop region in a logic track.
   
-![](../XR%20Development/DocAssets/fmodLoop.png?0.2972697037681151 )  
+![](../XR%20Development/DocAssets/fmodLoop.png?0.6038889817443682 )  
   
-To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then i have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
+To get FMOD working with Unity first I have to install the plugin that has all the needed code and components to make it work. Then I have to go through the set up wizard, which makes me disable the build in audio system and replaces components in the active scene for their FMOD counterpart. Next I need to create an FMOD project and set the build path for the audio banks, the containers of the audio events. In FMOD I can now add audio events with different clips and behaviors and then assign them to a bank. Now when I build the project it will create the banks inside of the Unity project and will be automatically recognised.
   
 With the workflow of setting it up I decided to check with a copy of our project if it can be used. A simple test sounded prommising as I was able to hear the song that is plying in our enviroment, but when I was testing it on the Quest there was a lack of audio. I remembered that the Quest runs on Android and might be seen as a mobile device, I added it as a target platform in the FMOD project settings and after building the banks again I was able to hear the song.
   
@@ -331,108 +191,6 @@ public class OnTriggerColliderFilter : MonoBehaviour
   
 ```
   
-To have them be activated in sequence I made a script to handle this:
-```cs
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.Events;
-  
-public class TutorialGoalPositions : MonoBehaviour
-{
-    [SerializeField, Min(0)] float timeRequiredInside;
-    [SerializeField] OnTriggerColliderFilter[] _colliders;
-    [SerializeField] UnityEvent _onBeginSequence;
-    [SerializeField] UnityEvent _onAdvancedStep;
-    [SerializeField] UnityEvent _onCompletion;
-  
-    int _currentGoal;
-    Coroutine _advanceCoroutine;
-  
-    /// <summary>
-    /// Resets the active goal positions and starts with the first one.
-    /// </summary>
-    public void Begin()
-    {
-        Assert.IsTrue(_colliders.Length > 0, $"({this.gameObject.name} {nameof(TutorialGoalPositions)}) Must have at least one collider goal.");
-  
-#if UNITY_EDITOR
-        if(_currentGoal < _colliders.Length)
-#else
-        Assert.IsTrue(_currentGoal < _colliders.Length, $"{nameof(_currentGoal)} is in an illegal state");
-#endif
-            _colliders[_currentGoal].gameObject.SetActive(false);
-  
-        _currentGoal = 0;
-        _colliders[0].gameObject.SetActive(true);
-  
-        _onBeginSequence.Invoke();
-    }
-  
-    /// <summary>
-    /// Starts a coroutine to advance to the next goal after a set period of time.
-    /// </summary>
-    public void QueueAdvance() =>
-        _advanceCoroutine = StartCoroutine(Advance());
-  
-    /// <summary>
-    /// Cancels the coroutine to advance to the next goal after a set period of time.
-    /// </summary>
-    public void CancelAdvance()
-    {
-        if (_advanceCoroutine != null)
-            StopCoroutine(_advanceCoroutine);
-    }
-  
-    /// <summary>
-    /// Set the current goal to the next one in line after a set amount of time.
-    /// </summary>
-    public IEnumerator Advance()
-    {
-        if (timeRequiredInside > 0)
-            yield return new WaitForSeconds(timeRequiredInside);
-  
-        _colliders[_currentGoal].gameObject.SetActive(false);
-  
-        _currentGoal++;
-  
-        // check if this was the last goal
-        if (_currentGoal == _colliders.Length)
-        {
-            _onCompletion.Invoke();
-            _currentGoal = default;
-        }
-        else
-        {
-            _colliders[_currentGoal].gameObject.SetActive(true);
-            _onAdvancedStep.Invoke();
-        }
-    }
-  
-    /// <summary>
-    /// Set the current goal to the next one in line.
-    /// </summary>
-    public void AdvanceImmediately()
-    {
-        _colliders[_currentGoal].gameObject.SetActive(false);
-  
-        _currentGoal++;
-  
-        // check if this was the last goal
-        if (_currentGoal == _colliders.Length)
-        {
-            _onCompletion.Invoke();
-            _currentGoal = default;
-        }
-        else
-        {
-            _colliders[_currentGoal].gameObject.SetActive(true);
-            _onAdvancedStep.Invoke();
-        }
-    }
-}
-```
-  
 <figure class="video_container">
   <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png" width="100%">
     <source src="XR Development/DocAssets/Goal Example.mp4" type="video/mp4">
@@ -482,7 +240,7 @@ public class TutorialGoalRotation : MonoBehaviour
   
 With this I can set what axis of the robot arm I want to track, what it's end rotation should be and how long it has to stay in that position before moving on to the next rotation.
   
-![](../XR%20Development/DocAssets/rotationInspector.png?0.6181253824135282 )  
+![](../XR%20Development/DocAssets/rotationInspector.png?0.4606022771665601 )  
   
 In order to have the hologram be in the right position I set the local rotation to the target rotation in the `Update` function.
   
@@ -500,7 +258,7 @@ Quaternion targetRotation = currentStep.Axis switch
 currentStep.Highlight.localRotation = targetRotation;
 ```
   
-However this will cause the highlight to spin alongside the axis I want to rotate, instead of standing still. After looking at the documentation for [Quaternion.Inverse](https://docs.unity3d.com/ScriptReference/Quaternion.Inverse.html ) I figured that i could use the parent's rotation to rotate the highlight in such a way that it looks like it is standing still.
+However this will cause the highlight to spin alongside the axis I want to rotate, instead of standing still. After looking at the documentation for [Quaternion.Inverse](https://docs.unity3d.com/ScriptReference/Quaternion.Inverse.html ) I figured that I could use the parent's rotation to rotate the highlight in such a way that it looks like it is standing still.
   
 ```cs
 // counter rotate the highlight to make it appear as if it is not rotating
@@ -509,11 +267,11 @@ currentStep.Highlight.localRotation = Quaternion.Inverse(currentStep.Observing.l
   
 Now I can showcase the rotation per axis one after each other.
   
-![](../XR%20Development/DocAssets/rotatebase.png?0.038051469065049526 )  
+![](../XR%20Development/DocAssets/rotatebase.png?0.43722432880878603 )  
   
-![](../XR%20Development/DocAssets/rotatebasearm.png?0.07539373859890786 )  
+![](../XR%20Development/DocAssets/rotatebasearm.png?0.8336497319068341 )  
   
-![](../XR%20Development/DocAssets/rotateend.png?0.32809237067236063 )  
+![](../XR%20Development/DocAssets/rotateend.png?0.10500760395078612 )  
   
 However if the user manages to put the robot arm in such a position that they are stuck, we want them to be able to reset the position of all axes to the current step so they can try again.
   
@@ -574,7 +332,7 @@ After using it I prefer it over the standard way of deploying it to a Quest in U
   
 For our experience we wanted to see if we can add "god rays" to get a more spacious feeling as part of the extra touch ups we wanted to do with our left over time in the final sprint.
   
-![](../XR%20Development/DocAssets/god%20rays.png?0.07573501198865129 )  
+![](../XR%20Development/DocAssets/god%20rays.png?0.9944170942065929 )  
 (example of god rays)
   
 In order to get this effect I tried two approaches:
@@ -585,11 +343,11 @@ For the particle system route I watched ["Simple GODRAY PARTICLE Tutorial (Unity
   
 From a distance the effect is looks nice, it looks good and has the god rays we would like to see.
   
-![](../XR%20Development/DocAssets/particleGodRays.png?0.26268911530719996 )  
+![](../XR%20Development/DocAssets/particleGodRays.png?0.9168115923084856 )  
   
 The effect does fall apart when the player comes close to the particle system and looks staight into the beams, it makes them feel out of place and removes a lot of the effect.
   
-![](../XR%20Development/DocAssets/particleGodFails.png?0.8139325976390921 )  
+![](../XR%20Development/DocAssets/particleGodFails.png?0.48469166839457856 )  
   
 In the end we decided to not make use of this approach due to the player being able to break the illusion of god rays too easily.
   
@@ -606,26 +364,26 @@ Inside of the render pass there was a lot of usage of the `CommandBuffer.Blit` f
   
 In the process of getting the effect to work I did encounter some trouble.
   
-![](../XR%20Development/DocAssets/volumetricFailOne.png?0.34416351256580713 )  
+![](../XR%20Development/DocAssets/volumetricFailOne.png?0.8229621965675096 )  
   
-![](../XR%20Development/DocAssets/volumetricFailTwo.png?0.44030499129699274 )  
+![](../XR%20Development/DocAssets/volumetricFailTwo.png?0.570216208348038 )  
   
 (some failed attempts at getting the shader to work properly)
   
 After getting help from Chris Lokhorst, who has made a volumetric lighting effect in his project using the same blog, I was able to get the effect working. There are beams that are being cast when looking at objects that stand between you and the directional light's beam.
   
-![](../XR%20Development/DocAssets/succes.png?0.5319467338294388 )  
+![](../XR%20Development/DocAssets/succes.png?0.7702155739406069 )  
   
 The effect looked great on the computer, however when I decided to try it out in VR I was surprised to see that the left eye was black and the other eye was gray.
   
-![](../XR%20Development/DocAssets/whut.png?0.8807047726292645 )  
+![](../XR%20Development/DocAssets/whut.png?0.9960020380908536 )  
 (a visual representation of what I saw in the quest)
   
 After looking through the Unity forums the reason I get this behavior is because the `CommandBuffer.Blit()` function messes up preprocessors in the shader when rendering with single pass instanced. To get rid of this issue I needed to make sure that I was rendering with `multi pass`. After trying it out in VR it seemed to work like it did on PC.
   
 When I tried it out in our main scene I encountered another issue: There was only the volumetric lighting, but with no god rays to be seen.
   
-![](../XR%20Development/DocAssets/howDidThisHappen.png?0.4054293537083269 )  
+![](../XR%20Development/DocAssets/howDidThisHappen.png?0.616954165579136 )  
   
 I tried to see what could have caused this difference to happen between my test scene and our main scene. However due to the large difference I could not come up with a solution and after talking to my team we decided that this task would be left undone for now so that I can focus on the other tasks left to be done.
   
@@ -633,4 +391,29 @@ I tried to see what could have caused this difference to happen between my test 
   
   
 During this sprint I want to improve on the quality of code delivered, this can be through proper documentation, performant code and easy to addapt systems. In order to ensure the quality I've let the other developers peer review my code alongside my comments to make sure that they were easy to understand and gave the information needed.
+  
+With the time we had left for the experience we wanted tosee if we could add more content for when the training is complete. 
+  
+![](../XR%20Development/DocAssets/offboarding.png?0.0175462078225761 )  
+  
+I decided to make the minigame and was able to finish it within the deadline we set for ourself.
+  
+###  Summary
+  
+  
+During this semester I've learned:
+* How to make a shader using shader graph in Unity.
+* How to use the timeline asset in Unity to create complex cutscenes.
+* How to use FMOD to get more control over audio in my projects.
+* How to make god rays in Unity with particle systems and volumetric lighting.
+  
+I am happy with how the modeling in Blender went, I've managed to create a robot model that I am satisfied with and have gotten compliments about it's design. I plan on using Blender in the future for my own projects.
+  
+After having used shader graphs I do enjoy using them. They allow me to see what is happening at each step and makes for a great prototyping tool. In the future I might look into writing shader scripts so that I can get a better understanding as to how they work on the inside.
+  
+The timeline asset was a good find, we've used it pleant. But there is more to learns, as it's possible to make your own kind of tracks, something that I can use to reduce clutter. I plan on using it in my future projects as well due to it's versitality and the simple learning curve for those that are not as experienced with Unity. 
+  
+Fmod was an interesting tool to learn about, it provided me with a toolset that I've found to be useful in quite some scenarios and will be using it in my own games so that I can get more complex and complete  feel for my games.
+  
+Having learnt about  volumetric lighting I've gotten a better insight about how post processing works, I might encorperate this in future games, as I like the effect.
   
